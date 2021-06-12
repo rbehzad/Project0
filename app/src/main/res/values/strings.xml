@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">OMarket</string>
+
+
+    <!--  login activity  -->
+    <string name="email_adrress">Email Address</string>
+    <string name="password">Password</string>
+    <string name="forget_password">Forgot password?</string>
+    <string name="login">Login</string>
+    <string name="or_login_with">or login with ...</string>
+    <string name="need_to_market">Need to market?</string>
+    <string name="register">Register</string>
+
+    <!--  facebook login  -->
+    <string name="facebook_app_id">[APP_ID]</string>
+    <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
+
+</resources>
