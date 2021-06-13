@@ -23,8 +23,8 @@
         android:id="@+id/navigation_menu_favorite" />
 
     <item
-        android:title="@string/title_categories"
-        android:icon="@mipmap/ic_baseline_category_white"
-        android:id="@+id/navigation_menu_categories" />
+        android:title="@string/title_products"
+        android:icon="@mipmap/ic_baseline_list_white"
+        android:id="@+id/navigation_menu_products" />
 
 </menu>

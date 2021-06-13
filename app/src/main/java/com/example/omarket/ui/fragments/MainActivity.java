@@ -2,14 +2,17 @@ package com.example.omarket.ui.fragments;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.omarket.ui.fragments.categories.ProductsFragment;
 import com.example.omarket.R;
+import com.example.omarket.ui.fragments.dashboard.DashboardFragment;
+import com.example.omarket.ui.fragments.favorites.FavoriteFragment;
+import com.example.omarket.ui.fragments.home.HomeFragment;
 import com.example.omarket.ui.fragments.settings.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationButtonHomeId = R.id.navigation_menu_home;
         navigationButtonFavoriteId = R.id.navigation_menu_favorite;
         navigationButtonDashBoardId = R.id.navigation_menu_dashboard;
-        navigationButtonCategoriesId = R.id.navigation_menu_categories;
+        navigationButtonCategoriesId = R.id.navigation_menu_products;
     }
 
     @Override
@@ -43,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigation = findViewById(R.id.navigation_host_button);
         bottomNavigation.setOnNavigationItemSelectedListener(this);
 
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        loadFragment(R.id.navigation_menu_home,HomeFragment.getInstance());
+
     }
 
 
@@ -52,19 +59,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()){
 
             case R.id.navigation_menu_settings:
-                changeFragmentTo(R.id.navigation_menu_settings, SettingFragment.getInstance());
+                loadFragment(R.id.navigation_menu_settings, SettingFragment.getInstance());
                 break;
             case R.id.navigation_menu_dashboard:
-                changeFragmentTo(R.id.navigation_menu_settings, SettingFragment.getInstance());
+                loadFragment(R.id.navigation_menu_dashboard, DashboardFragment.getInstance());
                 break;
             case R.id.navigation_menu_home:
-                changeFragmentTo(R.id.navigation_menu_settings, SettingFragment.getInstance());
+                loadFragment(R.id.navigation_menu_home, HomeFragment.getInstance());
                 break;
             case R.id.navigation_menu_favorite:
-                changeFragmentTo(R.id.navigation_menu_settings, SettingFragment.getInstance());
+                loadFragment(R.id.navigation_menu_favorite, FavoriteFragment.getInstance());
                 break;
-            case R.id.navigation_menu_categories:
-                changeFragmentTo(R.id.navigation_menu_settings, SettingFragment.getInstance());
+            case R.id.navigation_menu_products:
+                loadFragment(R.id.navigation_menu_products, ProductsFragment.getInstance());
                 break;
 
             default:
@@ -74,11 +81,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return true;
     }
 
-    private void changeFragmentTo(int viewId, SingletonFragment singletonFragment){
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+    private void loadFragment(int viewId, SingletonFragment singletonFragment){
         fragmentTransaction.add(viewId,singletonFragment);
         fragmentTransaction.commit();
+        singletonFragment.changeColorTo(Color.BLACK);
     }
 
 }

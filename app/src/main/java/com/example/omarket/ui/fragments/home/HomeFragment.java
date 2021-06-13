@@ -1,4 +1,4 @@
-package com.example.omarket.ui.fragments.settings;
+package com.example.omarket.ui.fragments.home;
 
 import android.os.Bundle;
 
@@ -11,22 +11,22 @@ import android.view.ViewGroup;
 import com.example.omarket.R;
 import com.example.omarket.ui.fragments.Color;
 import com.example.omarket.ui.fragments.SingletonFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 
-public class SettingFragment extends SingletonFragment {
 
-    private static SettingFragment settingFragment;
+public class HomeFragment extends SingletonFragment {
 
-    private SettingFragment() {
-        settingFragment = this;
-        bottomNavigationItem = getView().findViewById(R.id.navigation_menu_settings);
+    private static HomeFragment homeFragment;
+
+    private HomeFragment(){
+        homeFragment = this;
+        bottomNavigationItem = getView().findViewById(R.id.navigation_menu_home);
     }
 
     public static SingletonFragment getInstance() {
-        if (settingFragment != null){
-            return settingFragment;
+        if (homeFragment != null){
+            return homeFragment;
         }
-        return new SettingFragment();
+        return new HomeFragment();
     }
 
     @Override
@@ -46,4 +46,5 @@ public class SettingFragment extends SingletonFragment {
 
         return inflater.inflate(R.layout.fragment_setting, container, false);
     }
+
 }
