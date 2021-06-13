@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/title_settings"
+        android:icon="@mipmap/ic_baseline_setting_white"
+        android:id="@+id/navigation_menu_settings" />
+
+    <item
+        android:title="@string/title_dashboard"
+        android:icon="@mipmap/ic_baseline_user_white"
+        android:id="@+id/navigation_menu_dashboard" />
+
+    <item
+        android:title="@string/title_home"
+        android:icon="@mipmap/ic_baseline_home_white"
+        android:id="@+id/navigation_menu_home" />
+
+    <item
+        android:title="@string/title_favorite"
+        android:icon="@mipmap/ic_baseline_favorite_white"
+        android:id="@+id/navigation_menu_favorite" />
+
+    <item
+        android:title="@string/title_categories"
+        android:icon="@mipmap/ic_baseline_category_white"
+        android:id="@+id/navigation_menu_categories" />
+
+</menu>
