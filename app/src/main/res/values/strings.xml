@@ -15,4 +15,13 @@
     <string name="facebook_app_id">[APP_ID]</string>
     <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
 
+    <!--  navigation buttons  -->
+    <string name="title_home">Home</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_categories">Categories</string>
+
+
+
 </resources>
