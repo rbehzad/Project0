@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.omarket.ui.fragments.settings.SettingFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.omarket.ui.fragments.favorites.FavoriteFragment"
+        android:label="@string/title_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.omarket.ui.fragments.products.ProductsFragment"
+        android:label="@string/title_products"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.omarket.ui.fragments.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.omarket.ui.fragments.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+</navigation>
