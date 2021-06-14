@@ -41,7 +41,7 @@ public class FavoriteFragment extends SingletonFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        return inflater.inflate(R.layout.fragment_favorite, container, false);
     }
 
 }

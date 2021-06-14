@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private final int navigationButtonCategoriesId;
 
     {
-        navigationButtonSettingId = R.id.navigation_menu_settings;
-        navigationButtonHomeId = R.id.navigation_menu_home;
-        navigationButtonFavoriteId = R.id.navigation_menu_favorite;
-        navigationButtonDashBoardId = R.id.navigation_menu_dashboard;
-        navigationButtonCategoriesId = R.id.navigation_menu_products;
+        navigationButtonSettingId = R.id.navigation_bottom_settings;
+        navigationButtonHomeId = R.id.navigation_bottom_home;
+        navigationButtonFavoriteId = R.id.navigation_bottom_favorite;
+        navigationButtonDashBoardId = R.id.navigation_bottom_dashboard;
+        navigationButtonCategoriesId = R.id.navigation_bottom_products;
     }
 
     @Override
@@ -46,32 +46,30 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigation = findViewById(R.id.navigation_host_button);
         bottomNavigation.setOnNavigationItemSelectedListener(this);
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        loadFragment(R.id.navigation_menu_home,HomeFragment.getInstance());
+        loadFragment(HomeFragment.getInstance());
+
+
 
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-        if (item == null) return false;
         switch (item.getItemId()){
-
-            case R.id.navigation_menu_settings:
-                loadFragment(R.id.navigation_menu_settings, SettingFragment.getInstance());
+            case R.id.navigation_bottom_settings:
+                loadFragment(SettingFragment.getInstance());
                 break;
-            case R.id.navigation_menu_dashboard:
-                loadFragment(R.id.navigation_menu_dashboard, DashboardFragment.getInstance());
+            case R.id.navigation_bottom_dashboard:
+                loadFragment(DashboardFragment.getInstance());
                 break;
-            case R.id.navigation_menu_home:
-                loadFragment(R.id.navigation_menu_home, HomeFragment.getInstance());
+            case R.id.navigation_bottom_home:
+                loadFragment(HomeFragment.getInstance());
                 break;
-            case R.id.navigation_menu_favorite:
-                loadFragment(R.id.navigation_menu_favorite, FavoriteFragment.getInstance());
+            case R.id.navigation_bottom_favorite:
+                loadFragment(FavoriteFragment.getInstance());
                 break;
-            case R.id.navigation_menu_products:
-                loadFragment(R.id.navigation_menu_products, ProductsFragment.getInstance());
+            case R.id.navigation_bottom_products:
+                loadFragment(ProductsFragment.getInstance());
                 break;
 
             default:
@@ -81,10 +79,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return true;
     }
 
-    private void loadFragment(int viewId, SingletonFragment singletonFragment){
-        fragmentTransaction.add(viewId,singletonFragment);
+    private void loadFragment(SingletonFragment singletonFragment){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (fragmentTransaction.isEmpty()){
+            fragmentTransaction.add(R.id.container_navigation_bottom,singletonFragment);
+        }
+        else{
+            fragmentTransaction.add(R.id.container_navigation_bottom,singletonFragment);
+        }
         fragmentTransaction.commit();
-        singletonFragment.changeColorTo(Color.BLACK);
     }
 
 }

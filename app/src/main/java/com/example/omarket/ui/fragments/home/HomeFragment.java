@@ -2,8 +2,6 @@ package com.example.omarket.ui.fragments.home;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ public class HomeFragment extends SingletonFragment {
 
     private HomeFragment(){
         homeFragment = this;
-        bottomNavigationItem = getView().findViewById(R.id.navigation_menu_home);
     }
 
     public static SingletonFragment getInstance() {
@@ -44,7 +41,7 @@ public class HomeFragment extends SingletonFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }
