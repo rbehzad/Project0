@@ -10,8 +10,8 @@
     <color name="blue">#008CCC</color>
 
     <!--  login activity  -->
-    <color name="background_login_text">@color/white</color>
-    <color name="login_text">@color/black</color>
-    <color name="margin_login_text">@color/black</color>
+    <color name="backgroundLoginText">@color/white</color>
+    <color name="loginText">@color/black</color>
+    <color name="marginLoginText">@color/black</color>
 
 </resources>

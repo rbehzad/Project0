@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding_drawable">10dp</dimen>
-    <dimen name="padding_small">12dp</dimen>
-    <dimen name="margin_between">18dp</dimen>
-    <dimen name="small_text_size">14sp</dimen>
-    <dimen name="normal_width">340dp</dimen>
+    <dimen name="paddingDrawable">10dp</dimen>
+    <dimen name="paddingSmall">12dp</dimen>
+    <dimen name="marginBetween">18dp</dimen>
+    <dimen name="smallTextSize">14sp</dimen>
+    <dimen name="normalWidth">340dp</dimen>
+    <dimen name="normalCornersRadios">15dp</dimen>
 </resources>
