@@ -1,9 +1,8 @@
-package com.example.omarket.login;
+package com.example.omarket.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.omarket.R;
 

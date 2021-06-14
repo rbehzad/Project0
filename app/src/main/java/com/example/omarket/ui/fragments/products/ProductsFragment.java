@@ -1,4 +1,4 @@
-package com.example.omarket.ui.fragments.categories;
+package com.example.omarket.ui.fragments.products;
 
 import android.os.Bundle;
 
