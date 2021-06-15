@@ -8,10 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#008CCC</color>
+    <color name="blue_2f">#4a6572</color>
 
     <!--  login activity  -->
     <color name="backgroundLoginText">@color/white</color>
     <color name="loginText">@color/black</color>
     <color name="marginLoginText">@color/black</color>
 
+    <color name="links_color">@color/blue</color>
+    
 </resources>

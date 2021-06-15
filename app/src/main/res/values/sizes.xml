@@ -3,10 +3,17 @@
     <dimen name="paddingDrawable">10dp</dimen>
     <dimen name="paddingSmall">12dp</dimen>
     <dimen name="marginBetween">18dp</dimen>
-    <dimen name="smallTextSize">14sp</dimen>
     <dimen name="normalWidth">340dp</dimen>
 
     <dimen name="largeIconSize">28dp</dimen>
     <dimen name="normalCornersRadios">17dp</dimen>
+
+    <dimen name="smallTextSize">14sp</dimen>
+    <dimen name="mediumTextSize">16sp</dimen>
+    <dimen name="largeTextSize">14sp</dimen>
+    <dimen name="xlargeTextSize">14sp</dimen>
+    <dimen name="xxlargeTextSize">14sp</dimen>
+    <dimen name="loginImageWidth">260dp</dimen>
+
 
 </resources>

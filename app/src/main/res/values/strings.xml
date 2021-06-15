@@ -8,12 +8,10 @@
     <string name="forget_password">Forgot password?</string>
     <string name="login">Login</string>
     <string name="or_login_with">or login with ...</string>
-    <string name="need_to_market">Need to market?</string>
+    <string name="need_to_market">Need to market ?</string>
     <string name="register">Register</string>
-
-    <!--  facebook login  -->
-    <string name="facebook_app_id">[APP_ID]</string>
-    <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
+    <string name="registration">Registration</string>
+    <string name="already_registered">Already registered ?</string>
 
     <!--  navigation buttons  -->
     <string name="title_home">Home</string>
@@ -21,9 +19,11 @@
     <string name="title_favorite">Favorite</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_products">Products</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="main_activity">mainActivity</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="login_image">Login image</string>
+    <string name="loginFragment">loginFragment</string>
 
 
 </resources>

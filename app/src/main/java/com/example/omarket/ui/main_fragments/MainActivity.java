@@ -9,13 +9,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.omarket.R;
 
-import com.example.omarket.databinding.ActivityMainBinding;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+
     private BottomNavigationView bottomNavigation;
     private NavController navController;
     private NavHostFragment navHostFragment;

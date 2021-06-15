@@ -12,5 +12,6 @@
     <color name="colorSecondaryVariant">@color/teal_700</color>
     <color name="colorOnSecondary">@color/black</color>
 
-
+    <!--  Title colors  -->
+    <color name="titles_color">@color/blue_2f</color>
 </resources>

@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.omarket.R;
-import com.example.omarket.backend.commands.SaveCommand;
 import com.example.omarket.ui.main_fragments.Color;
-import com.example.omarket.ui.main_fragments.NavigationFragment;
+import com.example.omarket.ui.NavigationFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +22,7 @@ public class DashboardFragment extends NavigationFragment {
     }
 
     @Override
-    public void changeColorTo(Color color) {
+    public void changeIconColorTo(Color color) {
 
     }
 
