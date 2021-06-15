@@ -1,15 +1,15 @@
-package com.example.omarket.ui.fragments.products;
+package com.example.omarket.ui.main_fragments.dashboard;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ProductsViewModel extends ViewModel {
+public class DashboardViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
-    public ProductsViewModel() {
+    public DashboardViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Products fragment");
+        mText.setValue("This is Dashboard fragment");
     }
 
     public LiveData<String> getText() {

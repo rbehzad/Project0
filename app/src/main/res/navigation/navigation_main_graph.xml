@@ -7,30 +7,31 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.omarket.ui.fragments.settings.SettingFragment"
+        android:name="com.example.omarket.ui.main_fragments.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.omarket.ui.fragments.favorites.FavoriteFragment"
+        android:name="com.example.omarket.ui.main_fragments.favorites.FavoritesFragment"
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.example.omarket.ui.fragments.products.ProductsFragment"
+        android:name="com.example.omarket.ui.main_fragments.products.ProductsFragment"
         android:label="@string/title_products"
         tools:layout="@layout/fragment_products" />
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.omarket.ui.fragments.home.HomeFragment"
+        android:name="com.example.omarket.ui.main_fragments.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.omarket.ui.fragments.dashboard.DashboardFragment"
+        android:name="com.example.omarket.ui.main_fragments.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+
 
 </navigation>

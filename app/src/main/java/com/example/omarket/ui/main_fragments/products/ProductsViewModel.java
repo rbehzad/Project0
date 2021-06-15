@@ -1,15 +1,15 @@
-package com.example.omarket.ui.fragments.settings;
+package com.example.omarket.ui.main_fragments.products;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SettingsViewModel extends ViewModel {
+public class ProductsViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
-    public SettingsViewModel() {
+    public ProductsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Settings" + " fragment");
+        mText.setValue("This is Products fragment");
     }
 
     public LiveData<String> getText() {
