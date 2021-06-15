@@ -116,19 +116,33 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <TextView
-                android:id="@+id/register_text_view_already_registered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/paddingDrawable"
                 android:paddingLeft="@dimen/paddingDrawable"
                 android:text="@string/already_registered"
-                android:textColor="@color/links_color"
                 android:textSize="@dimen/mediumTextSize"
-                android:textStyle="bold"
+                android:paddingRight="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout2"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
                 tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/register_text_view_already_registered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/paddingDrawable"
+                android:paddingLeft="@dimen/paddingDrawable"
+                android:text="@string/login"
+                android:textSize="@dimen/mediumTextSize"
+                android:textStyle="bold"
+                android:textColor="@color/links_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                tools:ignore="RtlSymmetry" />
+
 
         </LinearLayout>
 
