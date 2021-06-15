@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.80">
+        app:layout_constraintVertical_bias="0.5">
 
         <TextView
             android:id="@+id/title_register"
@@ -26,76 +26,6 @@
             android:textColor="@color/titles_color"
             android:textSize="25sp"
             android:textStyle="bold" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/register_edit_text_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginBetween"
-                    android:background="@drawable/text_background"
-                    android:drawableStart="@drawable/ic_baseline_person_24"
-                    android:drawableLeft="@drawable/ic_baseline_person_24"
-                    android:drawablePadding="@dimen/paddingDrawable"
-                    android:ems="10"
-                    android:hint="@string/full_name"
-                    android:importantForAutofill="no"
-                    android:inputType="textPersonName" />
-
-                <EditText
-                    android:id="@+id/register_edit_text_phone_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginBetween"
-                    android:background="@drawable/text_background"
-                    android:drawableStart="@drawable/ic_baseline_local_phone_24"
-                    android:drawableLeft="@drawable/ic_baseline_local_phone_24"
-                    android:drawablePadding="@dimen/paddingDrawable"
-                    android:hint="@string/phone_number"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    tools:ignore="TextFields" />
-
-                <EditText
-                    android:id="@+id/register_edit_text_email_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginBetween"
-                    android:background="@drawable/text_background"
-                    android:drawableStart="@drawable/ic_baseline_alternate_email_24"
-                    android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
-                    android:drawablePadding="@dimen/paddingDrawable"
-                    android:hint="@string/email_address"
-                    android:importantForAutofill="no"
-                    android:inputType="textEmailAddress" />
-
-                <EditText
-                    android:id="@+id/register_edit_text_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginBetween"
-                    android:background="@drawable/text_background"
-                    android:drawableStart="@drawable/ic_baseline_lock_24"
-                    android:drawableLeft="@drawable/ic_baseline_lock_24"
-                    android:drawablePadding="@dimen/paddingDrawable"
-                    android:hint="@string/password"
-                    android:importantForAutofill="no"
-                    android:inputType="textPassword" />
-            </LinearLayout>
-        </ScrollView>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/register_button_register"
@@ -110,7 +40,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/marginBetween"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -158,5 +88,73 @@
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="@dimen/normalWidth"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/marginBetween"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/register_edit_text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawablePadding="@dimen/paddingDrawable"
+                android:ems="10"
+                android:hint="@string/full_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/register_edit_text_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginBetween"
+                android:background="@drawable/text_background"
+                android:drawableStart="@drawable/ic_baseline_local_phone_24"
+                android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+                android:drawablePadding="@dimen/paddingDrawable"
+                android:hint="@string/phone_number"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                tools:ignore="TextFields" />
+
+            <EditText
+                android:id="@+id/register_edit_text_email_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginBetween"
+                android:background="@drawable/text_background"
+                android:drawableStart="@drawable/ic_baseline_alternate_email_24"
+                android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
+                android:drawablePadding="@dimen/paddingDrawable"
+                android:hint="@string/email_address"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/register_edit_text_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginBetween"
+                android:background="@drawable/text_background"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:drawablePadding="@dimen/paddingDrawable"
+                android:hint="@string/password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
