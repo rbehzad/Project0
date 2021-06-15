@@ -23,9 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_background"
-            android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
+            android:drawable="@drawable/ic_baseline_alternate_email_24"
             android:drawablePadding="@dimen/paddingDrawable"
-            android:hint="@string/email_adrress"
+            android:hint="@string/email_address"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginBetween"
             android:background="@drawable/text_background"
-            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:drawable="@drawable/ic_baseline_lock_24"
             android:drawablePadding="@dimen/paddingDrawable"
             android:hint="@string/password"
             android:inputType="textPassword" />
@@ -43,7 +43,7 @@
             android:id="@+id/editTextForgetPassword"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_marginTop="@dimen/marginBetween"
             android:layout_marginBottom="@dimen/marginBetween"
             android:text="@string/forget_password"
@@ -82,7 +82,7 @@
             android:id="@+id/google_login_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingRight="@dimen/paddingSmall" />
+            android:padding="@dimen/paddingDrawable" />
 
 
     </LinearLayout>
@@ -124,7 +124,8 @@
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/online_market_foreground" />
+        app:srcCompat="@mipmap/online_market_foreground"
+        android:contentDescription="an online market picture" />
 
 
 

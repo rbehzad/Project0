@@ -3,7 +3,7 @@
 
 
     <!--  login activity  -->
-    <string name="email_adrress">Email Address</string>
+    <string name="email_address">Email Address</string>
     <string name="password">Password</string>
     <string name="forget_password">Forgot password?</string>
     <string name="login">Login</string>
