@@ -1,109 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/normalMargin"
     tools:context=".ui.login.RegisterFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageViewRegisterFragment"
+        android:layout_width="@dimen/loginImageWidth"
+        android:layout_height="@dimen/loginImageWidth"
+        android:layout_marginTop="24dp"
+        android:contentDescription="Register image"
+        android:src="@mipmap/imv_online_market_2_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="348dp"
+        android:layout_height="263dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewRegisterFragment"
+        app:layout_constraintStart_toStartOf="@+id/imageViewRegisterFragment"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewRegisterFragment">
 
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="@dimen/normalWidth"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.53">
-
-            <TextView
-                android:id="@+id/title_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/registration"
-                android:textColor="@color/titles_color"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/register_button_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/smallMargin"
-                android:background="@drawable/button_backgrounds"
-                android:text="@string/register"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/smallMargin"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/paddingDrawable"
-                    android:paddingLeft="@dimen/paddingDrawable"
-                    android:paddingRight="2dp"
-                    android:text="@string/already_registered"
-                    android:textSize="@dimen/mediumTextSize"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                    tools:ignore="RtlSymmetry" />
-
-                <TextView
-                    android:id="@+id/register_text_view_already_registered"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/paddingDrawable"
-                    android:paddingLeft="@dimen/paddingDrawable"
-                    android:text="@string/login"
-                    android:textColor="@color/links_color"
-                    android:textSize="@dimen/mediumTextSize"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                    tools:ignore="RtlSymmetry" />
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageViewRegisterFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/normalMargin"
-            android:contentDescription="Register image"
-            android:src="@mipmap/imv_online_market_2_foreground"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/smallMargin"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/register_edit_text_name"
@@ -122,7 +51,7 @@
                 android:id="@+id/register_edit_text_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginTop="18dp"
                 android:background="@drawable/text_background"
                 android:drawableStart="@drawable/ic_baseline_local_phone_24"
                 android:drawableLeft="@drawable/ic_baseline_local_phone_24"
@@ -136,7 +65,7 @@
                 android:id="@+id/register_edit_text_email_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginTop="18dp"
                 android:background="@drawable/text_background"
                 android:drawableStart="@drawable/ic_baseline_alternate_email_24"
                 android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
@@ -149,7 +78,7 @@
                 android:id="@+id/register_edit_text_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginTop="18dp"
                 android:background="@drawable/text_background"
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
@@ -158,7 +87,72 @@
                 android:importantForAutofill="no"
                 android:inputType="textPassword" />
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="@dimen/normalWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/register_button_register"
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toStartOf="@+id/register_button_register"
+        app:layout_constraintTop_toBottomOf="@+id/register_button_register">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/paddingDrawable"
+                android:paddingLeft="@dimen/paddingDrawable"
+                android:paddingRight="2dp"
+                android:text="@string/already_registered"
+                android:textSize="@dimen/mediumTextSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/register_text_view_already_registered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/paddingDrawable"
+                android:paddingLeft="@dimen/paddingDrawable"
+                android:text="@string/login"
+                android:textColor="@color/links_color"
+                android:textSize="@dimen/mediumTextSize"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                tools:ignore="RtlSymmetry" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_button_register"
+        android:layout_width="350dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/button_backgrounds"
+        android:text="@string/register"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
+        app:layout_constraintStart_toStartOf="@+id/nestedScrollView"
+        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
