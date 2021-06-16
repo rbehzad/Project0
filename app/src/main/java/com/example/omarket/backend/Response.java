@@ -1,34 +1,27 @@
 package com.example.omarket.backend;
 
+import java.util.ArrayList;
+
 public class Response {
-    private String[] errors;
-    private boolean success;
+    public ArrayList<String> errors;
+    public boolean success;
 
-    // when got errors
-    private Response(String ...errors){
-        this.errors = errors;
-        success = false;
+
+    public static Response setErrors(String... errors) {
+        Response response = new Response();
+        for (String err :
+                errors) {
+            response.errors.add(err);
+        }
+        response.success = false;
+        return response;
     }
 
-    // when no errors return.
-    private Response(){
-        success = true;
-    }
 
-    static Response setErrors(String ...errors){
-        return new Response(errors);
-    }
-
-    static Response setResponse(){
-        return new Response();
-    }
-
-    public String[] getErrors() {
-        return errors;
-    }
-
-    public boolean isSuccess() {
-        return success;
+    public static Response seccessful() {
+        Response response = new Response();
+        response.success = true;
+        return response;
     }
 
 }
