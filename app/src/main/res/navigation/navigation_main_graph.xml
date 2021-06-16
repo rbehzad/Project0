@@ -23,7 +23,11 @@
         android:id="@+id/registerFragment"
         android:name="com.example.omarket.ui.login.RegisterFragment"
         android:label="@string/loginFragment"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.omarket.ui.main_fragments.MainActivity"

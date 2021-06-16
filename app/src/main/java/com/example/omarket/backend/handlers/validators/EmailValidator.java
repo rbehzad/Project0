@@ -20,6 +20,21 @@ public class EmailValidator implements Validator {
     }
 
 
+    @Override
+    public Response validate(UserInformation userInformation) {
+        return null;
+    }
+
+    @Override
+    public boolean isValid() {
+        return false;
+    }
+
+    @Override
+    public String getValidateError() {
+        return null;
+    }
+
     public static Validator getInstance() {
         if (emailValidator != null) {
             return emailValidator;

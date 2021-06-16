@@ -14,6 +14,21 @@ public class PhoneNumberValidator implements Validator {
         phoneNumberValidator = this;
     }
 
+    @Override
+    public Response validate(UserInformation userInformation) {
+        return null;
+    }
+
+    @Override
+    public boolean isValid() {
+        return false;
+    }
+
+    @Override
+    public String getValidateError() {
+        return null;
+    }
+
     public static Validator getInstance() {
         return null;
     }
