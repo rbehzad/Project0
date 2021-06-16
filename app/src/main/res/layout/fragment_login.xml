@@ -105,7 +105,8 @@
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/paddingSmall"
                 android:paddingRight="@dimen/paddingSmall"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:onClick="signIn"/>
 
 
         </LinearLayout>
