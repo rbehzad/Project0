@@ -1,4 +1,4 @@
-package com.example.omarket.backend.commands;
+package com.example.omarket.backend.handlers.commands;
 
 import com.example.omarket.backend.Response;
 
