@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 
 public class RegisterFragment extends Fragment {
     private TextView loginTextView;
+    private TextView registerButton;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -25,8 +26,16 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register,container,false);
 
         loginTextView = view.findViewById(R.id.register_text_view_already_registered);
-
+        registerButton = view.findViewById(R.id.register_button_register);
+        // switch activity_register to login
         loginTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
+            }
+        });
+        // switch activity_register to login
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
