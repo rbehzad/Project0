@@ -14,12 +14,12 @@ import com.example.omarket.backend.handlers.validators.PhoneNumberValidator;
 import com.example.omarket.backend.handlers.validators.Validator;
 
 public class UserInformation {
-    public String fullName;
-    public String emailAddress;
-    public String password;
-    public String phoneNumber;
-    public boolean isSuperAdmin;
-    public boolean isAdmin;
+    private String fullName;
+    private String emailAddress;
+    private String password;
+    private String phoneNumber;
+    private boolean isSuperAdmin;
+    private boolean isAdmin;
 
     private static UserInformation currentLoginUser;
 
