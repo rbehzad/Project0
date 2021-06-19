@@ -1,8 +1,10 @@
-package com.example.omarket;
+package com.example.omarket.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.omarket.R;
 
 public class StartActivity extends AppCompatActivity {
 

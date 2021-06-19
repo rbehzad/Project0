@@ -74,7 +74,7 @@ public class User {
     }
 
     public User createNewUser() {
-        creationResponse = Response.seccessful();
+        creationResponse = Response.successful();
         for (Validator validator :
                 validators) {
             validator.validate(userInformation);

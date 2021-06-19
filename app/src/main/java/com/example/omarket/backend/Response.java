@@ -18,7 +18,7 @@ public class Response {
     }
 
 
-    public static Response seccessful() {
+    public static Response successful() {
         Response response = new Response();
         response.success = true;
         return response;

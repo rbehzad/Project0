@@ -14,7 +14,6 @@ public class EmailValidator implements Validator {
 
     private Validator nextValidator;
     private boolean isValid;
-
     private EmailValidator() {
         emailValidator = this;
     }
