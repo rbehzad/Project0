@@ -1,11 +1,7 @@
 package com.example.omarket.backend.user;
 
-import com.example.omarket.backend.Response;
-import com.example.omarket.backend.handlers.exepstions.ExceptionChecker;
-import com.example.omarket.backend.handlers.validators.EmailValidator;
-import com.example.omarket.backend.handlers.validators.PasswordValidator;
-import com.example.omarket.backend.handlers.validators.PhoneNumberValidator;
-import com.example.omarket.backend.handlers.validators.Validator;
+import android.net.Uri;
+
 import com.example.omarket.backend.Response;
 import com.example.omarket.backend.handlers.exepstions.ExceptionChecker;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
@@ -20,6 +16,7 @@ public class UserInformation {
     private String phoneNumber;
     private boolean isSuperAdmin;
     private boolean isAdmin;
+    private Uri personPhoto;// TODO
 
     private static UserInformation currentLoginUser;
 
@@ -51,7 +48,14 @@ public class UserInformation {
         this.isAdmin = isAdmin;
         this.isSuperAdmin = isSuperAdmin;
     }
-
+    UserInformation(String fullName,  String phoneNumber, boolean isAdmin, boolean isSuperAdmin, Uri personPhoto) {
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.isAdmin = isAdmin;
+        this.isSuperAdmin = isSuperAdmin;
+        this.personPhoto = personPhoto;
+    }
+    // getter
     public String getFullName() {
         return fullName;
     }
@@ -75,6 +79,7 @@ public class UserInformation {
     public boolean isAdmin() {
         return isAdmin;
     }
+    //
 
     public static UserInformation getCurrentLoginUser() {
         return currentLoginUser;
