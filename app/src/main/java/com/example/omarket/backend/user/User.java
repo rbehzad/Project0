@@ -1,6 +1,7 @@
 package com.example.omarket.backend.user;
 
 import com.example.omarket.backend.Response;
+import com.example.omarket.backend.handlers.exepstions.ExceptionChecker;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
 import com.example.omarket.backend.handlers.validators.PasswordValidator;
 import com.example.omarket.backend.handlers.validators.PhoneNumberValidator;
@@ -19,15 +20,18 @@ public class User {
         this.creationResponse = creationResponse;
     }
 
-    public User(String emailAddress, boolean isAdmin, boolean isSuperAdmin) {
+    public User(String emailAddress, String password, boolean isAdmin, boolean isSuperAdmin) {
         setValidators();
+        ExceptionChecker.notNullChecker(emailAddress, isAdmin, isSuperAdmin);
         this.userInformation.emailAddress = emailAddress;
         this.userInformation.isAdmin = isAdmin;
         this.userInformation.isSuperAdmin = isSuperAdmin;
+        this.userInformation.password = password;
     }
 
     public User(String fullName, String emailAddress, String password, String phoneNumber,
                 boolean isAdmin, boolean isSuperAdmin) {
+        ExceptionChecker.notNullChecker(fullName, emailAddress, password, phoneNumber, isAdmin, isSuperAdmin);
         setValidators();
         this.userInformation.fullName = fullName;
         this.userInformation.emailAddress = emailAddress;
