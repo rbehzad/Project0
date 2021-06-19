@@ -85,6 +85,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            // save in UserInformation class
 
             Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
         } else {
