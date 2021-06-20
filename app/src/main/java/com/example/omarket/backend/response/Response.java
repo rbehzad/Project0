@@ -1,15 +1,16 @@
-package com.example.omarket.backend;
+package com.example.omarket.backend.response;
+
+import androidx.core.util.Pair;
 
 import java.util.ArrayList;
 
 public class Response {
-    public ArrayList<String> errors;
+    public ArrayList<Pair<ResponseErrorType, String>> errors;
     public boolean success;
 
-
-    public static Response setErrors(String... errors) {
+    public static Response setErrors(Pair<ResponseErrorType, String>... errors) {
         Response response = new Response();
-        for (String err :
+        for (Pair<ResponseErrorType, String> err :
                 errors) {
             response.errors.add(err);
         }

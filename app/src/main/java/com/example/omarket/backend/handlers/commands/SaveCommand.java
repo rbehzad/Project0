@@ -1,6 +1,6 @@
 package com.example.omarket.backend.handlers.commands;
 
-import com.example.omarket.backend.Response;
+import com.example.omarket.backend.response.Response;
 
 public class SaveCommand implements Command{
     private static SaveCommand saveCommand;
