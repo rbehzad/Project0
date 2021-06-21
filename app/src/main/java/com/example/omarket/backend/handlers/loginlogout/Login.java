@@ -8,6 +8,7 @@ import com.example.omarket.backend.user.User;
 public class Login {
 
     private static Login login;
+    private static User user;
 
     private Login() {
         login = this;
@@ -19,7 +20,8 @@ public class Login {
         return new Login();
     }
 
-    public User login() {
+    public User login(User user) {
+        Login.user = user;
         return null;
     }
 }

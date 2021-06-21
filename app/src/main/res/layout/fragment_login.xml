@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginFragment"
-    android:layout_marginBottom="@dimen/normalMargin">
+    android:layout_marginBottom="@dimen/normalMargin"
+    tools:context=".ui.login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.79">
+            app:layout_constraintVertical_bias="0.78">
 
             <TextView
                 android:id="@+id/title_register"
@@ -31,6 +31,18 @@
                 android:textColor="@color/titles_color"
                 android:textSize="25sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_marginTop="@dimen/smallMargin"
+                android:id="@+id/login_warning_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingRight="@dimen/paddingSmall"
+                android:textColor="@color/red"
+                android:textSize="@dimen/mediumTextSize"
+                android:textStyle="italic" />
+
 
             <EditText
                 android:id="@+id/login_edit_text_email_address"
@@ -103,10 +115,10 @@
                 android:id="@+id/google_login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:onClick="signIn"
                 android:paddingEnd="@dimen/paddingSmall"
                 android:paddingRight="@dimen/paddingSmall"
-                tools:ignore="RtlSymmetry"
-                android:onClick="signIn"/>
+                tools:ignore="RtlSymmetry" />
 
 
         </LinearLayout>

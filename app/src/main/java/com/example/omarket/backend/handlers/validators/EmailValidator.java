@@ -9,23 +9,23 @@ import com.example.omarket.backend.user.User;
  * if email dose exist.
  * if email hase invalid char or something.
  */
-public class EmailValidatorInterface implements ValidatorInterface {
+public class EmailValidator implements ValidatorInterface {
 
-    private static EmailValidatorInterface emailValidator;
+    private static EmailValidator emailValidator;
 
     public final ResponseErrorType validatorType = ResponseErrorType.EMAIL_VALIDATE;
     private boolean isValid;
     private String error;
 
-    private EmailValidatorInterface() {
+    private EmailValidator() {
         emailValidator = this;
     }
 
-    public static ValidatorInterface getInstance() {
+    public static EmailValidator getInstance() {
         if (emailValidator != null) {
             return emailValidator;
         }
-        return new EmailValidatorInterface();
+        return new EmailValidator();
     }
 
     @Override
@@ -34,7 +34,8 @@ public class EmailValidatorInterface implements ValidatorInterface {
     }
 
     public Response validate(String email) {
-        return null;
+        error = "Invalid email address!";
+        return Response.setErrors(ResponseErrorType.EMAIL_VALIDATE, error);
     }
 
     @Override

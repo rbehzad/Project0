@@ -1,6 +1,5 @@
 package com.example.omarket.backend.handlers.validators;
 
-import com.example.omarket.R;
 import com.example.omarket.backend.response.Response;
 import com.example.omarket.backend.response.ResponseErrorType;
 import com.example.omarket.backend.user.User;
@@ -8,15 +7,15 @@ import com.example.omarket.backend.user.User;
 /**
  * singleton class.
  */
-public class PasswordValidatorInterface implements ValidatorInterface {
+public class PasswordValidator implements ValidatorInterface {
 
-    private static PasswordValidatorInterface passwordValidator;
+    private static PasswordValidator passwordValidator;
 
     public final ResponseErrorType validatorType = ResponseErrorType.PASSWORD_VALIDATE;
     private boolean isValid;
     private String error;
 
-    private PasswordValidatorInterface() {
+    private PasswordValidator() {
         passwordValidator = this;
     }
 
@@ -26,7 +25,8 @@ public class PasswordValidatorInterface implements ValidatorInterface {
     }
 
     public Response validate(String password) {
-        return null;
+        error = "Invalid password!";
+        return Response.setErrors(ResponseErrorType.PASSWORD_VALIDATE, error);
     }
 
     @Override
@@ -44,8 +44,10 @@ public class PasswordValidatorInterface implements ValidatorInterface {
         return validatorType;
     }
 
-    public static ValidatorInterface getInstance() {
-        return null;
+    public static PasswordValidator getInstance() {
+        if (passwordValidator != null)
+            return passwordValidator;
+        return new PasswordValidator();
     }
 
 

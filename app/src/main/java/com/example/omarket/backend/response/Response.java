@@ -8,11 +8,13 @@ public class Response {
     public ArrayList<Pair<ResponseErrorType, String>> errors;
     public boolean success;
 
-    public static Response setErrors(Pair<ResponseErrorType, String>... errors) {
+
+    public static Response setErrors(ResponseErrorType responseErrorType, String... errors) {
         Response response = new Response();
-        for (Pair<ResponseErrorType, String> err :
+        response.errors = new ArrayList<>();
+        for (String err :
                 errors) {
-            response.errors.add(err);
+            response.errors.add(new Pair<>(responseErrorType, err));
         }
         response.success = false;
         return response;

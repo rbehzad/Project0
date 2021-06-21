@@ -31,8 +31,8 @@ public class UserInfoValidator implements ValidatorInterface {
 
     private void setValidators() {
         this.validators = new ValidatorInterface[]{
-                EmailValidatorInterface.getInstance(),
-                PasswordValidatorInterface.getInstance(),
+                EmailValidator.getInstance(),
+                PasswordValidator.getInstance(),
                 PhoneNumberValidatorInterface.getInstance()
         };
     }
