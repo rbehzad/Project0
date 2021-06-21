@@ -10,29 +10,33 @@ public class User {
     private static User currentLoginUser;
 
 
-    private String fullName;
-    private String emailAddress;
-    private String password;
-    private String phoneNumber;
-    private UserType userType;
+    public String fullName;
+    public String emailAddress;
+    public String password;
+    public String phoneNumber;
+    public UserType userType;
     private Uri personPhoto;// TODO
 
     final UserInfoValidator validator = UserInfoValidator.getInstance();
 
     public Response creationResponse;
 
-    User(Response creationResponse) {
+    public User() {
+
+    }
+
+    public User(Response creationResponse) {
         this.creationResponse = creationResponse;
     }
 
-    User(String emailAddress, String password, UserType userType) {
+    public User(String emailAddress, String password, UserType userType) {
         ExceptionChecker.notNullChecker(emailAddress, userType);
         this.emailAddress = emailAddress;
         this.userType = userType;
         this.password = password;
     }
 
-    User(String fullName, String emailAddress, String password, String phoneNumber, UserType userType) {
+    public User(String fullName, String emailAddress, String password, String phoneNumber, UserType userType) {
         ExceptionChecker.notNullChecker(fullName, emailAddress, password, phoneNumber, userType);
         this.fullName = fullName;
         this.emailAddress = emailAddress;
@@ -41,7 +45,7 @@ public class User {
         this.userType = userType;
     }
 
-    User(String fullName, String phoneNumber, Uri personPhoto, UserType userType) {
+    public User(String fullName, String phoneNumber, Uri personPhoto, UserType userType) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.userType = userType;

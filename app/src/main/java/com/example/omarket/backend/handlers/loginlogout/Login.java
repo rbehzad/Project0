@@ -1,5 +1,7 @@
 package com.example.omarket.backend.handlers.loginlogout;
 
+import com.example.omarket.backend.user.User;
+
 /**
  * Singleton class
  */
@@ -17,5 +19,7 @@ public class Login {
         return new Login();
     }
 
-
+    public User login() {
+        return null;
+    }
 }

@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#008CCC</color>
     <color name="blue_2f">#4a6572</color>
+    <color name="red">#FF0000</color>
 
     <!--  login activity  -->
     <color name="backgroundLoginText">@color/white</color>
