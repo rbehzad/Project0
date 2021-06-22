@@ -21,7 +21,10 @@ public class Login {
     }
 
     public User login(User user) {
+
+
+        // if every things okay
         Login.user = user;
-        return null;
+        return user;
     }
 }

@@ -81,12 +81,4 @@ public class User {
         return currentLoginUser;
     }
 
-
-    public User createNewUser() {
-        creationResponse = validator.validate(this);
-        if (creationResponse.success)
-            return this;
-        else
-            return new User(creationResponse);
-    }
 }

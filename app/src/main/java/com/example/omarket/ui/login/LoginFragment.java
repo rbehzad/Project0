@@ -238,7 +238,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         Color.changeViewColor(emailText, R.color.red);
         passwordText.startAnimation(shakeAnimation);
         emailText.startAnimation(shakeAnimation);
-        warningView.setText("Email or password is wrong. Try again.");
+        warningView.setText(currentUser.creationResponse.errors.get(0).second);
         warningView.startAnimation(shakeAnimation);
 
     }
