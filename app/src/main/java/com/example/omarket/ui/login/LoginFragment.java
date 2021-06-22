@@ -28,6 +28,7 @@ import com.example.omarket.backend.handlers.loginlogout.Login;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
 import com.example.omarket.backend.handlers.validators.PasswordValidator;
 import com.example.omarket.backend.user.User;
+import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.Color;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -138,6 +139,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            new User(personGivenName, personPhoto, personEmail, UserType.USER);// user login with google
             Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Could not sign in with google", Toast.LENGTH_SHORT).show();
