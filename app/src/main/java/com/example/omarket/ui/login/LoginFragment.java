@@ -133,13 +133,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-            new User(personGivenName, personPhoto, personEmail, UserType.USER);// user login with google
+            new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
             Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Could not sign in with google", Toast.LENGTH_SHORT).show();
