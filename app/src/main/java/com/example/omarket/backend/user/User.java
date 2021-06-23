@@ -7,6 +7,7 @@ import com.example.omarket.backend.response.Response;
 import com.example.omarket.backend.handlers.exepstions.ExceptionChecker;
 
 public class User {
+
     private static User currentLoginUser;
 
 

@@ -1,5 +1,6 @@
 package com.example.omarket.backend.handlers.loginlogout;
 
+import com.example.omarket.backend.handlers.dataHandler.DataManager;
 import com.example.omarket.backend.user.User;
 
 /**
@@ -8,9 +9,11 @@ import com.example.omarket.backend.user.User;
 public class Login {
 
     private static Login login;
-    private static User user;
+    private User user;
+    private DataManager dataManager;
 
     private Login() {
+        dataManager = DataManager.getInstance();
         login = this;
     }
 
@@ -21,10 +24,7 @@ public class Login {
     }
 
     public User login(User user) {
-
-
-        // if every things okay
-        Login.user = user;
+        this.user = dataManager.findUser(user);
         return user;
     }
 }
