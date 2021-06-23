@@ -6,14 +6,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main_fragments.dashboard.DashboardFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="@dimen/normalWidth"
         android:layout_height="wrap_content"
-        android:text="@string/title_dashboard"
-        android:textSize="80sp"
+        android:layout_marginBottom="@dimen/smallMargin"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/text_background"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="46dp"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:background="@drawable/text_background"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="name: " />
+        <TextView
+            android:id="@+id/text_phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:background="@drawable/text_background"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="PhoneNumber: " />
+        <TextView
+            android:id="@+id/email_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:background="@drawable/text_background"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="Email: " />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="@dimen/normalWidth"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout1"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

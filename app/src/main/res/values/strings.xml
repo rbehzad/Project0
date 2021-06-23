@@ -24,7 +24,11 @@
     <string name="phone_number">Phone Number</string>
     <string name="login_image">Login image</string>
     <string name="loginFragment">loginFragment</string>
-
-
+    
+    <!-- save user information in google sign in  -->
+    <string name="profile_file_key">profile file key</string>
+    <string name="name_key">name key</string>
+    <string name="email_key">email key</string>
+    <string name="image_key">image key</string>
 
 </resources>

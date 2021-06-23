@@ -2,7 +2,9 @@ package com.example.omarket.ui.login;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import com.example.omarket.backend.handlers.loginlogout.Login;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
 import com.example.omarket.backend.handlers.validators.PasswordValidator;
 import com.example.omarket.backend.user.User;
+import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.Color;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -133,11 +136,16 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
             String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
+            new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
+            Context context = getActivity();
+            // save key value data
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    getString(R.string.profile_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.name_key), acct.getDisplayName());
+            editor.putString(getString(R.string.email_key), acct.getEmail());
+            editor.putString(getString(R.string.image_key), acct.getPhotoUrl().toString());
+            editor.apply();
             Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Could not sign in with google", Toast.LENGTH_SHORT).show();

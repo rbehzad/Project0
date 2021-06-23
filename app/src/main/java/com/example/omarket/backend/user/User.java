@@ -51,6 +51,12 @@ public class User {
         this.userType = userType;
         this.personPhoto = personPhoto;
     }
+    public User(String fullName, Uri personPhoto, String emailAddress, UserType userType) {// google sign in constructor
+        this.fullName = fullName;
+        this.emailAddress = emailAddress;
+        this.personPhoto = personPhoto;
+        this.userType = userType;
+    }
 
     // getter
     public String getFullName() {
