@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/categoryid"
+            android:icon="@drawable/ic_list_white"
+            android:title="category">
+            <menu>
+                <item
+                    android:id="@+id/Electronicsid"
+                    android:title="Electronics" >
+                </item>
+
+                <item
+                    android:id="@+id/Computersid"
+                    android:title="Computers" />
+                <item
+                    android:id="@+id/homeid"
+                    android:title="Home and Garden" />
+                <item
+                    android:id="@+id/fashionid"
+                    android:title="Fasion" />
+                <item
+                    android:id="@+id/toysid"
+                    android:title="Toys" />
+                <item
+                    android:id="@+id/sportid"
+                    android:title="Sporting Goods" />
+                <item
+                    android:id="@+id/industrialid"
+                    android:title="Industrial" />
+            </menu>
+
+        </item>
+    </group>
+
+    <group>
+        <item
+            android:title="My Product"
+            android:id="@+id/myproductid" />
+
+        <item
+            android:title="All Product"
+            android:id="@+id/allproductid" />
+    </group>
+
+
+</menu>
