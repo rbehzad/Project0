@@ -2,11 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group>
-        <item
-            android:id="@+id/categoryid"
-            android:icon="@drawable/ic_list_white"
-            android:title="category">
-            <menu>
+        <item>
                 <item
                     android:id="@+id/Electronicsid"
                     android:title="Electronics" >
@@ -30,12 +26,13 @@
                 <item
                     android:id="@+id/industrialid"
                     android:title="Industrial" />
-            </menu>
-
         </item>
     </group>
 
     <group>
+        <item
+            android:title="product">
+        <menu>
         <item
             android:title="My Product"
             android:id="@+id/myproductid" />
@@ -43,6 +40,8 @@
         <item
             android:title="All Product"
             android:id="@+id/allproductid" />
+        </menu>
+        </item>
     </group>
 
 
