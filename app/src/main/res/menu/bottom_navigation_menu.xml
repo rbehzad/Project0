@@ -22,9 +22,5 @@
         android:icon="@drawable/ic_favorite_white"
         android:id="@+id/favoriteFragment" />
 
-    <item
-        android:title="@string/title_products"
-        android:icon="@drawable/ic_list_white"
-        android:id="@+id/productsFragment" />
 
 </menu>
