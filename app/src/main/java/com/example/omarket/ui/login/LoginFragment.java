@@ -2,7 +2,9 @@ package com.example.omarket.ui.login;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -135,6 +137,15 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         if (acct != null) {
             String personName = acct.getDisplayName();
             new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
+            Context context = getActivity();
+            // save key value data
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    getString(R.string.profile_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.name_key), acct.getDisplayName());
+            editor.putString(getString(R.string.email_key), acct.getEmail());
+            editor.putString(getString(R.string.image_key), acct.getPhotoUrl().toString());
+            editor.apply();
             Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Could not sign in with google", Toast.LENGTH_SHORT).show();
