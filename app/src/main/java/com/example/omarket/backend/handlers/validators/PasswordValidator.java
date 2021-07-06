@@ -15,13 +15,20 @@ public class PasswordValidator implements ValidatorInterface {
     private boolean isValid;
     private String error;
 
+    Response response;
+
     private PasswordValidator() {
         passwordValidator = this;
     }
 
     @Override
     public Response validate(User user) {
-        return validate(user.getPassword());
+        response = validate(user.getPassword());
+        if (!response.success) {
+            User newUser = (User) user.clone();
+            newUser.creationResponse = response;
+        }
+        return response;
     }
 
     public Response validate(String password) {

@@ -223,8 +223,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 
     private void login(View v) {
         updateInput();
-        if (!emailValidator.validate(currentUser.getEmailAddress()).success
-                || !passwordValidator.validate(currentUser.getPassword()).success) {
+        if (!emailValidator.validate(currentUser).success
+                || !passwordValidator.validate(currentUser).success) {
             loginFailedAction();
             return;
         }
