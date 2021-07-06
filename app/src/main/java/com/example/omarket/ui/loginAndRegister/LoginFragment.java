@@ -1,11 +1,10 @@
-package com.example.omarket.ui.login;
+package com.example.omarket.ui.loginAndRegister;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;

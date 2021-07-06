@@ -1,4 +1,4 @@
-package com.example.omarket.ui.login;
+package com.example.omarket.ui.loginAndRegister;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,6 @@ import androidx.navigation.Navigation;
 import com.example.omarket.R;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 public class RegisterFragment extends Fragment {
     private TextView loginTextView;
