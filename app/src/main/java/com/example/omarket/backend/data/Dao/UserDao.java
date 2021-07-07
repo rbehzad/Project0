@@ -15,13 +15,16 @@ public interface UserDao {
     @Query("INSERT INTO User VALUES(:id, :name, :emailAddress, :password, :phoneNumber, :userType)")
     void insert(int id, String name, String emailAddress, String password, String phoneNumber, String userType);
 
-    // get product info by searching its name
+    // get user info by searching its emailAddress
     @Query("SELECT * FROM User WHERE emailAddress IN (:userEmailAddress) ")
     List<User> loadAllByIds(int[] userEmailAddress);
-
+    // return all user
+    @Query("SELECT * FROM User")
+    List<User> getAll();
+    // save users
     @Insert
     void insertAll(User...users);
-
+    // delete users
     @Delete
     void delete(User user);
 }

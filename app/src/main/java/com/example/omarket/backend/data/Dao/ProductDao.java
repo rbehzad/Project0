@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.omarket.backend.data.entities.Product;
+import com.example.omarket.backend.data.entities.User;
 
 import java.util.List;
 import java.util.Scanner;
@@ -20,9 +21,13 @@ public interface ProductDao {
     @Query("SELECT * FROM Product WHERE name IN (:productName) ")
     List<Product> loadAllByIds(int[] productName);
 
+    // return all product
+    @Query("SELECT * FROM Product")
+    List<Product> getAll();
+    // save products
     @Insert
     void insertAll(Product...products);
-
+    // delete products
     @Delete
     void delete(Product product);
 }
