@@ -19,9 +19,9 @@ public interface ProductDao {
 
     // get product info by searching its name
     @Query("SELECT * FROM Product WHERE name IN (:productName) ")
-    List<Product> loadAllByIds(int[] productName);
+    Product loadByName(String productName);
 
-    // return all product
+    // get all product
     @Query("SELECT * FROM Product")
     List<Product> getAll();
     // save products

@@ -17,8 +17,8 @@ public interface UserDao {
 
     // get user info by searching its emailAddress
     @Query("SELECT * FROM User WHERE emailAddress IN (:userEmailAddress) ")
-    List<User> loadAllByIds(int[] userEmailAddress);
-    // return all user
+    User loadByEmail(String userEmailAddress);
+    // get all user
     @Query("SELECT * FROM User")
     List<User> getAll();
     // save users
