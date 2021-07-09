@@ -53,5 +53,8 @@ public class EmailValidator implements ValidatorInterface {
         return validatorType;
     }
 
+    public static void main(String[] args) {
+        System.out.println("hihi");
+    }
 
 }
