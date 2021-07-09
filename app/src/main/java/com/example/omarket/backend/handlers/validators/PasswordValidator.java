@@ -25,7 +25,12 @@ public class PasswordValidator implements ValidatorInterface {
     public Response validate(User user) {
         response = validate(user.getPassword());
         if (!response.success) {
-            User newUser = (User) user.clone();
+            User newUser = null;
+            try {
+                newUser = (User) user.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
             newUser.creationResponse = response;
         }
         return response;

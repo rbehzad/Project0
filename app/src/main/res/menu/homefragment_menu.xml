@@ -35,8 +35,7 @@
             android:title="Product">
         <menu>
         <item
-            android:title="Sale of Goods"
-            android:id="saleofgoodsid"/>
+            android:title="Sale of Goods" />
         <item
             android:title="My Product"
             android:id="@+id/myproductid" />

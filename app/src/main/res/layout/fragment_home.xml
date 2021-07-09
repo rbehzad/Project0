@@ -6,15 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main_fragments.home.HomeFragment">
 
-    <FrameLayout
-        android:background="#676464"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:menu="@menu/homefragment_menu"
-        app:headerLayout="@layout/navigation_view_header_homefragment"/>
+<!--    <FrameLayout-->
+<!--        android:background="#676464"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--    </FrameLayout>-->
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:menu="@menu/homefragment_menu"-->
+<!--        app:headerLayout="@layout/navigation_view_header_homefragment"/>-->
 
 </androidx.drawerlayout.widget.DrawerLayout>

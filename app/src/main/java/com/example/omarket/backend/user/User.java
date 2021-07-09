@@ -2,11 +2,15 @@ package com.example.omarket.backend.user;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.example.omarket.backend.handlers.validators.UserInfoValidator;
 import com.example.omarket.backend.response.Response;
 import com.example.omarket.backend.handlers.exepstions.ExceptionChecker;
 
-public class User {
+import org.jetbrains.annotations.NotNull;
+
+public class User extends CloneNotSupportedException{
     private static User currentLoginUser;
 
 
@@ -87,4 +91,10 @@ public class User {
         return currentLoginUser;
     }
 
+    @NonNull
+    @NotNull
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
