@@ -2,7 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group>
-        <item>
+        <item
+            android:title="Category">
                 <item
                     android:id="@+id/Electronicsid"
                     android:title="Electronics" >
@@ -31,8 +32,11 @@
 
     <group>
         <item
-            android:title="product">
+            android:title="Product">
         <menu>
+        <item
+            android:title="Sale of Goods"
+            android:id="saleofgoodsid"/>
         <item
             android:title="My Product"
             android:id="@+id/myproductid" />
