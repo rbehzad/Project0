@@ -7,7 +7,7 @@
     tools:context=".ui.main_fragments.home.HomeFragment">
 
     <FrameLayout
-        android:background="#E8E6E6"
+        android:background="#F1EEEE"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <SearchView
@@ -15,11 +15,11 @@
             android:layout_width="340dp"
             android:layout_height="40dp"
             android:layout_margin="30dp"
-            android:background="#F1EEEE"
+            android:background="#D1D0D0"
             android:queryHint="search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/nav_host_fragment" />
+            app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"/>
         <LinearLayout
             android:layout_width="@dimen/normalWidth"
             android:layout_height="600dp"
