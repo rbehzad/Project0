@@ -10,7 +10,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="290dp"
-        android:layout_height="160dp"
+        android:layout_height="190dp"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -22,6 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="Information"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textColor="@color/blue"
+                android:textSize="20dp"
+                android:layout_marginLeft="86dp"/>
 
             <TextView
                 android:id="@+id/dashboardTextview1"
@@ -45,10 +54,10 @@
                 android:id="@+id/dashboardTextview3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:padding="10dp"
                 android:text="phoneNumber"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:padding="10dp" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </LinearLayout>
 
@@ -99,7 +108,8 @@
             android:text="Rules"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/dashboardTextview5"
             android:layout_width="match_parent"
@@ -107,7 +117,8 @@
             android:text="contact us:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/dashboardTextview6"
             android:layout_width="match_parent"
@@ -115,7 +126,8 @@
             android:text="       sh.sarafrazi80@gmail.com"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textColor="#492D19"/>
         <TextView
             android:id="@+id/dashboardTextview7"
             android:layout_width="match_parent"
@@ -123,7 +135,8 @@
             android:text="       rbehzad1001@gmail.com"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textColor="#467666"/>
 
     </LinearLayout>
 
