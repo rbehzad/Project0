@@ -3,8 +3,7 @@
 
     <group>
         <item
-            android:title="Category"
-            android:textColor="@color/blue">
+            android:title="Category">
                 <item
                     android:id="@+id/Electronicsid"
                     android:title="Electronics" >

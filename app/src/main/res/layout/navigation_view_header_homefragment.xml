@@ -10,6 +10,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:textAppearance="?attr/textAppearanceHeadline6"
-        android:text="Category" />
+        android:text="Category"
+        android:textColor="#0576AA"/>
 
 </LinearLayout>
