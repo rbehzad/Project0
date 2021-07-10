@@ -6,15 +6,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main_fragments.home.HomeFragment">
 
-<!--    <FrameLayout-->
-<!--        android:background="#676464"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--    </FrameLayout>-->
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:menu="@menu/homefragment_menu"-->
-<!--        app:headerLayout="@layout/navigation_view_header_homefragment"/>-->
+    <FrameLayout
+        android:background="#676464"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="340dp"
+            android:layout_height="40dp"
+            android:layout_margin="35dp"
+            android:background="#F1EEEE"
+            android:queryHint="search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/nav_host_fragment" />
+        <LinearLayout
+            android:layout_width="@dimen/normalWidth"
+            android:layout_height="600dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="35dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </FrameLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/homefragment_menu"
+        app:headerLayout="@layout/navigation_view_header_homefragment"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -3,7 +3,8 @@
 
     <group>
         <item
-            android:title="Category">
+            android:title="Category"
+            android:textColor="@color/blue">
                 <item
                     android:id="@+id/Electronicsid"
                     android:title="Electronics" >
@@ -32,7 +33,9 @@
 
     <group>
         <item
-            android:title="Product">
+            android:title="Product"
+            android:textColor="@color/blue"
+            android:textSize="15dp">
         <menu>
         <item
             android:title="Sale of Goods" />
