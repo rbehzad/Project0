@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.ui.main_fragments.Color;
@@ -34,7 +35,11 @@ public class HomeFragment extends NavigationFragment {
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home,container,false);
+        View view =  inflater.inflate(R.layout.fragment_home, container,false);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+        HomeAdapter homeAdapter = new HomeAdapter();
+        recyclerView.setAdapter(homeAdapter);
+        return view;
     }
 
     @Override
@@ -42,6 +47,5 @@ public class HomeFragment extends NavigationFragment {
         super.onDestroy();
         saveCommand.execute();
     }
-
 
 }
