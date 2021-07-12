@@ -20,15 +20,14 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
 
     private List<Product> products;
-    HomeAdapter(List<Product> products) {
-        this.products = products;
-    }
+
+    HomeAdapter(List<Product> products) { this.products = products; }
     @NonNull
     @NotNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home, parent, false);
+                .inflate(R.layout.layout_home, parent, false);
         return new HomeViewHolder(view);
     }
 
@@ -41,19 +40,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public int getItemCount() {
         return products.size();
     }
-    TextView titleTextView, dueTextView;
+    TextView titleTextView, priceTextView;
 
     class HomeViewHolder extends RecyclerView.ViewHolder {
         View view;
         public HomeViewHolder(@NonNull@NotNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.text_view_title);
-            dueTextView = itemView.findViewById(R.id.text_view_due);
+            priceTextView = itemView.findViewById(R.id.text_view_price);
             view = itemView;
         }
         public void bind(Product product) {
             titleTextView.setText(product.name);
-            titleTextView.setText(product.name);
+            priceTextView.setText(product.price);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card

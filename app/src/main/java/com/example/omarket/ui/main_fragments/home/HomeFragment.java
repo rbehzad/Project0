@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
@@ -20,6 +21,7 @@ import com.example.omarket.ui.NavigationFragment;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,9 +38,13 @@ public class HomeFragment extends NavigationFragment {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
-        List<Product> products = null; // get from server
+        List<Product> products = new ArrayList<>(); // get from server
+        for(int i=0 ;i<20; ++i) {
+            products.add(new Product("oven", "20,000", "11111", "mike", "0921", "image", "info"));
+        }
         HomeAdapter homeAdapter = new HomeAdapter(products);
         recyclerView.setAdapter(homeAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
     }
 
