@@ -30,18 +30,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"/>
         </androidx.appcompat.widget.Toolbar>
-        <LinearLayout
-            android:layout_width="@dimen/normalWidth"
-            android:layout_height="600dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:layout_marginLeft="30dp">
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical"
+            app:cardCornerRadius="13dp"
+            android:elevation="8dp">
             
-         <androidx.recyclerview.widget.RecyclerView
-             android:id="@+id/recyclerview"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="30dp">
+                <TextView
+                    android:id="@+id/text_view_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="ex"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
+                <TextView
+                    android:id="@+id/text_view_due"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="ex"/>
+            </LinearLayout>
 
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </FrameLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

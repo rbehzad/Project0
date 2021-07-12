@@ -14,10 +14,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
+import com.example.omarket.backend.product.Product;
 import com.example.omarket.ui.main_fragments.Color;
 import com.example.omarket.ui.NavigationFragment;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 
 public class HomeFragment extends NavigationFragment {
@@ -33,7 +36,8 @@ public class HomeFragment extends NavigationFragment {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
-        HomeAdapter homeAdapter = new HomeAdapter();
+        List<Product> products = null; // get from server
+        HomeAdapter homeAdapter = new HomeAdapter(products);
         recyclerView.setAdapter(homeAdapter);
         return view;
     }
