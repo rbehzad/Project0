@@ -21,10 +21,7 @@ public class SettingsFragment extends NavigationFragment {
         super();
     }
 
-    @Override
-    public void changeIconColorTo(Color color) {
 
-    }
 
     @Nullable
     @org.jetbrains.annotations.Nullable

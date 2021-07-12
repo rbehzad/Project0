@@ -27,10 +27,6 @@ public class DashboardFragment extends NavigationFragment {
         super();
     }
 
-    @Override
-    public void changeIconColorTo(Color color) {
-
-    }
 
 
     @Nullable

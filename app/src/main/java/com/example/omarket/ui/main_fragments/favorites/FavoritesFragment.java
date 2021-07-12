@@ -21,11 +21,6 @@ public class FavoritesFragment extends NavigationFragment {
         super();
     }
 
-    @Override
-    public void changeIconColorTo(Color color) {
-
-    }
-
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
