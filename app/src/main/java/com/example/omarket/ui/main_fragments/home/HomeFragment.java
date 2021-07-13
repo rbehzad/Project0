@@ -34,7 +34,7 @@ public class HomeFragment extends NavigationFragment {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
-        List<Product> products = new ArrayList<>(); // get from server
+        List<Product> products = new ArrayList<>(); // get from server TODO
         for(int i=0 ;i<20; ++i) {
             products.add(new Product("oven", "20,000", "11111", "mike", "0921", "image", "info"));
         }

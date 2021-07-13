@@ -1,4 +1,4 @@
-package com.example.omarket.ui.main_fragments.home;
+package com.example.omarket.ui.main_fragments.favorites;
 
 import android.app.admin.SystemUpdatePolicy;
 import android.view.LayoutInflater;
@@ -11,29 +11,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.ui.main_fragments.products.ProductsFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.> {
 
     private List<Product> products;
 
-    HomeAdapter(List<Product> products) { this.products = products; }
+    FavoriteAdapter(List<Product> products) { this.products = products; }
     @NonNull
     @NotNull
     @Override
-    public HomeViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public FavoriteViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_home, parent, false);
-        return new HomeViewHolder(view);
+                .inflate(R.layout.layout_favorite, parent, false);
+        return new FavoriteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull HomeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull FavoriteViewHolder holder, int position) {
         holder.bind(products.get(position));
     }
+
 
     @Override
     public int getItemCount() {
@@ -41,9 +43,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     }
     TextView titleTextView, priceTextView;
 
-    class HomeViewHolder extends RecyclerView.ViewHolder {
+    class FavoriteViewHolder extends RecyclerView.ViewHolder {
         View view;
-        public HomeViewHolder(@NonNull@NotNull View itemView) {
+        public FavoriteViewHolder(@NonNull@NotNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.text_view_title);
             priceTextView = itemView.findViewById(R.id.text_view_price);
