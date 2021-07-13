@@ -23,10 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class DashboardFragment extends NavigationFragment {
     private static final int PICK_IMAGE = 100;
-    public DashboardFragment() {
-        super();
-    }
-
 
 
     @Nullable

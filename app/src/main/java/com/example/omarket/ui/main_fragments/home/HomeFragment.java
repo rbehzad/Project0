@@ -27,10 +27,6 @@ import java.util.List;
 
 public class HomeFragment extends NavigationFragment {
 
-    public HomeFragment() {
-        super();
-    }
-
 
     @Nullable
     @org.jetbrains.annotations.Nullable

@@ -17,10 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class ProductsFragment extends NavigationFragment {
 
-    public ProductsFragment() {
-        super();
-    }
-
 
     @Nullable
     @org.jetbrains.annotations.Nullable

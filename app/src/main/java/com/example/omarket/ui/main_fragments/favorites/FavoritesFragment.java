@@ -17,9 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class FavoritesFragment extends NavigationFragment {
 
-    public FavoritesFragment() {
-        super();
-    }
 
     @Nullable
     @org.jetbrains.annotations.Nullable

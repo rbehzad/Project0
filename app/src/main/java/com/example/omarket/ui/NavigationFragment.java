@@ -9,7 +9,7 @@ import com.example.omarket.backend.handlers.commands.SaveCommand;
 import com.example.omarket.ui.main_fragments.Color;
 
 public abstract class NavigationFragment extends Fragment {
-    protected SaveCommand saveCommand;
+    protected SaveCommand saveCommand = SaveCommand.getInstance();
 
     public void navigateFromViewTo(View view , int id){
         Navigation.findNavController(view).navigate(id);

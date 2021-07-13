@@ -17,11 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class SettingsFragment extends NavigationFragment {
 
-    public SettingsFragment() {
-        super();
-    }
-
-
 
     @Nullable
     @org.jetbrains.annotations.Nullable
