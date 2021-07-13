@@ -8,7 +8,7 @@
     tools:context=".ui.main_fragments.home.HomeFragment">
 
     <FrameLayout
-        android:background="#F1EEEE"
+        android:background="#C5C3C3"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar
@@ -34,9 +34,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="57dp"
-            android:layout_marginBottom="60dp">
+            android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
     <com.google.android.material.navigation.NavigationView

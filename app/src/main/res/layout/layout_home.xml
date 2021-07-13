@@ -3,9 +3,9 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="8dp"
+    android:elevation="5dp"
     android:orientation="vertical"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardCornerRadius="5dp"
     android:layout_marginTop="57dp"
     android:layout_marginBottom="60dp">
     <FrameLayout
@@ -15,28 +15,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="30dp">
+            android:padding="8dp"
+            android:layout_margin="10dp">
             <TextView
                 android:id="@+id/text_view_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:text="Oven"
-                android:textColor="@color/white"/>
+                android:textColor="@color/blue"/>
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="10dp"/>
             <TextView
                 android:id="@+id/text_view_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:textColor="@color/blue"
                 android:text="20,000"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue"/>
+            android:background="@color/white"/>
     </FrameLayout>
 
 </androidx.cardview.widget.CardView>
