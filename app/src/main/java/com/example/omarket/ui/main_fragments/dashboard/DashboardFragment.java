@@ -34,7 +34,6 @@ public class DashboardFragment extends NavigationFragment {
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        appCompatActivity = new AppCompatActivity();
         return inflater.inflate(R.layout.fragment_dashboard,container,false);
     }
 
@@ -43,6 +42,7 @@ public class DashboardFragment extends NavigationFragment {
     //////////////////////////////////////
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appCompatActivity = new AppCompatActivity();
         appCompatActivity.setContentView(R.layout.fragment_dashboard);
         Button buttonLoadImage = (Button) view.findViewById(R.id.btnChangeImage);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
