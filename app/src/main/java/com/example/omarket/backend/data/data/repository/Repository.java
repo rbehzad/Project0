@@ -1,5 +1,6 @@
   package com.example.omarket.backend.data.data.repository;
 
+  import com.example.omarket.backend.application.MyApplication;
   import com.example.omarket.backend.data.data.entities.Product;
   import com.example.omarket.backend.data.data.entities.User;
 
@@ -22,12 +23,28 @@
     }
     //////////
     // get all user
-    public List<User> getAllUsers() {
-        return localDataSource.getAllUsers();
+    public void getAllUsers(RepositoryCallback<List<User>> callback) {
+        MyApplication.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<User> users = localDataSource.getAllUsers();
+                    callback.onComplete();
+                } catch (Exception e) {
+
+                }
+            }
+        });
+
     }
     // save new user
     public void insertUser(int id, String name, String emailAddress, String password, String phoneNumber, String userType) {
-        localDataSource.insertUser(id, name, emailAddress, password, phoneNumber, userType);
+        MyApplication.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                localDataSource.insertUser(id, name, emailAddress, password, phoneNumber, userType);
+            }
+        });
     }
     // search a user by its emailAddress
     public User searchUser(String userEmailAddress) {

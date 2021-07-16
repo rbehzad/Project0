@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.example.server.data.AppDataBase;
+import com.example.omarket.backend.data.data.AppDataBase;
 import com.example.omarket.backend.data.data.entities.Product;
 import com.example.omarket.backend.data.data.entities.User;
 

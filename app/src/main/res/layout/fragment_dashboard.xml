@@ -107,8 +107,7 @@
         android:text="Load Image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:onClick="loadImage"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"

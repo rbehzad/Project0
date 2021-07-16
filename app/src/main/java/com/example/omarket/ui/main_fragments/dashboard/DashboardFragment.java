@@ -40,7 +40,7 @@ public class DashboardFragment extends NavigationFragment {
     }
     private static int RESULT_LOAD_IMAGE = 1;
     View view;
-    //////////////////////////////////////
+    /*
     public void loadImage(View view) {
         Intent i = new Intent(
                 Intent.ACTION_PICK,
@@ -60,7 +60,7 @@ public class DashboardFragment extends NavigationFragment {
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
-    }  */
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == appCompatActivity.RESULT_OK && null != data) {
@@ -76,7 +76,7 @@ public class DashboardFragment extends NavigationFragment {
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
-/////////////////////////////////////////
+*/
     @Override
     public void onDestroy() {
         super.onDestroy();
