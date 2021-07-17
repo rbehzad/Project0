@@ -1,5 +1,7 @@
   package com.example.omarket.backend.data.data.repository;
 
+  import android.content.Context;
+
   import com.example.omarket.backend.application.MyApplication;
   import com.example.omarket.backend.data.data.entities.Product;
   import com.example.omarket.backend.data.data.entities.User;
@@ -7,17 +9,19 @@
   import java.util.List;
 
   public class Repository {
-    private static Repository repository = new Repository();
+    private static Repository repository;
 
     private LocalDataSource localDataSource;
     private RemoteDataSource remoteDataSource;
 
-    private Repository() {
+    private Repository(Context context) {
+        localDataSource = new LocalDataSource(context);
+        remoteDataSource = new RemoteDataSource();
     }
 
-    public static Repository getInstance() {
+    public static Repository getInstance(Context context) {
         if(repository==null) {
-            repository = new Repository();
+            repository = new Repository(context);
         }
         return repository;
     }
@@ -29,20 +33,26 @@
             public void run() {
                 try {
                     List<User> users = localDataSource.getAllUsers();
-                    callback.onComplete();
+                    callback.onComplete(new Result.Success<>(users));
                 } catch (Exception e) {
-
+                    callback.onComplete(new Result.Error<>(e));
                 }
             }
         });
 
     }
-    // save new user
-    public void insertUser(int id, String name, String emailAddress, String password, String phoneNumber, String userType) {
+    // insert new user
+    public void insertUser(int id, String name, String emailAddress, String password, String phoneNumber, String userType, RepositoryCallback<Void> callback) {
         MyApplication.executorService.execute(new Runnable() {
             @Override
             public void run() {
-                localDataSource.insertUser(id, name, emailAddress, password, phoneNumber, userType);
+                try {
+                    localDataSource.insertUser(id, name, emailAddress, password, phoneNumber, userType);
+                    callback.onComplete(new Result.Success<>(null));
+                } catch (Exception e) {
+                    callback.onComplete(new Result.Error<>(null));
+                }
+
             }
         });
     }
@@ -52,10 +62,10 @@
     }
     /////////
     // get all product
-    public List<Product> getAllProduct() {
+    public List<Product> getAllProduct(RepositoryCallback<List<com.example.omarket.backend.user.User>> error) {
         return localDataSource.getAllProducts();
     }
-    // save new product
+    // insert new product
     public void insertProduct(int id, String name, String info, String imagePath, String sellerName, String sellerId) {
         localDataSource.insertProduct(id, name, info, imagePath, sellerName, sellerId);
     }
@@ -63,4 +73,4 @@
     public Product searchProduct(String productName) {
         return localDataSource.searchProduct(productName);
     }
-}
+  }

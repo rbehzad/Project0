@@ -10,6 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.omarket.R;
+import com.example.omarket.backend.data.data.entities.User;
+import com.example.omarket.backend.data.data.repository.Repository;
+import com.example.omarket.backend.data.data.repository.RepositoryCallback;
+import com.example.omarket.backend.data.data.repository.Result;
 import com.example.omarket.ui.NavigationFragment;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,25 +25,47 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 
 import android.provider.MediaStore;
+import android.widget.TextView;
 
+import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 
 public class DashboardFragment extends NavigationFragment {
-    private static final int PICK_IMAGE = 100;
-    Button button;
-    ImageView image;
-    AppCompatActivity appCompatActivity;
+ //   private static final int PICK_IMAGE = 100;
+//    Button button;
+//    ImageView image;
+    View view;
+//    AppCompatActivity appCompatActivity;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        appCompatActivity = new AppCompatActivity();
+//        appCompatActivity = new AppCompatActivity();
         View view =  inflater.inflate(R.layout.fragment_dashboard,container,false);
+        TextView textViewName = view.findViewById(R.id.dashboardTextview1);
+        TextView textViewEmail = view.findViewById(R.id.dashboardTextview2);
+        TextView textViewPhone = view.findViewById(R.id.dashboardTextview3);
+        Repository.getInstance(getContext()).getAllUsers(new RepositoryCallback<List<User>>() {
+            @Override
+            public void onComplete(Result<List<User>> result) {
+                if(result instanceof Result.Success) {
+                    textViewName.setText(((Result.Success<List<User>>) result).data.get(0).name);
+                    textViewEmail.setText(((Result.Success<List<User>>) result).data.get(0).emailAddress);
+                    textViewPhone.setText(((Result.Success<List<User>>) result).data.get(0).phoneNumber);
+                }
+                else if(result instanceof Result.Error) {
+                    textViewName.setText("Error");
+                    textViewEmail.setText("Error");
+                    textViewPhone.setText("Error");
+                }
+            }
+        });
         return view;
     }
-    private static int RESULT_LOAD_IMAGE = 1;
-    View view;
+//    private static int RESULT_LOAD_IMAGE = 1;
+
     /*
     public void loadImage(View view) {
         Intent i = new Intent(

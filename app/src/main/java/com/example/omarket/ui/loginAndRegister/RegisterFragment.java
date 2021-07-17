@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.omarket.R;
+import com.example.omarket.backend.data.data.repository.Repository;
+import com.example.omarket.backend.data.data.repository.RepositoryCallback;
+import com.example.omarket.backend.data.data.repository.Result;
+import com.example.omarket.backend.user.User;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,10 +45,19 @@ public class RegisterFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             }
         });
+        // insert a new user in client database
+        RepositoryCallback<Void> callback = new RepositoryCallback<Void>() {
+            @Override
+            public void onComplete(Result<Void> result) {
+                if(result instanceof Result.Success) {
+                    Toast.makeText(getActivity().getApplicationContext(),  "success", Toast.LENGTH_LONG);
+                }
+            }
+        };
+        Repository.getInstance(getActivity().getApplicationContext()).insertUser(
+                1, "mike", "mike@gmail.com", "mike123", "+921", "USER",  callback);
+        Repository.getInstance(getActivity().getApplicationContext()).insertUser(
+                2, "ali", "ali@gmail.com", "ali123", "+914", "USER",  callback);//
         return view;
     }
-
-
-
-
 }

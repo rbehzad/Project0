@@ -23,7 +23,7 @@ public interface ProductDao {
     // get all product
     @Query("SELECT * FROM Product")
     List<Product> getAll();
-    // save products
+    // insert products
     @Insert
     void insertAll(Product...products);
     // delete products
