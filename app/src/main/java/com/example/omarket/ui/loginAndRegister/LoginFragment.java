@@ -222,20 +222,20 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 
     private void login(View v) {
         updateInput();
-        if (!emailValidator.validate(currentUser).success
-                || !passwordValidator.validate(currentUser).success) {
-            loginFailedAction();
-            return;
-        }
-
-        currentUser = login.login(currentUser);
-        if (currentUser != null) {
-            setDefaultConfig();
-            navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
-        } else {
-            loginFailedAction();
-        }
-
+//        if (!emailValidator.validate(currentUser).success
+//                || !passwordValidator.validate(currentUser).success) {
+//            loginFailedAction();
+//            return;
+//        }
+//
+//        currentUser = login.login(currentUser);
+//        if (currentUser != null) {
+//            setDefaultConfig();
+//            navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
+//        } else {
+//            loginFailedAction();
+//        }
+        navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
 
     }
 
