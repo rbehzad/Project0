@@ -50,13 +50,13 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onComplete(Result<Void> result) {
                 if(result instanceof Result.Success) {
-                    Toast.makeText(getActivity().getApplicationContext(),  "success", Toast.LENGTH_LONG);
+                    Toast.makeText(getContext().getApplicationContext(),  "success", Toast.LENGTH_LONG);
                 }
             }
         };
-        Repository.getInstance(getActivity().getApplicationContext()).insertUser(
+        Repository.getInstance(getContext().getApplicationContext()).insertUser(
                 1, "mike", "mike@gmail.com", "mike123", "+921", "USER",  callback);
-        Repository.getInstance(getActivity().getApplicationContext()).insertUser(
+        Repository.getInstance(getContext().getApplicationContext()).insertUser(
                 2, "ali", "ali@gmail.com", "ali123", "+914", "USER",  callback);//
         return view;
     }
