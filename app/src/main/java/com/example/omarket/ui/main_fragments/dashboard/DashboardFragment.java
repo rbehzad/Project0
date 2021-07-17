@@ -56,7 +56,7 @@ public class DashboardFragment extends NavigationFragment {
                     textViewPhone.setText(((Result.Success<List<User>>) result).data.get(0).phoneNumber);
                 }
                 else if(result instanceof Result.Error) {
-                    textViewName.setText("Error");
+                    textViewName.setText(((Result.Error<List<User>>) result).exception.toString());
                     textViewEmail.setText("Error");
                     textViewPhone.setText("Error");
                 }
