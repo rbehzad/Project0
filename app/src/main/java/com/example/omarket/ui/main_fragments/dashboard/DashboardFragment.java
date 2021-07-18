@@ -82,7 +82,8 @@ public class DashboardFragment extends NavigationFragment {
             public void onClick(View arg0) {
                 Intent i = new Intent(
                         Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                );
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });

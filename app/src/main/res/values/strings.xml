@@ -24,7 +24,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="login_image">Login image</string>
     <string name="loginFragment">loginFragment</string>
-    
+
     <!-- save user information in google sign in  -->
     <string name="profile_file_key">profile file key</string>
     <string name="name_key">name key</string>
@@ -33,4 +33,9 @@
 
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">Description</string>
+    <string name="information">Information</string>
+    <string name="product_image">Product Image</string>
 </resources>
