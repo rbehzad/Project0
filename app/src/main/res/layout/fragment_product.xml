@@ -24,44 +24,112 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/fragment_description_textView_title"
+            android:layout_width="@dimen/normalWidth"
+            android:layout_height="wrap_content"
+            android:background="@drawable/normal_text_background"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:padding="@dimen/paddingDrawable"
+            android:text="@string/title"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:textColor="@color/textGreenToBlack"
+            android:textSize="@dimen/xlargeTextSize"
+            app:drawableLeftCompat="@drawable/ic_baseline_title_24"
+            app:drawableStartCompat="@drawable/ic_baseline_title_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_fragment_image_view_product" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/product_fragment_tabLayout"
+        <TextView
+            android:id="@+id/fragment_description_textView_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_fragment_image_view_product">
+            android:layout_marginTop="@dimen/normalMargin"
+            android:background="@drawable/normal_text_background"
+            android:drawableStart="@drawable/ic_baseline_description_24"
+            android:drawableLeft="@drawable/ic_baseline_description_24"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/description"
+            android:textColor="@color/textGreenToBlack"
+            android:textSize="@dimen/xlargeTextSize"
+            app:drawableLeftCompat="@drawable/ic_baseline_description_24"
+            app:drawableStartCompat="@drawable/ic_baseline_description_24"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_description_textView_title"
+            app:layout_constraintStart_toStartOf="@+id/fragment_description_textView_title"
+            app:layout_constraintTop_toBottomOf="@id/fragment_description_textView_title"
+            tools:ignore="UseCompatTextViewDrawableXml" />
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/product_view_tab_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/product_view_tab_information"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/information" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/product_fragment_tab_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit"
-                android:visibility="gone"/>
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/product_fragment_view_pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <TextView
+            android:id="@+id/fragment_description_textView_cost"
+            android:layout_width="@dimen/normalWidth"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:background="@drawable/normal_text_background"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/cost"
+            android:textSize="@dimen/xlargeTextSize"
+            android:textColor="@color/textGreenToBlack"
+            app:drawableLeftCompat="@drawable/ic_baseline_attach_money_24"
+            app:drawableStartCompat="@drawable/ic_baseline_attach_money_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_fragment_tabLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_description_textView_description"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <TextView
+            android:id="@+id/fragment_information_textView_full_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:background="@drawable/normal_text_background"
+            android:drawableStart="@drawable/ic_baseline_person_colored_24"
+            android:drawableLeft="@drawable/ic_baseline_person_colored_24"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/full_name"
+            android:textColor="@color/textGreenToBlack"
+            android:textSize="@dimen/xlargeTextSize"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_description_textView_cost"
+            app:layout_constraintStart_toStartOf="@+id/fragment_description_textView_cost"
+            app:layout_constraintTop_toBottomOf="@id/fragment_description_textView_cost"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TextView
+            android:id="@+id/fragment_information_textView_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:background="@drawable/normal_text_background"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawableLeft="@drawable/ic_baseline_email_24"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/email_address"
+            android:textColor="@color/textGreenToBlack"
+            android:textSize="@dimen/xlargeTextSize"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_information_textView_full_name"
+            app:layout_constraintStart_toStartOf="@+id/fragment_information_textView_full_name"
+            app:layout_constraintTop_toBottomOf="@id/fragment_information_textView_full_name"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TextView
+            android:id="@+id/fragment_information_textView_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/normal_text_background"
+            android:drawableStart="@drawable/ic_baseline_local_phone_colored_24"
+            android:drawableLeft="@drawable/ic_baseline_local_phone_colored_24"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/phone_number"
+            android:textColor="@color/textGreenToBlack"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:textSize="@dimen/xlargeTextSize"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_information_textView_email"
+            app:layout_constraintStart_toStartOf="@+id/fragment_information_textView_email"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_information_textView_email"
+            tools:ignore="UseCompatTextViewDrawableXml" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
