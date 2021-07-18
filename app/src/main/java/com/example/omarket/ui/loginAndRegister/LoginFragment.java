@@ -235,7 +235,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 //        } else {
 //            loginFailedAction();
 //        }
-        navigateFromViewTo(v, R.id.action_loginFragment_to_productFragment);
+        navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
 
     }
 
