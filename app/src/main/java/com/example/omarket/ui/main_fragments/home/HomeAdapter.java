@@ -57,7 +57,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_productFragment);
+          //          Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_productFragment);
           //          navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);
 
                 }

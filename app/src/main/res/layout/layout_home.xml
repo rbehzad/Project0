@@ -23,7 +23,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:text="Oven"
-                android:textColor="@color/blue"/>
+                android:textColor="@color/blue"
+                />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>

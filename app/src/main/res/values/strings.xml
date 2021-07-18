@@ -42,4 +42,7 @@
     <string name="title">Title</string>
     <string name="edit">Edit</string>
     <string name="registerFragment" />
+
+    <string name="hello">Hello World, ImageGalleryDemoActivity!</string>
+    <string name="OMarket">ImageGalleryDemo</string>
 </resources>
