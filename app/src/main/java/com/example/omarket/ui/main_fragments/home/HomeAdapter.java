@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
@@ -52,12 +53,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         public void bind(Product product) {
             titleTextView.setText(product.name);
             priceTextView.setText(product.price);
+            // switch fragment(home ==> product)
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
+                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_productFragment);
+          //          navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);
 
                 }
             });
         }
+        
+
+    }
+    public interface onProductListener {
+        void onProductClick(int position);
     }
 }

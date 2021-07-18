@@ -23,8 +23,8 @@ public class LocalDataSource {
         return db.userDao().getAll();
     }
     // save new user
-    public void insertUser(int id, String name, String emailAddress, String password, String phoneNumber, String userType) {
-        db.userDao().insert(id, name, emailAddress, password, phoneNumber, userType);
+    public void insertUser(String name, String emailAddress, String password, String phoneNumber, String userType) {
+        db.userDao().insert(name, emailAddress, password, phoneNumber, userType);
     }
     // search a user by its emailAddress
     public User searchUser(String userEmailAddress) {

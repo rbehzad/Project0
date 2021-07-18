@@ -17,21 +17,40 @@
             android:id="@+id/action_loginFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
 
+
     </fragment>
 
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.omarket.ui.loginAndRegister.RegisterFragment"
-        android:label="@string/loginFragment"
+        android:label="@string/registerFragment"
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.omarket.ui.main_fragments.MainActivity"
         android:label="MainActivity" />
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.omarket.ui.main_fragments.home.HomeFragment"
+        android:label="homeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@id/productFragment"
+        android:name="com.example.omarket.ui.productFragment.ProductFragment"
+        android:label="productFragment"
+        tools:layout="@layout/fragment_product"/>
 
 
 </navigation>
