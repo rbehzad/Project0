@@ -11,6 +11,17 @@ import android.view.ViewGroup;
 import com.example.omarket.R;
 public class EditFragment extends Fragment {
 
+    static private EditFragment editFragment;
+
+    public static EditFragment getInstance() {
+        if (editFragment != null){
+            return editFragment;
+        }
+        else {
+            editFragment = new EditFragment();
+            return editFragment;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

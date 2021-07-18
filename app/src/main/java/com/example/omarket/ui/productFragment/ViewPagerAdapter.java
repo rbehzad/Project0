@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 
 import com.example.omarket.ui.productFragment.tabLayoutFragment.DescriptionFragment;
+import com.example.omarket.ui.productFragment.tabLayoutFragment.EditFragment;
 import com.example.omarket.ui.productFragment.tabLayoutFragment.InformationFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +30,8 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return DescriptionFragment.getInstance();
             case 1:
                 return InformationFragment.getInstance();
+            case 2:
+                return EditFragment.getInstance();
             default:
                 return DescriptionFragment.getInstance();
         }
@@ -36,6 +39,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }
