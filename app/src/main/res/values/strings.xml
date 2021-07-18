@@ -38,4 +38,7 @@
     <string name="description">Description</string>
     <string name="information">Information</string>
     <string name="product_image">Product Image</string>
+    <string name="cost">cost</string>
+    <string name="title">Title</string>
+    <string name="edit">Edit</string>
 </resources>

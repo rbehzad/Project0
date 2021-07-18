@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/normalWidth"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="@dimen/normalMargin"
     tools:context=".ui.productFragment.tabLayoutFragment.InformationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/information" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/fragment_information_textView_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:background="@drawable/normal_text_background"
+            android:drawableStart="@drawable/ic_baseline_person_colored_24"
+            android:drawableLeft="@drawable/ic_baseline_person_colored_24"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/full_name"
+            android:textSize="@dimen/xlargeTextSize"
+            android:textColor="@color/textGreenToBlack"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TextView
+            android:id="@+id/fragment_information_textView_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:background="@drawable/normal_text_background"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawableLeft="@drawable/ic_baseline_email_24"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/email_address"
+            android:textSize="@dimen/xlargeTextSize"
+            android:textColor="@color/textGreenToBlack"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TextView
+            android:id="@+id/fragment_information_textView_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:background="@drawable/normal_text_background"
+            android:drawableStart="@drawable/ic_baseline_local_phone_colored_24"
+            android:drawableLeft="@drawable/ic_baseline_local_phone_colored_24"
+            android:drawablePadding="@dimen/paddingDrawable"
+            android:text="@string/phone_number"
+            android:textSize="@dimen/xlargeTextSize"
+            android:textColor="@color/textGreenToBlack"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

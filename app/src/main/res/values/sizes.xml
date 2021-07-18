@@ -12,9 +12,9 @@
 
     <dimen name="smallTextSize">14sp</dimen>
     <dimen name="mediumTextSize">16sp</dimen>
-    <dimen name="largeTextSize">14sp</dimen>
-    <dimen name="xlargeTextSize">14sp</dimen>
-    <dimen name="xxlargeTextSize">14sp</dimen>
+    <dimen name="largeTextSize">18sp</dimen>
+    <dimen name="xlargeTextSize">20sp</dimen>
+    <dimen name="xxlargeTextSize">22sp</dimen>
     <dimen name="loginImageWidth">260dp</dimen>
 
 

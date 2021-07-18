@@ -17,5 +17,6 @@
     <color name="marginLoginText">@color/black</color>
 
     <color name="links_color">@color/blue</color>
-    
+    <color name="textGreenToBlack">#1C4949</color>
+
 </resources>
