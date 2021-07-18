@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/description"
+        android:icon="@drawable/ic_baseline_description_24"
+        android:id="@+id/descriptionFragment" />
+
+    <item
+        android:title="@string/information"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:id="@+id/informationFragment" />
+
+    <item
+        android:title="@string/edit"
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:id="@+id/editFragment" />
+</menu>

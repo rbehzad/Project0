@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
-import com.example.omarket.ui.main_fragments.products.ProductsFragment;
 
 import org.jetbrains.annotations.NotNull;
 
