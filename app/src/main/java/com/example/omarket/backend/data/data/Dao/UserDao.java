@@ -11,8 +11,8 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
-    @Query("INSERT INTO User VALUES(:id, :name, :emailAddress, :password, :phoneNumber, :userType)")
-    void insert(int id, String name, String emailAddress, String password, String phoneNumber, String userType);
+    @Query("INSERT INTO User(name, emailAddress, password, phoneNumber, userType) VALUES(:name, :emailAddress, :password, :phoneNumber, :userType)")
+    void insert(String name, String emailAddress, String password, String phoneNumber, String userType);
 
     // get user info by searching its emailAddress
     @Query("SELECT * FROM User WHERE emailAddress IN (:userEmailAddress) ")

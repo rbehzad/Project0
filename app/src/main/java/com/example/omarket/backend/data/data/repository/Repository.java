@@ -42,12 +42,12 @@
 
     }
     // insert new user
-    public void insertUser(int id, String name, String emailAddress, String password, String phoneNumber, String userType, RepositoryCallback<Void> callback) {
+    public void insertUser(String name, String emailAddress, String password, String phoneNumber, String userType, RepositoryCallback<Void> callback) {
         MyApplication.executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    localDataSource.insertUser(id, name, emailAddress, password, phoneNumber, userType);
+                    localDataSource.insertUser(name, emailAddress, password, phoneNumber, userType);
                     callback.onComplete(new Result.Success<>(null));
                 } catch (Exception e) {
                     callback.onComplete(new Result.Error<>(null));

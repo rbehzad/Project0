@@ -5,21 +5,12 @@
     android:id="@+id/navigation_main_graph"
     app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.example.omarket.ui.main_fragments.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_setting" />
+
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.omarket.ui.main_fragments.favorites.FavoritesFragment"
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
-    <fragment
-        android:id="@+id/productsFragment"
-        android:name="com.example.omarket.ui.main_fragments.products.ProductsFragment"
-        android:label="@string/title_products"
-        tools:layout="@layout/fragment_products" />
 
     <fragment
         android:id="@+id/homeFragment"
