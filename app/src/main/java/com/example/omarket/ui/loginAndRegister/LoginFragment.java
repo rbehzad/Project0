@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.omarket.R;
+import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.handlers.loginlogout.Login;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
 import com.example.omarket.backend.handlers.validators.PasswordValidator;
@@ -32,6 +33,7 @@ import com.example.omarket.backend.user.User;
 import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.Color;
+import com.example.omarket.ui.main_fragments.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -235,7 +237,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 //        } else {
 //            loginFailedAction();
 //        }
-        navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
+//        navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
+        APIHandler.api(getActivity(), "http://192.168.1.54/home/page/");
 
     }
 
