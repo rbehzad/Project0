@@ -10,20 +10,11 @@
                 </item>
 
                 <item
-                    android:id="@+id/Computersid"
-                    android:title="Computers" />
-                <item
                     android:id="@+id/homeid"
                     android:title="Home and Garden" />
                 <item
                     android:id="@+id/fashionid"
                     android:title="Fasion" />
-                <item
-                    android:id="@+id/toysid"
-                    android:title="Toys" />
-                <item
-                    android:id="@+id/sportid"
-                    android:title="Sporting Goods" />
                 <item
                     android:id="@+id/industrialid"
                     android:title="Industrial" />
@@ -36,8 +27,6 @@
             android:textColor="@color/blue"
             android:textSize="15dp">
         <menu>
-        <item
-            android:title="Sale of Goods" />
         <item
             android:title="My Product"
             android:id="@+id/myproductid" />

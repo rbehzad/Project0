@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.ui.productFragment.ProductActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +22,7 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
 
     private List<Product> products;
-
+    ProductActivity selected_fragment;
     HomeAdapter(List<Product> products) { this.products = products; }
     @NonNull
     @NotNull
@@ -57,9 +59,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_productFragment);
-          //          navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);
-
+                    selected_fragment = new ProductActivity();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
                 }
             });
         }

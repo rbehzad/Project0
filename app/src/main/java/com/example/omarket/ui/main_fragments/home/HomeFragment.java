@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.omarket.R;
@@ -20,7 +21,7 @@ import java.util.List;
 
 
 public class HomeFragment extends NavigationFragment {
-    RecyclerView recyclerView;
+    TextView recyclerV;
     View view;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -37,16 +38,7 @@ public class HomeFragment extends NavigationFragment {
         HomeAdapter homeAdapter = new HomeAdapter(products);
         recyclerView.setAdapter(homeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        /*
-        // onclick recycler(switch fragment from fragement_home to fragment_product)
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-       //         Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_productFragment);
-                Intent intent = new Intent(HomeFragment.this, ProductFragment.class);
-            }
-        });
-                */
+        // home ==> add product
 
         return view;
     }
