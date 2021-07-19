@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
+import com.android.volley.RequestQueue;
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.handlers.loginlogout.Login;
@@ -33,7 +37,6 @@ import com.example.omarket.backend.user.User;
 import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.Color;
-import com.example.omarket.ui.main_fragments.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -42,15 +45,21 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class LoginFragment extends NavigationFragment implements View.OnClickListener, View.OnTouchListener {
 
     private View currentView;
     private GoogleSignInClient mGoogleSignInClient;
     private Button loginButton;
-    private TextView register, warningView;
+    public TextView register, warningView;
     private EditText emailText, passwordText;
-
+    private ProgressBar progressBar;
 
     // Validators :
     EmailValidator emailValidator;
@@ -74,6 +83,12 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             });
 
 
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        currentUser = User.getCurrentLoginUser();
+    }
+
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -92,6 +107,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 
         passwordText = currentView.findViewById(R.id.login_edit_text_password);
         passwordText.setOnTouchListener(this);
+
+        progressBar = currentView.findViewById(R.id.login_fragment_progressBar);
 
         warningView = currentView.findViewById(R.id.login_warning_view);
 
@@ -189,25 +206,20 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         setDefaultConfig();
         switch (v.getId()) {
 
-            case R.id.login_edit_text_email_address:
-                if (passwordText.getText() != null
-                        && !"".equals(passwordText.getText().toString().trim())
-                        && passwordText.isInTouchMode()) {
-
-                    if (!passwordValidator.validate(passwordText.getText().toString()).success) {
-                        warningView.setText(passwordValidator.getValidateError());
-                        return false;
-                    }
-                }
-                break;
+//            case R.id.login_edit_text_email_address:
+//                if (passwordText.getText() != null
+//                        && !"".equals(passwordText.getText().toString().trim())
+//                        && passwordText.isInTouchMode()) {
+//
+//                    if (!passwordValidator.validate(passwordText.getText().toString()).success) {
+//                        warningView.setText(passwordValidator.getValidateError());
+//                        return false;
+//                    }
+//                }
+//                break;
 
             case R.id.login_edit_text_password:
-                if (emailText.getText() != null && !"".equals(emailText.getText().toString().trim())) {
-                    if (!emailValidator.validate(emailText.getText().toString()).success) {
-                        warningView.setText(emailValidator.getValidateError());
-                        return false;
-                    }
-                } else {
+                if (emailText.getText() == null || "".equals(emailText.getText().toString().trim())){
                     warningView.setText("Email address can't be empty!");
                     return false;
                 }
@@ -218,7 +230,11 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 
 
     public void setDefaultConfig() {
+        emailText.setHint("Email Address");
+        passwordText.setHint("Password");
         Color.changeViewColor(emailText, R.color.black);
+        Color.changeHintViewColor(emailText, R.color.gray);
+        Color.changeHintViewColor(passwordText, R.color.gray);
         warningView.setText("");
     }
 
@@ -238,8 +254,60 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 //            loginFailedAction();
 //        }
 //        navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
-        APIHandler.api(getActivity(), "http://192.168.1.54/home/page/");
+//        APIHandler.api(getActivity(), "http://192.168.1.54/home/page/");
+        HashMap<String, String> body = new HashMap<>();
+        body.put("email", emailText.getText().toString());
+        body.put("password", passwordText.getText().toString());
+        Thread thread = new Thread() {
+            @SuppressLint("SetTextI18n")
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                APIHandler.loginApi(getActivity(), body);
+                changeVisibilityTo(progressBar, View.INVISIBLE);
+                User user;
+                do {
+                    user = User.getCurrentLoginUser();
+                } while (!user.is_login && user.loginErrors == null);
+                user = User.getCurrentLoginUser();
+                if (user.is_login)
+                    navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
+                try {
+                    JSONArray j;
+                    String email = user.loginErrors.get("email").toString();
+//                    emailText.setText(email);
+                    String password = user.loginErrors.get("password").toString();
+                    if (emailText.getText().toString().trim().equals("") || emailText.getText() == null) {
+                        emailText.setText("");
+                        emailText.setHint(email);
+                    }
+                    else {
+                        warningView.setText(email);
+                    }
+                    viewFailed(emailText);
+                    passwordText.setText("");
+                    passwordText.setHint(password);
+                    viewFailed(passwordText);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        changeVisibilityTo(progressBar, View.VISIBLE);
+        warningView.setText("");
+        thread.start();
 
+
+    }
+
+    public void changeVisibilityTo(View v, int visibility) {
+        v.setVisibility(visibility);
+    }
+
+    private void viewFailed(View v) {
+        Color.changeViewColor(v, R.color.red);
+        Color.changeHintViewColor(v, R.color.red);
+        v.startAnimation(shakeAnimation);
     }
 
     @SuppressLint("SetTextI18n")

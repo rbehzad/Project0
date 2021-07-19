@@ -4,14 +4,22 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.omarket.backend.handlers.validators.UserInfoValidator;
 import com.example.omarket.backend.response.Response;
 import com.example.omarket.backend.handlers.exepstions.ExceptionChecker;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class User extends CloneNotSupportedException{
-    private static User currentLoginUser;
+public class User extends CloneNotSupportedException {
+    private static User currentLoginUser = new User();
+    public String token;
+    public boolean is_login = false;
+    public JSONObject loginErrors;
+    public String body;
+    public boolean is_in_request = true;
 
 
     public String fullName;
@@ -55,6 +63,7 @@ public class User extends CloneNotSupportedException{
         this.userType = userType;
         this.personPhoto = personPhoto;
     }
+
     public User(String fullName, Uri personPhoto, String emailAddress, UserType userType) {// google sign in constructor
         this.fullName = fullName;
         this.emailAddress = emailAddress;
@@ -88,6 +97,9 @@ public class User extends CloneNotSupportedException{
     }
 
     public static User getCurrentLoginUser() {
+        if (currentLoginUser != null)
+            return currentLoginUser;
+        currentLoginUser = new User();
         return currentLoginUser;
     }
 

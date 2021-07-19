@@ -5,7 +5,9 @@ import android.widget.TextView;
 
 public enum Color {
     WHITE(0, "FFFFFF"),
-    BLACK(1, "000000");
+    BLACK(1, "000000"),
+    Default(2,"320000");
+
 
     int id;
     String grb;
@@ -21,6 +23,14 @@ public enum Color {
         if (v instanceof TextView) {
             textView = (TextView) v;
             textView.setTextColor(v.getResources().getColor(id));
+        }
+
+    }
+
+    public static void changeHintViewColor(View v, int id) {
+        if (v instanceof TextView) {
+            textView = (TextView) v;
+            textView.setHintTextColor(v.getResources().getColor(id));
         }
 
     }

@@ -10,6 +10,8 @@
     <color name="blue">#008CCC</color>
     <color name="blue_2f">#4a6572</color>
     <color name="red">#FF0000</color>
+    <color name="gray">#8c92ac</color>
+
 
     <!--  login activity  -->
     <color name="backgroundLoginText">@color/white</color>
@@ -18,5 +20,6 @@
 
     <color name="links_color">@color/blue</color>
     <color name="textGreenToBlack">#1C4949</color>
+
 
 </resources>
