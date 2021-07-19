@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class APIHandler {
 
-    final static String domain = "http://192.168.1.101:8000";
+    final static String domain = "http://192.168.1.101:80";
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
 
