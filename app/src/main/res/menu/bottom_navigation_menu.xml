@@ -18,6 +18,11 @@
         android:icon="@drawable/ic_favorite_white"
         android:id="@+id/favoriteFragment" />
 
+    <item
+        android:title="add product"
+        android:icon="@drawable/ic_favorite_black"
+        android:id="@+id/addProductFragment" />
+
 
 
 </menu>

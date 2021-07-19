@@ -32,15 +32,8 @@ public class addProduct extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+ //       imageView = (ImageView) view.findViewById(R.id.imageView);
 
-        imageView = (ImageView) view.findViewById(R.id.imageView);
-        button = (Button) view.findViewById(R.id.buttonLoadPicture2);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
     }
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -60,6 +53,15 @@ public class addProduct extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_product, container, false);
+
+        button = (Button) view.findViewById(R.id.buttonLoadPicture2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
         return view;
     }
 }
