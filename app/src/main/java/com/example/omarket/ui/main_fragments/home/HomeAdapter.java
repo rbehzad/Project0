@@ -1,14 +1,12 @@
 package com.example.omarket.ui.main_fragments.home;
 
-import android.app.admin.SystemUpdatePolicy;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
@@ -23,6 +21,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     private List<Product> products;
     ProductActivity selected_fragment;
+    FragmentManager fragmentManager;
     HomeAdapter(List<Product> products) { this.products = products; }
     @NonNull
     @NotNull
@@ -59,8 +58,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-                    selected_fragment = new ProductActivity();
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
+    //                selected_fragment = new ProductActivity();
+   //                 fragmentManager = getFragmentManager();
+    //                fragmentManager.beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
+    //                navigateFromViewTo(getView(), R.id.);
                 }
             });
         }

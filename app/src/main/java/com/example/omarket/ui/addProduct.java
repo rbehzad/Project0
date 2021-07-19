@@ -2,12 +2,8 @@ package com.example.omarket.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.omarket.R;
 
 
-public class fragment_addProduct extends Fragment {
+public class addProduct extends Fragment {
     private static int RESULT_LOAD_IMAGE = 1;
     View view;
     ImageView imageView;
@@ -26,7 +24,7 @@ public class fragment_addProduct extends Fragment {
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
 
-    public fragment_addProduct() {
+    public addProduct() {
         // Required empty public constructor
     }
 
@@ -35,8 +33,8 @@ public class fragment_addProduct extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        imageView = (ImageView)view.findViewById(R.id.imageView);
-        button = (Button)view.findViewById(R.id.buttonLoadPicture2);
+        imageView = (ImageView) view.findViewById(R.id.imageView);
+        button = (Button) view.findViewById(R.id.buttonLoadPicture2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +59,7 @@ public class fragment_addProduct extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-            View view = inflater.inflate(R.layout.fragment_add_product, container, false);
-            return view;
+        View view = inflater.inflate(R.layout.fragment_add_product, container, false);
+        return view;
     }
 }
