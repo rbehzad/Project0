@@ -60,7 +60,6 @@ public class APIHandler {
                 if (error.networkResponse.data != null) {
                     body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                 }
-                Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                 try {
                     if (body != null)
                         User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject(body);

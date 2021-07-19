@@ -138,10 +138,13 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
                     user = User.getCurrentLoginUser();
                 } while (!user.is_login && user.loginOrRgisterErrors == null);
                 user = User.getCurrentLoginUser();
-                if (user.is_login)
+                if (user.is_login) {
                     navigateFromViewTo(getView(), R.id.action_registerFragment_to_mainActivity);
+                    return;
+                }
+
                 try {
-                    JSONArray j;
+                    JSONArray j = null;
                     String email = user.loginOrRgisterErrors.get("email").toString();
 //                    emailText.setText(email);
                     String password = user.loginOrRgisterErrors.get("password").toString();
@@ -155,6 +158,10 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
                     passwordText.setText("");
                     passwordText.setHint(password);
                     viewFailed(passwordText);
+                    if ((emailText.getText().toString().trim().equals("") || emailText.getText() == null)&&
+                    (passwordText.getText().toString().trim().equals("") || passwordText.getText() == null)){
+                        Toast.makeText(getActivity(), j.toString(), Toast.LENGTH_LONG);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

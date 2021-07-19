@@ -265,8 +265,10 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                     user = User.getCurrentLoginUser();
                 } while (!user.is_login && user.loginOrRgisterErrors == null);
                 user = User.getCurrentLoginUser();
-                if (user.is_login)
+                if (user.is_login) {
                     navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
+                    return;
+                }
                 try {
                     JSONArray j;
                     String email = user.loginOrRgisterErrors.get("email").toString();
