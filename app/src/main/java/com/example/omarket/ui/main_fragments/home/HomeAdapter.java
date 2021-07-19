@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.productFragment.ProductActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
-
+    NavigationFragment navigationFragment;
     private List<Product> products;
     ProductActivity selected_fragment;
     FragmentManager fragmentManager;
@@ -58,10 +59,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-    //                selected_fragment = new ProductActivity();
-   //                 fragmentManager = getFragmentManager();
-    //                fragmentManager.beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
-    //                navigateFromViewTo(getView(), R.id.);
+                    navigationFragment = new NavigationFragment() {
+                        @Override
+                        public void navigateFromViewTo(View view, int id) {
+                            super.navigateFromViewTo(view, id);
+                        }
+                    };
+                    navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);//
+
+     /*              selected_fragment = new ProductActivity();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
+                    navigateFromViewTo(getView(), R.id.);        */
                 }
             });
         }

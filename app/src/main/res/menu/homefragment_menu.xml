@@ -25,7 +25,7 @@
         <item
             android:title="Product"
             android:textColor="@color/blue"
-            android:textSize="15dp">
+            android:textSize="15dp" >
         <menu>
         <item
             android:title="My Product"
