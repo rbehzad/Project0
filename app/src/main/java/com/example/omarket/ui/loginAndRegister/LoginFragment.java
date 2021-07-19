@@ -215,7 +215,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 //                break;
 
             case R.id.login_edit_text_password:
-                if (emailText.getText() == null || "".equals(emailText.getText().toString().trim())){
+                if (emailText.getText() == null || "".equals(emailText.getText().toString().trim())) {
                     warningView.setText("Email address can't be empty!");
                     return false;
                 }
@@ -235,21 +235,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     }
 
     private void login(View v) {
-//        if (!emailValidator.validate(currentUser).success
-//                || !passwordValidator.validate(currentUser).success) {
-//            loginFailedAction();
-//            return;
-//        }
-//
-//        currentUser = login.login(currentUser);
-//        if (currentUser != null) {
-//            setDefaultConfig();
-//            navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
-//        } else {
-//            loginFailedAction();
-//        }
-//        navigateFromViewTo(v, R.id.action_loginFragment_to_mainActivity);
-//        APIHandler.api(getActivity(), "http://192.168.1.54/home/page/");
         HashMap<String, String> body = new HashMap<>();
         body.put("email", emailText.getText().toString());
         body.put("password", passwordText.getText().toString());
@@ -259,40 +244,48 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             @Override
             public void run() {
                 APIHandler.loginOrRegisterApi(getActivity(), body, "login");
-                changeVisibilityTo(progressBar, View.INVISIBLE);
                 User user;
                 do {
                     user = User.getCurrentLoginUser();
                 } while (!user.is_login && user.loginOrRgisterErrors == null);
-                user = User.getCurrentLoginUser();
-                if (user.is_login) {
-                    navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
-                    return;
-                }
-                try {
-                    JSONArray j;
-                    String email = user.loginOrRgisterErrors.get("email").toString();
-//                    emailText.setText(email);
-                    String password = user.loginOrRgisterErrors.get("password").toString();
-                    if (emailText.getText().toString().trim().equals("") || emailText.getText() == null) {
-                        emailText.setText("");
-                        emailText.setHint(email);
-                    }
-                    else {
-                        warningView.setText(email);
-                    }
-                    viewFailed(emailText);
-                    passwordText.setText("");
-                    passwordText.setHint(password);
-                    viewFailed(passwordText);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                changeVisibilityTo(progressBar, View.INVISIBLE);
             }
         };
         changeVisibilityTo(progressBar, View.VISIBLE);
-        warningView.setText("");
         thread.start();
+        User user = User.getCurrentLoginUser();
+        if (user.is_login) {
+            navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
+            return;
+        }
+
+        if (user.loginOrRgisterErrors != null) {
+
+            String email = "", password = "";
+            try {
+                email = user.loginOrRgisterErrors.get("email").toString();
+                if (emailText.getText() == null || emailText.getText().toString().trim().equals("")){
+                    emailText.setText("");
+                    emailText.setHint(email);
+                    viewFailed(emailText);
+                } else{
+                    warningView.setText(email);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                password = user.loginOrRgisterErrors.get("password").toString();
+                passwordText.setText("");
+                passwordText.setHint(password);
+                viewFailed(passwordText);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (email.trim().equals("") && password.trim().equals("") && user.loginOrRgisterErrors != null) {
+                warningView.setText(user.loginOrRgisterErrors.toString());
+            }
+        }
 
 
     }

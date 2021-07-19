@@ -27,8 +27,10 @@ import com.example.omarket.ui.main_fragments.Color;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class RegisterFragment extends NavigationFragment implements View.OnTouchListener, View.OnClickListener {
     private TextView loginTextView;
@@ -96,14 +98,12 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
     public boolean onTouch(View v, MotionEvent event) {
         setDefaultConfig();
         switch (v.getId()) {
-
             case R.id.register_edit_text_password:
                 if (emailText.getText() == null || "".equals(emailText.getText().toString().trim())) {
                     Toast.makeText(getActivity(), "Email address can't be empty!", Toast.LENGTH_SHORT).show();
                     return false;
                 }
         }
-
         return false;
     }
 
@@ -112,6 +112,7 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
         emailText.setHint("Email Address");
         passwordText.setHint("Password");
         Color.changeViewColor(emailText, R.color.black);
+        Color.changeViewColor(passwordText, R.color.black);
         Color.changeHintViewColor(emailText, R.color.gray);
         Color.changeHintViewColor(passwordText, R.color.gray);
     }
@@ -132,43 +133,55 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
             @Override
             public void run() {
                 APIHandler.loginOrRegisterApi(getActivity(), body, "register");
-                changeVisibilityTo(progressBar, View.INVISIBLE);
                 User user;
                 do {
                     user = User.getCurrentLoginUser();
                 } while (!user.is_login && user.loginOrRgisterErrors == null);
-                user = User.getCurrentLoginUser();
-                if (user.is_login) {
-                    navigateFromViewTo(getView(), R.id.action_registerFragment_to_mainActivity);
-                    return;
-                }
+                changeVisibilityTo(progressBar, View.INVISIBLE);
 
-                try {
-                    JSONArray j = null;
-                    String email = user.loginOrRgisterErrors.get("email").toString();
-//                    emailText.setText(email);
-                    String password = user.loginOrRgisterErrors.get("password").toString();
-                    if (emailText.getText().toString().trim().equals("") || emailText.getText() == null) {
-                        emailText.setText("");
-                        emailText.setHint(email);
-                    } else {
-                        Toast.makeText(getActivity(), email, Toast.LENGTH_SHORT).show();
-                    }
-                    viewFailed(emailText);
-                    passwordText.setText("");
-                    passwordText.setHint(password);
-                    viewFailed(passwordText);
-                    if ((emailText.getText().toString().trim().equals("") || emailText.getText() == null)&&
-                    (passwordText.getText().toString().trim().equals("") || passwordText.getText() == null)){
-                        Toast.makeText(getActivity(), j.toString(), Toast.LENGTH_LONG);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         };
         changeVisibilityTo(progressBar, View.VISIBLE);
         thread.start();
+        while (thread.isAlive());
+        User user = User.getCurrentLoginUser();
+        if (user.is_login) {
+            navigateFromViewTo(getView(), R.id.action_registerFragment_to_mainActivity);
+            return;
+        }
+
+        if (user.loginOrRgisterErrors != null) {
+
+
+            try {
+                String email = user.loginOrRgisterErrors.get("email").toString();
+                if (emailText.getText().toString().trim().equals("") || emailText.getText() == null) {
+                    emailText.setText("");
+                    emailText.setHint(email);
+                    viewFailed(emailText);
+                } else {
+                    Toast.makeText(getActivity(), email, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                String password = user.loginOrRgisterErrors.get("password").toString();
+                passwordText.setText("");
+                passwordText.setHint(password);
+                viewFailed(passwordText);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
+                Toast t = new Toast(getActivity());
+                t.setText(user.loginOrRgisterErrors.toString());
+                t.setDuration(Toast.LENGTH_LONG);
+                final Toast tt = t;
+                tt.show();
+
+            }
+        }
 
 
     }
