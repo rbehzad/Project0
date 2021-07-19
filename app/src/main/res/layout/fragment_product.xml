@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/normalMargin"
-    tools:context=".ui.productFragment.ProductFragment">
+    tools:context=".ui.productFragment.ProductFragment"
+    android:id="@+id/fragment_productId">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -28,9 +28,6 @@
             android:textSize="15dp">
         <menu>
         <item
-            android:title="add product"
-            android:id="@+id/addproductid" />
-        <item
             android:title="My Product"
             android:id="@+id/myproductid" />
 

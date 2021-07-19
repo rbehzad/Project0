@@ -17,6 +17,10 @@
         android:title="@string/title_favorite"
         android:icon="@drawable/ic_favorite_white"
         android:id="@+id/favoriteFragment" />
+    <item
+        android:title="Add Product"
+        android:id="addProductFragment" />
+
 
 
 </menu>
