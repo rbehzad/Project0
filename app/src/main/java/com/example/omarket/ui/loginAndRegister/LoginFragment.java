@@ -171,16 +171,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         mStartForResult.launch(signInIntent);
     }
 
-
-    private void updateInput() {
-        if (emailText.getText() != null)
-            currentUser.emailAddress = emailText.getText().toString();
-        if (passwordText.getText() != null)
-            currentUser.password = passwordText.getText().toString();
-
-    }
-
-
     @SuppressLint({"ResourceType", "NonConstantResourceId"})
     @Override
     public void onClick(View v) {
@@ -235,7 +225,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     }
 
     private void login(View v) {
-        updateInput();
 //        if (!emailValidator.validate(currentUser).success
 //                || !passwordValidator.validate(currentUser).success) {
 //            loginFailedAction();

@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/register_edit_text_name"
+                android:id="@+id/register_edit_text_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/text_background"
@@ -43,7 +43,21 @@
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:drawablePadding="@dimen/paddingDrawable"
                 android:ems="10"
-                android:hint="@string/full_name"
+                android:hint="@string/first_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/register_edit_text_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/text_background"
+                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawablePadding="@dimen/paddingDrawable"
+                android:ems="10"
+                android:hint="@string/last_name"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName" />
 
@@ -121,7 +135,7 @@
                 tools:ignore="RtlSymmetry" />
 
             <TextView
-                android:id="@+id/register_text_view_already_registered"
+                android:id="@+id/register_text_view_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/paddingDrawable"
@@ -154,5 +168,18 @@
         app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
         app:layout_constraintStart_toStartOf="@+id/nestedScrollView"
         app:layout_constraintTop_toBottomOf="@+id/nestedScrollView" />
+
+    <ProgressBar
+        android:id="@+id/register_fragmetn_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
