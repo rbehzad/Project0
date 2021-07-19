@@ -9,31 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.OMarket"
-        android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".ui.productFragment.ProductActivity">
-
-        </activity>
+        android:theme="@style/Theme.OMarket">
+        <activity android:name=".ui.productFragment.ProductActivity"></activity>
         <activity
             android:name=".ui.StartActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.main_fragments.MainActivity"
-            android:screenOrientation="fullSensor">
-<!--            <intent-filter>-->
+            android:screenOrientation="portrait">
 
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-
-<!--            </intent-filter>-->
         </activity>
     </application>
 

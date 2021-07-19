@@ -41,33 +41,23 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
 
     private Animation shakeAnimation;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-        loginTextView = view.findViewById(R.id.register_text_view_already_registered);
+        loginTextView = view.findViewById(R.id.register_text_view_login);
+        loginTextView.setOnClickListener(this);
         registerButton = view.findViewById(R.id.register_button_register);
-        // switch activity_register to login
-        loginTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
-            }
-        });
-        // switch activity_register to login
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
-            }
-        });
+        registerButton.setOnClickListener(this);
 
         firstName = (EditText) view.findViewById(R.id.register_edit_text_first_name);
         lastName = (EditText) view.findViewById(R.id.register_edit_text_last_name);
         phoneNumber = (EditText) view.findViewById(R.id.register_edit_text_phone_number);
         emailText = (EditText) view.findViewById(R.id.register_edit_text_email_address);
         passwordText = (EditText) view.findViewById(R.id.register_edit_text_password);
+        passwordText.setOnTouchListener(this);
         progressBar = (ProgressBar) view.findViewById(R.id.register_fragmetn_progressBar);
 
         AnimationUtils.loadAnimation(view.getContext(), R.anim.shake);
@@ -106,18 +96,6 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
     public boolean onTouch(View v, MotionEvent event) {
         setDefaultConfig();
         switch (v.getId()) {
-
-//            case R.id.login_edit_text_email_address:
-//                if (passwordText.getText() != null
-//                        && !"".equals(passwordText.getText().toString().trim())
-//                        && passwordText.isInTouchMode()) {
-//
-//                    if (!passwordValidator.validate(passwordText.getText().toString()).success) {
-//                        warningView.setText(passwordValidator.getValidateError());
-//                        return false;
-//                    }
-//                }
-//                break;
 
             case R.id.register_edit_text_password:
                 if (emailText.getText() == null || "".equals(emailText.getText().toString().trim())) {
@@ -161,7 +139,7 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
                 } while (!user.is_login && user.loginOrRgisterErrors == null);
                 user = User.getCurrentLoginUser();
                 if (user.is_login)
-                    navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
+                    navigateFromViewTo(getView(), R.id.action_registerFragment_to_mainActivity);
                 try {
                     JSONArray j;
                     String email = user.loginOrRgisterErrors.get("email").toString();
