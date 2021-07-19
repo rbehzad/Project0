@@ -1,7 +1,6 @@
 package com.example.omarket.backend.api;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Base64;
@@ -33,18 +32,19 @@ public class APIHandler implements Response.ErrorListener{
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
     final static String userInfoURL = "/api/user/info/";
+    final static String userInfoUpdateURL = "/api/user/update/";
+    final static String addProductURL = "/api/product/create/";
+    final static String updateProductURL = "/api/product/update/";
 
     public static APIHandler apiHandler = new APIHandler();
 
-    public static RequestQueue loginOrRegisterApi(Context context, Map<String, String> body, String requestType) {
+    public static void loginOrRegisterApi(Context context, Map<String, String> body, String requestType) {
 
         String requestURL = (requestType.equals("login") ? loginURL : registerURL);
         String tag = (requestType.equals("login") ? "login" : "register");
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject bodyJson = new JSONObject(body);
-        final Object[] errorJson = new Object[1];
-        final JSONObject[] responseJson = new JSONObject[1];
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -83,14 +83,11 @@ public class APIHandler implements Response.ErrorListener{
         });
         request.setTag(tag);
         requestQueue.add(request);
-        return requestQueue;
     }
 
-    public static RequestQueue getUserInfoApi(Context context){
+    public static void getUserInfoApi(Context context){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        final Object[] errorJson = new Object[1];
-        final JSONObject[] responseJson = new JSONObject[1];
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET, domain + userInfoURL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -136,9 +133,45 @@ public class APIHandler implements Response.ErrorListener{
 
         request.setTag("UserInfo");
         requestQueue.add(request);
-        return requestQueue;
     }
 
+    public static void updateUserAddProductUpdateProductApi(Context context, Map<String, Object> body,String UU_AP_UP){
+        String requestURL = null;
+        switch (UU_AP_UP){
+            case "UU":
+                requestURL = userInfoUpdateURL;
+                break;
+            case "AP":
+                requestURL = addProductURL;
+                break;
+            case "UP":
+                requestURL = updateProductURL;
+                break;
+        }
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONObject bodyJson = new JSONObject(body);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(context, response.get("response").toString(), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, apiHandler){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", "Token " + User.currentLoginUser.token);
+                return params;
+            }
+        };
+        requestQueue.add(request);
+
+    }
+
+    //todo get product , category
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onErrorResponse(VolleyError error) {
