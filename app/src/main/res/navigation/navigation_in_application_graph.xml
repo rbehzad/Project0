@@ -39,8 +39,7 @@
         android:id="@+id/addproductitemid"
         android:name="com.example.omarket.ui.fragment_addProduct"
         android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_product"
-        android:onClick="clickAddProitem"/>
+        tools:layout="@layout/fragment_add_product" />
 
 
 </navigation>
