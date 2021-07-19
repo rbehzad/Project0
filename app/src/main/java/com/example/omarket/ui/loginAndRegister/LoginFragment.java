@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -151,6 +152,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         if (acct != null) {
             String personName = acct.getDisplayName();
             new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
+            Bitmap bitmap;
             Context context = getActivity();
             // save key value data
             SharedPreferences sharedPref = context.getSharedPreferences(
@@ -201,19 +203,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     public boolean onTouch(View v, MotionEvent event) {
         setDefaultConfig();
         switch (v.getId()) {
-
-//            case R.id.login_edit_text_email_address:
-//                if (passwordText.getText() != null
-//                        && !"".equals(passwordText.getText().toString().trim())
-//                        && passwordText.isInTouchMode()) {
-//
-//                    if (!passwordValidator.validate(passwordText.getText().toString()).success) {
-//                        warningView.setText(passwordValidator.getValidateError());
-//                        return false;
-//                    }
-//                }
-//                break;
-
             case R.id.login_edit_text_password:
                 if (emailText.getText() == null || "".equals(emailText.getText().toString().trim())) {
                     warningView.setText("Email address can't be empty!");
@@ -229,6 +218,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         emailText.setHint("Email Address");
         passwordText.setHint("Password");
         Color.changeViewColor(emailText, R.color.black);
+        Color.changeViewColor(passwordText, R.color.black);
         Color.changeHintViewColor(emailText, R.color.gray);
         Color.changeHintViewColor(passwordText, R.color.gray);
         warningView.setText("");
@@ -253,8 +243,10 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         };
         changeVisibilityTo(progressBar, View.VISIBLE);
         thread.start();
+        changeVisibilityTo(progressBar, View.INVISIBLE);
         User user = User.getCurrentLoginUser();
         if (user.is_login) {
+            APIHandler.getUserInfoApi(getActivity());
             navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
             return;
         }
