@@ -27,7 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.android.volley.RequestQueue;
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.handlers.loginlogout.Login;
@@ -46,11 +45,8 @@ import com.google.android.gms.tasks.Task;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class LoginFragment extends NavigationFragment implements View.OnClickListener, View.OnTouchListener {
 
@@ -263,20 +259,20 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void run() {
-                APIHandler.loginApi(getActivity(), body);
+                APIHandler.loginOrRegisterApi(getActivity(), body, "login");
                 changeVisibilityTo(progressBar, View.INVISIBLE);
                 User user;
                 do {
                     user = User.getCurrentLoginUser();
-                } while (!user.is_login && user.loginErrors == null);
+                } while (!user.is_login && user.loginOrRgisterErrors == null);
                 user = User.getCurrentLoginUser();
                 if (user.is_login)
                     navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
                 try {
                     JSONArray j;
-                    String email = user.loginErrors.get("email").toString();
+                    String email = user.loginOrRgisterErrors.get("email").toString();
 //                    emailText.setText(email);
-                    String password = user.loginErrors.get("password").toString();
+                    String password = user.loginOrRgisterErrors.get("password").toString();
                     if (emailText.getText().toString().trim().equals("") || emailText.getText() == null) {
                         emailText.setText("");
                         emailText.setHint(email);

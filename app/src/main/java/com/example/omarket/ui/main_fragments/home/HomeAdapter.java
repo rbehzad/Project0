@@ -60,7 +60,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 @Override
                 public void onClick(View view) { // execute this method when user click card
                     selected_fragment = new ProductActivity();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
                 }
             });
         }

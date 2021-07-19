@@ -19,7 +19,7 @@
         android:id="@+id/favoriteFragment" />
     <item
         android:title="Add Product"
-        android:id="addProductFragment" />
+        android:id="@+id/addProductFragment" />
 
 
 

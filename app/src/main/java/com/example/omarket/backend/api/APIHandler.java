@@ -21,13 +21,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 
-public class APIHandler{
+public class APIHandler {
 
     final static String domain = "http://192.168.1.54";
     final static String loginURL = "/api/user/login/";
+    final static String registerURL = "/api/user/register/";
 
-    private static APIHandler apiHandler = new APIHandler();
-    private APIHandler(){
+    private static final APIHandler apiHandler = new APIHandler();
+
+
+    private APIHandler() {
     }
 
     public static APIHandler getInstance() {
@@ -35,19 +38,22 @@ public class APIHandler{
     }
 
 
-    public static RequestQueue loginApi(Context context, Map<String, String> body){
+    public static RequestQueue loginOrRegisterApi(Context context, Map<String, String> body, String requestType) {
+
+        String requestURL = (requestType.equals("login") ? loginURL : registerURL);
+        String tag = (requestType.equals("login") ? "login" : "register");
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject bodyJson = new JSONObject(body);
         final Object[] errorJson = new Object[1];
         final JSONObject[] responseJson = new JSONObject[1];
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain+loginURL, bodyJson, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     User.getCurrentLoginUser().token = (String) response.get("token");
                     User.getCurrentLoginUser().is_login = true;
-                    Toast.makeText(context, "Login success full", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, response.get("response").toString(), Toast.LENGTH_SHORT).show();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -63,19 +69,24 @@ public class APIHandler{
                 //get status code here
                 String statusCode = String.valueOf(error.networkResponse.statusCode);
                 //get response body and parse with appropriate encoding
-                if(error.networkResponse.data!=null) {
+                if (error.networkResponse.data != null) {
                     body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                 }
                 try {
-                    User.getCurrentLoginUser().loginErrors = new JSONObject(body);
+                    if (body != null)
+                        User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject(body);
+                    else
+                        User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+        request.setTag(tag);
         requestQueue.add(request);
         return requestQueue;
     }
+
 
 //    public static JSONArray apiRequest(
 //            Context context,

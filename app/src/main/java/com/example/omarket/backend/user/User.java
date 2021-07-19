@@ -17,7 +17,7 @@ public class User extends CloneNotSupportedException {
     private static User currentLoginUser = new User();
     public String token;
     public boolean is_login = false;
-    public JSONObject loginErrors;
+    public JSONObject loginOrRgisterErrors;
     public String body;
     public boolean is_in_request = true;
 
