@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class APIHandler {
 
-    final static String domain = "http://192.168.1.101:8080";
+    final static String domain = "http://10.0.2.2:8000";
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
 
@@ -55,27 +55,28 @@ public class APIHandler {
             public void onErrorResponse(VolleyError error) {
                 String body = null;
                 //get status code here
-                String statusCode = String.valueOf(error.networkResponse.statusCode);
-                //get response body and parse with appropriate encoding
-                if (error.networkResponse.data != null) {
-                    body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                }
-                try {
-                    if (body != null)
-                        User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject(body);
-                    else
-                        User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                String statusCode;
+                if (error.networkResponse != null) {
+                    statusCode = String.valueOf(error.networkResponse.statusCode);
+                    //get response body and parse with appropriate encoding
+                    if (error.networkResponse.data != null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    }
+                    try {
+                        if (body != null)
+                            User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject(body);
+                        else
+                            User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         request.setTag(tag);
         requestQueue.add(request);
         return requestQueue;
     }
-
-
 
 
 }
