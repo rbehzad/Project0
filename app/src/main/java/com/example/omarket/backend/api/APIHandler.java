@@ -53,7 +53,6 @@ public class APIHandler {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
                 String body = null;
                 //get status code here
                 String statusCode = String.valueOf(error.networkResponse.statusCode);
@@ -61,7 +60,6 @@ public class APIHandler {
                 if (error.networkResponse.data != null) {
                     body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                 }
-                Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                 try {
                     if (body != null)
                         User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject(body);
