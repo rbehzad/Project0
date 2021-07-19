@@ -1,13 +1,18 @@
 package com.example.omarket.ui.main_fragments.dashboard;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.data.data.entities.User;
@@ -15,34 +20,24 @@ import com.example.omarket.backend.data.data.repository.Repository;
 import com.example.omarket.backend.data.data.repository.RepositoryCallback;
 import com.example.omarket.backend.data.data.repository.Result;
 import com.example.omarket.ui.NavigationFragment;
+
 import org.jetbrains.annotations.NotNull;
 
-
-import android.widget.Button;
-import android.widget.ImageView;
-
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-
-import android.provider.MediaStore;
-import android.widget.TextView;
-
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 
 public class DashboardFragment extends NavigationFragment {
- //   private static final int PICK_IMAGE = 100;
-//    Button button;
-//    ImageView image;
     View view;
-//    AppCompatActivity appCompatActivity;
+    ImageView imageView;
+    Button button;
+    private static final int PICK_IMAGE = 100;
+    private static int RESULT_LOAD_IMAGE = 1;
+    Uri imageUri;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-//        appCompatActivity = new AppCompatActivity();
         View view =  inflater.inflate(R.layout.fragment_dashboard,container,false);
         TextView textViewName = view.findViewById(R.id.dashboardTextview1);
         TextView textViewEmail = view.findViewById(R.id.dashboardTextview2);
@@ -62,48 +57,32 @@ public class DashboardFragment extends NavigationFragment {
                 }
             }
         });
-        return view;
-    }
-//    private static int RESULT_LOAD_IMAGE = 1;
-
-    /*
-    public void loadImage(View view) {
-        Intent i = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, RESULT_LOAD_IMAGE);
-    }
-/*    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-       appCompatActivity.setContentView(R.layout.fragment_dashboard);
-        Button buttonLoadImage = (Button) view.findViewById(R.id.btnChangeImage);
-        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                );
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+        button = (Button) view.findViewById(R.id.btnChangeImage);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
             }
         });
+        imageView = (ImageView) view.findViewById(R.id.imageView);
+        return view;
     }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == appCompatActivity.RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            Cursor cursor = appCompatActivity.getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
         }
     }
-*/
     @Override
     public void onDestroy() {
         super.onDestroy();

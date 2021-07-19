@@ -33,7 +33,6 @@ public class addProduct extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
  //       imageView = (ImageView) view.findViewById(R.id.imageView);
-
     }
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
