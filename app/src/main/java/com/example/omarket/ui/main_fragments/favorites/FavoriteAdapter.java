@@ -56,12 +56,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-                    navigationFragment = new NavigationFragment() {
-                        @Override
-                        public void navigateFromViewTo(View view, int id) {
-                            super.navigateFromViewTo(view, id);
-                        }
-                    };
+                    navigationFragment = new NavigationFragment();
                     navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);//
                 }
             });

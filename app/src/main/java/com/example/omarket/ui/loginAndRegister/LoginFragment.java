@@ -48,6 +48,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 
 public class LoginFragment extends NavigationFragment implements View.OnClickListener, View.OnTouchListener {
+    final public String fragmentName = "login";
     GoogleSignInClient mGoogleSignInClient;
     private View currentView;
     private Button loginButton;
@@ -274,9 +275,10 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             public void run() {
                 APIHandler.loginOrRegisterApi(getActivity(), body, "login");
                 User user;
-                do {
-                    user = User.getCurrentLoginUser();
-                } while (!user.is_login && user.loginOrRgisterErrors == null);
+
+//                do {
+//                    user = User.getCurrentLoginUser();
+//                } while (!user.is_login && user.loginOrRgisterErrors == null);
                 changeVisibilityTo(progressBar, View.INVISIBLE);
             }
         };
@@ -322,7 +324,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 
     }
 
-    public void changeVisibilityTo(View v, int visibility) {
+    public static void changeVisibilityTo(View v, int visibility) {
         v.setVisibility(visibility);
     }
 
