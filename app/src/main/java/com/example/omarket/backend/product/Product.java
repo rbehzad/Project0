@@ -10,6 +10,7 @@ public class Product {
     public long price;
     public User user;
     public String image;
+    public String id;
     public String description;
 
     public Product(){
