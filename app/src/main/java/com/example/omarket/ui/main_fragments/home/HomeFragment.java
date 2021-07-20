@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -49,7 +50,7 @@ public class HomeFragment extends NavigationFragment {
         view =  inflater.inflate(R.layout.fragment_home, container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         products = new ArrayList<>(); // get from server TODO
-        products.add(new Product("oven", "20,000", "11111", "mike", "0921", "image", "info"));
+        products.add(new Product("oven", 20000, "image", "info", User.currentLoginUser));
         drawerLayout = view.findViewById(R.id.drawer_layout);
         navigationView = view.findViewById(R.id.homenavigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
