@@ -9,14 +9,12 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.user.User;
@@ -33,7 +31,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = "http://192.168.95.7";
+    final static String domain = "http://192.168.1.105";
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
     final static String userInfoURL = "/api/user/info/";

@@ -41,6 +41,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import org.jetbrains.annotations.NotNull;
@@ -58,7 +59,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     // Validators :
     EmailValidator emailValidator;
     PasswordValidator passwordValidator;
-
+    Button signoutButton;
     private User currentUser;
     private Login login;
 
@@ -92,34 +93,27 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
-            String personName = acct.getDisplayName();
-//            User user = new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
-            // create or login user.
-//            HashMap<String, String> body = new HashMap<>();
-//            body.put("first_name", user.fullName);
-//            body.put("last_name", "      ");
-//            body.put("password", pass);
-//            body.put("password2", pass);
-//            body.put("email", user.emailAddress);
-//            String pass = "GoogleSingIn1234";
-//            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
-//                // create
-//                HashMap<String, String> body = new HashMap<>();
-//                body.put("first_name", acct.getDisplayName());
-//                body.put("last_name", "      ");
-//                body.put("password", pass);
-//                body.put("password2", pass);
-//                body.put("email", acct.getEmail());
-//                Thread thread = new Thread(){
-//                    @Override
-//                    public void run() {
-//                        APIHandler.loginOrRegisterApi(getActivity(), body, "register");
-//                    }
-//                };
-//                thread.start();
-//                login();
-//            }
-
+            String pass = "googlesingin1234";
+            passwordText.setText(pass);
+            emailText.setText(acct.getEmail());
+            login();
+            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
+                // create
+                HashMap<String, String> body = new HashMap<>();
+                body.put("first_name", acct.getDisplayName());
+                body.put("last_name", "      ");
+                body.put("password", pass);
+                body.put("password2", pass);
+                body.put("email", acct.getEmail());
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        APIHandler.loginOrRegisterApi(getActivity(), body, "register");
+                    }
+                };
+                thread.start();
+                login();
+            } //
             Context context = getActivity();
             // save key value data
             SharedPreferences sharedPref = context.getSharedPreferences(
@@ -128,10 +122,9 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             editor.putString(getString(R.string.name_key), acct.getDisplayName());
             editor.putString(getString(R.string.email_key), acct.getEmail());
             editor.apply();
-//            passwordText.setText(pass);
-//            emailText.setText(acct.getEmail());
-//            login();
-            Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
+            // login
+
+            Toast.makeText(getActivity(), "login as " + acct.getDisplayName(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Could not sign in with google", Toast.LENGTH_SHORT).show();
         }
@@ -177,7 +170,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         // validators.
         emailValidator = EmailValidator.getInstance();
         passwordValidator = PasswordValidator.getInstance();
-
+        signoutButton = currentView.findViewById(R.id.signoutButton);
+        signoutButton.setOnClickListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -200,7 +194,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             currentUser.emailAddress = emailText.getText().toString();
         if (passwordText.getText() != null)
             currentUser.password = passwordText.getText().toString();
-
     }
 
 
@@ -218,8 +211,21 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             case R.id.google_login_button:
                 signIn();
                 break;
+            case R.id.signoutButton:
+                signOut();
+                break;
 
         }
+    }
+    // google sign out
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
     }
 
     @SuppressLint({"SetTextI18n", "NonConstantResourceId", "ClickableViewAccessibility"})

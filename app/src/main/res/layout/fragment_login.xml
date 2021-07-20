@@ -119,6 +119,14 @@
                 android:paddingRight="@dimen/paddingSmall"
                 tools:ignore="RtlSymmetry" />
 
+            <Button
+                android:id="@+id/signoutButton"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="sign out" />
+
 
         </LinearLayout>
 
