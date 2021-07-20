@@ -66,11 +66,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                         }
                     };
                     navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);//
-
-     /*              selected_fragment = new ProductActivity();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_productId, selected_fragment).commit();
-                    navigateFromViewTo(getView(), R.id.);        */
                 }
             });
         }

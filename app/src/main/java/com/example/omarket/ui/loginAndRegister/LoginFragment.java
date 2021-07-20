@@ -132,10 +132,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         emailText.setOnTouchListener(this);
         passwordText = currentView.findViewById(R.id.login_edit_text_password);
         passwordText.setOnTouchListener(this);
-
         signInButton = currentView.findViewById(R.id.google_login_button);
         signInButton.setOnClickListener(this);
-
         progressBar = currentView.findViewById(R.id.login_fragment_progressBar);
         warningView = currentView.findViewById(R.id.login_warning_view);
         loginButton = currentView.findViewById(R.id.login_login_button);

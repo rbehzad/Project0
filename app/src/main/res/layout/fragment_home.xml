@@ -34,8 +34,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:onClick="clickpro">
+            android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
     <com.google.android.material.navigation.NavigationView
@@ -43,6 +42,7 @@
         android:layout_height="match_parent"
         app:menu="@menu/homefragment_menu"
         app:headerLayout="@layout/navigation_view_header_homefragment"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start"
+        android:id="@+id/homenavigation"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

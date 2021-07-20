@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
-import com.example.omarket.ui.main_fragments.Color;
 import com.example.omarket.ui.NavigationFragment;
-import com.example.omarket.ui.main_fragments.home.HomeAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +30,9 @@ public class FavoritesFragment extends NavigationFragment {
         View view = inflater.inflate(R.layout.fragment_favorite,container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         List<Product> products = new ArrayList<>(); // get from server TODO
+        // all product
+
+        //
         for(int i=0 ;i<8; ++i) {
             products.add(new Product("oven", "20,000", "11111", "mike", "0921", "image", "info"));
         }

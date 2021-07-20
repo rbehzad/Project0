@@ -1,6 +1,5 @@
 package com.example.omarket.ui.main_fragments.favorites;
 
-import android.app.admin.SystemUpdatePolicy;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.ui.NavigationFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
-
+    NavigationFragment navigationFragment;
     private List<Product> products;
 
     FavoriteAdapter(List<Product> products) { this.products = products; }
@@ -56,7 +56,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-
+                    navigationFragment = new NavigationFragment() {
+                        @Override
+                        public void navigateFromViewTo(View view, int id) {
+                            super.navigateFromViewTo(view, id);
+                        }
+                    };
+                    navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);//
                 }
             });
         }

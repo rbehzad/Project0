@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homefragment_menu">
 
     <group>
         <item
             android:title="Category">
                 <item
-                    android:id="@+id/Electronicsid"
+                    android:id="@+id/electronicsid"
                     android:title="Electronics" >
                 </item>
 
-                <item
-                    android:id="@+id/homeid"
-                    android:title="Home and Garden" />
                 <item
                     android:id="@+id/fashionid"
                     android:title="Fasion" />
