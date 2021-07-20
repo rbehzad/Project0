@@ -29,6 +29,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
+import com.example.omarket.backend.handlers.PasswordGenerator;
 import com.example.omarket.backend.handlers.loginlogout.Login;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
 import com.example.omarket.backend.handlers.validators.PasswordValidator;
@@ -67,6 +68,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
@@ -76,6 +78,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                     }
                 }
             });
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -86,10 +90,25 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             updateUI(null);
         }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
             String personName = acct.getDisplayName();
             new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
+//            User user =
+//            emailText.setText(user.emailAddress);
+//            passwordText.setText(user.emailAddress);
+//
+//            // create or login user.
+//            HashMap<String, String> body = new HashMap<>();
+//            body.put("first_name", user.fullName);
+//            body.put("last_name", "      ");
+//            String pass = PasswordGenerator.generateStrongPassword();
+//            body.put("password", pass);
+//            body.put("password2", pass);
+//            body.put("email", user.emailAddress);
+
             Context context = getActivity();
             // save key value data
             SharedPreferences sharedPref = context.getSharedPreferences(
@@ -111,7 +130,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         super.onCreate(savedInstanceState);
         currentUser = User.getCurrentLoginUser();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
-          GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+                GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
     }
 
@@ -147,6 +166,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         passwordValidator = PasswordValidator.getInstance();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onStart() {
         super.onStart();
@@ -181,7 +201,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             case R.id.login_text_view_register:
                 navigateFromViewTo(v, R.id.action_loginFragment_to_registerFragment);
                 break;
-            case  R.id.google_login_button:
+            case R.id.google_login_button:
                 signIn();
                 break;
 
@@ -259,11 +279,11 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             String email = "", password = "";
             try {
                 email = user.loginOrRgisterErrors.get("email").toString();
-                if (emailText.getText() == null || emailText.getText().toString().trim().equals("")){
+                if (emailText.getText() == null || emailText.getText().toString().trim().equals("")) {
                     emailText.setText("");
                     emailText.setHint(email);
                     viewFailed(emailText);
-                } else{
+                } else {
                     warningView.setText(email);
                 }
             } catch (Exception e) {
