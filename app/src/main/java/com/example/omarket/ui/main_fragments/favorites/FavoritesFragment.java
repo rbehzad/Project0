@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +35,7 @@ public class FavoritesFragment extends NavigationFragment {
 
         //
         for(int i=0 ;i<8; ++i) {
-            products.add(new Product("oven", "20,000", "11111", "mike", "0921", "image", "info"));
+            products.add(new Product("oven", 20000, "image", "info", User.currentLoginUser));
         }
         FavoriteAdapter favoriteAdapter = new FavoriteAdapter(products);
         recyclerView.setAdapter(favoriteAdapter);
