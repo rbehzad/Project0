@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
-import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -51,7 +50,7 @@ public class HomeFragment extends NavigationFragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         products = new ArrayList<>(); // get from server TODO
         products.add(new Product("oven", "20,000", null, "mike", "email"));
-//        Product(String name, String price,  String image, String description, String userEmail)
+
         drawerLayout = view.findViewById(R.id.drawer_layout);
         navigationView = view.findViewById(R.id.homenavigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -84,10 +83,12 @@ public class HomeFragment extends NavigationFragment {
         if(i==1) {  // open all product
             for (int j = 0; j < 20; ++j) {
                 products.clear();
+
             }
         }
         else if(i==2) {  // open my product
             products.clear();
+
         }
         else if(i==3) { // open electronic
             products.clear();
