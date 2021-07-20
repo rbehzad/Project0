@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
+import com.example.omarket.ui.main_fragments.MainActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +51,7 @@ public class HomeFragment extends NavigationFragment {
         view =  inflater.inflate(R.layout.fragment_home, container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         products = new ArrayList<>(); // get from server TODO
-        products.add(new Product("oven", "20,000", null, "mike", "email"));
+        products.addAll(Product.allProducts);
 
         drawerLayout = view.findViewById(R.id.drawer_layout);
         navigationView = view.findViewById(R.id.homenavigation);
@@ -83,21 +85,46 @@ public class HomeFragment extends NavigationFragment {
         if(i==1) {  // open all product
             for (int j = 0; j < 20; ++j) {
                 products.clear();
-
+                MainActivity.loadProducts();
+                products.addAll(Product.allProducts);
             }
         }
         else if(i==2) {  // open my product
             products.clear();
+            MainActivity.loadProducts();
+            for(Product p : Product.allProducts){
+                if (p.userEmail.equals(User.currentLoginUser.emailAddress)){
+                    products.add(p);
+                }
+            }
 
         }
         else if(i==3) { // open electronic
             products.clear();
+            MainActivity.loadProducts();
+            for(Product p: Product.allProducts){
+                if (p.categorySlug.equals("electronic")){
+                    products.add(p);
+                }
+            }
         }
-        else if(i==4) { // open fasion
+        else if(i==4) { // open fashion
             products.clear();
+            MainActivity.loadProducts();
+            for(Product p: Product.allProducts){
+                if (p.categorySlug.equals("fashion")){
+                    products.add(p);
+                }
+            }
         }
         else if(i==5) { // open industrial
             products.clear();
+            MainActivity.loadProducts();
+            for(Product p: Product.allProducts){
+                if (p.categorySlug.equals("industrial")){
+                    products.add(p);
+                }
+            }
         }
     }
 

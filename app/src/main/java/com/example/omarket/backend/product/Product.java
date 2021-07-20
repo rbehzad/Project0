@@ -16,6 +16,7 @@ public class Product {
     public String image;
     public String id;
     public String description;
+    public String categorySlug;
 
     public Product(){
 

@@ -19,23 +19,27 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static MainActivity mainActivity;
     private BottomNavigationView bottomNavigation;
     private NavController navController;
     private NavHostFragment navHostFragment;
-    ProgressBar progressBar;
+    static ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MainActivity mainActivity = this;
-        progressBar = findViewById(R.id.progressBar);
+        mainActivity = this;
+        progressBar = findViewById(R.id.progressBar2);
         bottomNavigation = findViewById(R.id.nav_host_bottom);
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigation,navController);
+        loadProducts();
 
+    }
+
+    public static void loadProducts(){
         Thread thread = new Thread(){
             @Override
             public void run() {
@@ -46,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         };
         progressBar.setVisibility(View.VISIBLE);
         thread.start();
-
     }
 
 }

@@ -17,6 +17,9 @@ public class Adapter {
             p.description = (String) json.get("description");
             p.price = String.valueOf(json.getLong("cost"));
             p.id = json.getString("slug");
+            p.categorySlug = json.getString("category");
+            p.userEmail = json.getString("user");
+            return p;
         } catch (Exception e){
             e.printStackTrace();
         }

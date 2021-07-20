@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = "http://192.168.1.105";
+    final static String domain = "http://192.168.95.7";
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
     final static String userInfoURL = "/api/user/info/";
@@ -93,7 +93,10 @@ public class APIHandler implements Response.ErrorListener {
 
     public static void getUserInfoApi(Context context, Map<String, Object> body, String C_N) {
         // C : current user , N : not current user
-        JSONObject jsonBody = new JSONObject(body);
+        JSONObject jsonBody;
+        if (body != null)
+             jsonBody = new JSONObject(body);
+        else jsonBody = null;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET, domain + userInfoURL, jsonBody, new Response.Listener<JSONObject>() {
@@ -185,22 +188,21 @@ public class APIHandler implements Response.ErrorListener {
 
     }
 
-    public static void getAllProductInfo(Context context){
-        JSONObject jsonBody = new JSONObject();
+    public static void getAllProductInfo(Context context) {
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String requestURL = allProductGetURL;
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, domain + requestURL, null, new Response.Listener<JSONArray>() {
+//        JSONObject bodyJson = new JSONObject("")/;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, domain + "/api/product/get-all/", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                try {
-                    for (int i = 0; i < response.length(); i++) {
+                try{
+                    for (int i = 1; i < response.length(); i++) {
                         Product p = Adapter.productApiAdapter(response.getJSONObject(i));
                         Product.allProducts.add(p);
-                        int userIndex = User.get(p.userEmail);
-                        User.allUser.get(userIndex).allProducts.add(p);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(context, response.getJSONObject(0).getString("response"), Toast.LENGTH_SHORT).show();
+                } catch (Exception ex){
+                    ex.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
@@ -215,11 +217,20 @@ public class APIHandler implements Response.ErrorListener {
                     //get response body and parse with appropriate encoding
                     if (error.networkResponse.data != null) {
                         body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "Token " + User.getCurrentLoginUser().token);
+                return params;
+            }
+        };
+
+        request.setTag("getAllProduct");
         requestQueue.add(request);
     }
 //    @Override

@@ -95,38 +95,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
-            String personName = acct.getDisplayName();
-//            User user = new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
-            // create or login user.
-//            HashMap<String, String> body = new HashMap<>();
-//            body.put("first_name", user.fullName);
-//            body.put("last_name", "      ");
-//            body.put("password", pass);
-//            body.put("password2", pass);
-//            body.put("email", user.emailAddress);
-            String pass = "GoogleSingIn1234";
-            Toast.makeText(getActivity(), acct.getEmail(), Toast.LENGTH_SHORT).show();
-            passwordText.setText(pass);
-            emailText.setText(acct.getEmail());
-            login();
-            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
-                // create
-                HashMap<String, String> body = new HashMap<>();
-                body.put("first_name", acct.getDisplayName());
-                body.put("last_name", "      ");
-                body.put("password", pass);
-                body.put("password2", pass);
-                body.put("email", acct.getEmail());
-                Thread thread = new Thread(){
-                    @Override
-                    public void run() {
-                        APIHandler.loginOrRegisterApi(getActivity(), body, "register");
-                    }
-                };
-                thread.start();
-                login();
-            }
-
             Context context = getActivity();
             // save key value data
             SharedPreferences sharedPref = context.getSharedPreferences(
@@ -134,9 +102,29 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString(getString(R.string.name_key), acct.getDisplayName());
             editor.putString(getString(R.string.email_key), acct.getEmail());
-            editor.putString(getString(R.string.image_key), acct.getPhotoUrl().toString());
             editor.apply();
-            Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "login as " + acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+//            String pass = "GoogleSingIn1234";
+//            passwordText.setText(pass);
+//            emailText.setText(acct.getEmail());
+//            login();
+//            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
+//                // create
+//                HashMap<String, String> body = new HashMap<>();
+//                body.put("first_name", acct.getDisplayName());
+//                body.put("last_name", "      ");
+//                body.put("password", pass);
+//                body.put("password2", pass);
+//                body.put("email", acct.getEmail());
+//                Thread thread = new Thread(){
+//                    @Override
+//                    public void run() {
+//                        APIHandler.loginOrRegisterApi(getActivity(), body, "register");
+//                    }
+//                };
+//                thread.start();
+//                login();
+//            }
         } else {
             Toast.makeText(getActivity(), "Could not sign in with google", Toast.LENGTH_SHORT).show();
         }
@@ -267,11 +255,11 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     }
 
     private void login() {
-//        StartActivity.loadProducts();
         HashMap<String, String> body = new HashMap<>();
         body.put("email", emailText.getText().toString());
         body.put("password", passwordText.getText().toString());
         Thread thread = new Thread() {
+
             @SuppressLint("SetTextI18n")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -320,6 +308,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             if (email.trim().equals("") && password.trim().equals("") && user.loginOrRgisterErrors != null) {
                 warningView.setText(user.loginOrRgisterErrors.toString());
             }
+            User.getCurrentLoginUser().loginOrRgisterErrors = null;
         }
 
 
