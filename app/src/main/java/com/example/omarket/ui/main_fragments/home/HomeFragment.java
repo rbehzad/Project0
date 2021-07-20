@@ -85,13 +85,13 @@ public class HomeFragment extends NavigationFragment {
         if(i==1) {  // open all product
             for (int j = 0; j < 20; ++j) {
                 products.clear();
-                MainActivity.loadProducts();
+//                MainActivity.loadProducts();
                 products.addAll(Product.allProducts);
             }
         }
         else if(i==2) {  // open my product
             products.clear();
-            MainActivity.loadProducts();
+//            MainActivity.loadProducts();
             for(Product p : Product.allProducts){
                 if (p.userEmail.equals(User.currentLoginUser.emailAddress)){
                     products.add(p);
@@ -101,7 +101,7 @@ public class HomeFragment extends NavigationFragment {
         }
         else if(i==3) { // open electronic
             products.clear();
-            MainActivity.loadProducts();
+//            MainActivity.loadProducts();
             for(Product p: Product.allProducts){
                 if (p.categorySlug.equals("electronic")){
                     products.add(p);
@@ -110,7 +110,7 @@ public class HomeFragment extends NavigationFragment {
         }
         else if(i==4) { // open fashion
             products.clear();
-            MainActivity.loadProducts();
+//            MainActivity.loadProducts();
             for(Product p: Product.allProducts){
                 if (p.categorySlug.equals("fashion")){
                     products.add(p);
@@ -119,7 +119,7 @@ public class HomeFragment extends NavigationFragment {
         }
         else if(i==5) { // open industrial
             products.clear();
-            MainActivity.loadProducts();
+//            MainActivity.loadProducts();
             for(Product p: Product.allProducts){
                 if (p.categorySlug.equals("industrial")){
                     products.add(p);

@@ -62,12 +62,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-                    navigationFragment = new NavigationFragment() {
-                        @Override
-                        public void navigateFromViewTo(View view, int id) {
-                            super.navigateFromViewTo(view, id);
-                        }
-                    };
+                    navigationFragment = new NavigationFragment();
                     if (product.userEmail.equals(User.currentLoginUser.getEmailAddress())) {
                         navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_fragment_editId);
                     } else {

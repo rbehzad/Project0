@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Base64;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,9 +19,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.backend.user.UserType;
+import com.example.omarket.ui.NavigationFragment;
+import com.example.omarket.ui.StartActivity;
+import com.example.omarket.ui.loginAndRegister.LoginFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +63,6 @@ public class APIHandler implements Response.ErrorListener {
                     User.getCurrentLoginUser().token = (String) response.get("token");
                     User.getCurrentLoginUser().is_login = true;
                     Toast.makeText(context, response.get("response").toString(), Toast.LENGTH_SHORT).show();
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -87,6 +93,7 @@ public class APIHandler implements Response.ErrorListener {
         });
         request.setTag(tag);
         requestQueue.add(request);
+
     }
 
     public static void getUserInfoApi(Context context, Map<String, Object> body, String C_N) {
@@ -261,4 +268,7 @@ public class APIHandler implements Response.ErrorListener {
             }
         }
     }
+
+
+
 }
