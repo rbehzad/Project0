@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.productFragment.ProductActivity;
 
@@ -46,12 +47,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     class HomeViewHolder extends RecyclerView.ViewHolder {
         View view;
-        public HomeViewHolder(@NonNull@NotNull View itemView) {
+
+        public HomeViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.text_view_title);
             priceTextView = itemView.findViewById(R.id.text_view_price);
             view = itemView;
         }
+
         public void bind(Product product) {
             titleTextView.setText(product.name);
             priceTextView.setText(String.valueOf(product.price));
@@ -65,12 +68,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                             super.navigateFromViewTo(view, id);
                         }
                     };
-                    navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);//
+                    if (product.userEmail.equals(User.currentLoginUser.getEmailAddress())) {
+                        navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_fragment_editId);
+                    } else {
+                        navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);
+                    }
                 }
             });
         }
-        
-
     }
     public interface onProductListener {
         void onProductClick(int position);
