@@ -40,23 +40,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 
 import java.util.HashMap;
 
 public class LoginFragment extends NavigationFragment implements View.OnClickListener, View.OnTouchListener {
-
+    GoogleSignInClient mGoogleSignInClient;
     private View currentView;
-    private GoogleSignInClient mGoogleSignInClient;
     private Button loginButton;
     public TextView register, warningView;
     private EditText emailText, passwordText;
     private ProgressBar progressBar;
-
+    SignInButton signInButton;
     // Validators :
     EmailValidator emailValidator;
     PasswordValidator passwordValidator;
@@ -77,65 +76,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                     }
                 }
             });
-
-
-    @Override
-    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        currentUser = User.getCurrentLoginUser();
-    }
-
-    @Nullable
-    @org.jetbrains.annotations.Nullable
-    @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        currentUser = new User();
-        currentView = inflater.inflate(R.layout.fragment_login, container, false);
-        setUiObjects();
-
-        return currentView;
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    public void setUiObjects() {
-        emailText = currentView.findViewById(R.id.login_edit_text_email_address);
-        emailText.setOnTouchListener(this);
-
-        passwordText = currentView.findViewById(R.id.login_edit_text_password);
-        passwordText.setOnTouchListener(this);
-
-        progressBar = currentView.findViewById(R.id.login_fragment_progressBar);
-
-        warningView = currentView.findViewById(R.id.login_warning_view);
-
-        loginButton = currentView.findViewById(R.id.login_login_button);
-        loginButton.setOnClickListener(this);
-        register = currentView.findViewById(R.id.login_text_view_register);
-        register.setOnClickListener(this);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
-                GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-
-
-        login = Login.getInstance();
-
-        shakeAnimation = AnimationUtils.loadAnimation(currentView.getContext(), R.anim.shake);
-
-        // validators.
-        emailValidator = EmailValidator.getInstance();
-        passwordValidator = PasswordValidator.getInstance();
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // check for an existing signed-in user
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getActivity());
-        updateUI(account);
-    }
-
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -146,7 +86,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             updateUI(null);
         }
     }
-
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
             String personName = acct.getDisplayName();
@@ -166,7 +105,59 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         }
     }
 
-    private void signIn(View view) {
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        currentUser = User.getCurrentLoginUser();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
+          GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+    }
+
+    @Nullable
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        currentUser = new User();
+        currentView = inflater.inflate(R.layout.fragment_login, container, false);
+        setUiObjects();
+
+        return currentView;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public void setUiObjects() {
+        emailText = currentView.findViewById(R.id.login_edit_text_email_address);
+        emailText.setOnTouchListener(this);
+        passwordText = currentView.findViewById(R.id.login_edit_text_password);
+        passwordText.setOnTouchListener(this);
+
+        signInButton = currentView.findViewById(R.id.google_login_button);
+        signInButton.setOnClickListener(this);
+
+        progressBar = currentView.findViewById(R.id.login_fragment_progressBar);
+        warningView = currentView.findViewById(R.id.login_warning_view);
+        loginButton = currentView.findViewById(R.id.login_login_button);
+        loginButton.setOnClickListener(this);
+        register = currentView.findViewById(R.id.login_text_view_register);
+        register.setOnClickListener(this);
+        login = Login.getInstance();
+        shakeAnimation = AnimationUtils.loadAnimation(currentView.getContext(), R.anim.shake);
+        // validators.
+        emailValidator = EmailValidator.getInstance();
+        passwordValidator = PasswordValidator.getInstance();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // check for an existing signed-in user
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getActivity());
+        updateUI(account);
+    }
+
+    private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         mStartForResult.launch(signInIntent);
     }
@@ -191,6 +182,9 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                 break;
             case R.id.login_text_view_register:
                 navigateFromViewTo(v, R.id.action_loginFragment_to_registerFragment);
+                break;
+            case  R.id.google_login_button:
+                signIn();
                 break;
 
         }
@@ -260,7 +254,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         }
 
         if (user.loginOrRgisterErrors != null) {
-
             String email = "", password = "";
             try {
                 email = user.loginOrRgisterErrors.get("email").toString();

@@ -115,7 +115,6 @@
                 android:id="@+id/google_login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:onClick="signIn"
                 android:paddingEnd="@dimen/paddingSmall"
                 android:paddingRight="@dimen/paddingSmall"
                 tools:ignore="RtlSymmetry" />

@@ -36,7 +36,6 @@ public class HomeFragment extends NavigationFragment {
         List<Product> products = new ArrayList<>(); // get from server TODO
         for(int i=0 ;i<20; ++i) {
             products.add(new Product("oven", "20,000", "11111", "mike", "0921", "image", "info"));
-
         }
         HomeAdapter homeAdapter = new HomeAdapter(products);
         recyclerView.setAdapter(homeAdapter);

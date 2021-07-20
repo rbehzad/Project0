@@ -1,7 +1,10 @@
 package com.example.omarket.backend.product;
 
 
+import java.util.ArrayList;
+
 public class Product {
+    static ArrayList<Product> products = new ArrayList<Product>();
     public String name;
     public String price;
     public String sellerId;
@@ -18,5 +21,6 @@ public class Product {
         this.sellerPhonenumber = sellerPhonenumber;
         this.image = image;
         this.info = info;
+        products.add(this);
     }
 }
