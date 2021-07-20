@@ -96,8 +96,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         if (acct != null) {
             String personName = acct.getDisplayName();
             User user = new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
-            emailText.setText(user.emailAddress);
-            passwordText.setText(user.emailAddress);
             // create or login user.
             HashMap<String, String> body = new HashMap<>();
             body.put("first_name", user.fullName);
