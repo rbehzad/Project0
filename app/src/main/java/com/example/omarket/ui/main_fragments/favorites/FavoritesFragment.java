@@ -34,7 +34,7 @@ public class FavoritesFragment extends NavigationFragment {
 
         //
         for(int i=0 ;i<8; ++i) {
-            products.add(new Product("oven", "20,000", "11111", "mike", "0921", "image", "info"));
+            products.add(new Product("oven", "20,000", "11111", "mike", "0921"));
         }
         FavoriteAdapter favoriteAdapter = new FavoriteAdapter(products);
         recyclerView.setAdapter(favoriteAdapter);

@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class User extends CloneNotSupportedException {
-    public static ArrayList<Product> allProducts;
+    public ArrayList<Product> allProducts;
     public static ArrayList<User> allUser;
     public static User currentLoginUser = new User();
     public String token;
@@ -78,6 +78,13 @@ public class User extends CloneNotSupportedException {
             return currentLoginUser;
         currentLoginUser = new User();
         return currentLoginUser;
+    }
+
+    public static int get(String emailAddress){
+        for (int i = 0; i < allUser.size(); i++) {
+            if (allUser.get(i).emailAddress.equals(emailAddress)) return i;
+        }
+        return -1;
     }
 
     @NonNull

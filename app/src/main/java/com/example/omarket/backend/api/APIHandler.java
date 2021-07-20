@@ -9,16 +9,20 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.backend.user.UserType;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,6 +40,7 @@ public class APIHandler implements Response.ErrorListener {
     final static String userInfoUpdateURL = "/api/user/update/";
     final static String addProductURL = "/api/product/create/";
     final static String updateProductURL = "/api/product/update/";
+    final static String allProductGetURL = "/api/product/get-all/";
 
     public static APIHandler apiHandler = new APIHandler();
 
@@ -180,7 +185,51 @@ public class APIHandler implements Response.ErrorListener {
 
     }
 
-    //todo get product , category
+    public static void getAllProductInfo(Context context){
+        JSONObject jsonBody = new JSONObject();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String requestURL = allProductGetURL;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, domain + requestURL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        Product p = Adapter.productApiAdapter(response.getJSONObject(i));
+                        Product.allProducts.add(p);
+                        int userIndex = User.get(p.userEmail);
+                        User.allUser.get(userIndex).allProducts.add(p);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String body = null;
+                //get status code here
+                String statusCode;
+                if (error.networkResponse != null) {
+                    statusCode = String.valueOf(error.networkResponse.statusCode);
+                    //get response body and parse with appropriate encoding
+                    if (error.networkResponse.data != null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    }
+                    Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        requestQueue.add(request);
+    }
+//    @Override
+//    public Map<String, String> getHeaders() throws AuthFailureError {
+//        Map<String, String> params = new HashMap<String, String>();
+//        params.put("Authorization", "Token " + User.currentLoginUser.token);
+//        return params;
+//    }
+
+    //todo  category
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onErrorResponse(VolleyError error) {
