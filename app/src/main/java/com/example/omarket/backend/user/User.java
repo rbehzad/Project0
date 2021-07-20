@@ -18,8 +18,6 @@ public class User extends CloneNotSupportedException {
     public JSONObject loginOrRgisterErrors;
     public String body;
     public boolean is_in_request = true;
-
-
     public String fullName;
     public String emailAddress;
     public String password;
