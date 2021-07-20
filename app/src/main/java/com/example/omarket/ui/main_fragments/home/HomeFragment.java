@@ -50,7 +50,8 @@ public class HomeFragment extends NavigationFragment {
         view =  inflater.inflate(R.layout.fragment_home, container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         products = new ArrayList<>(); // get from server TODO
-        products.add(new Product("oven", 20000, "image", "info", User.currentLoginUser));
+        products.add(new Product("oven", "20,000", null, "mike", "email"));
+//        Product(String name, String price,  String image, String description, String userEmail)
         drawerLayout = view.findViewById(R.id.drawer_layout);
         navigationView = view.findViewById(R.id.homenavigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
