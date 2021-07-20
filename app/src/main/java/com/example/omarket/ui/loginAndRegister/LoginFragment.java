@@ -36,6 +36,7 @@ import com.example.omarket.backend.handlers.validators.PasswordValidator;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
+import com.example.omarket.ui.StartActivity;
 import com.example.omarket.ui.main_fragments.Color;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -104,9 +105,9 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 //            body.put("password2", pass);
 //            body.put("email", user.emailAddress);
             String pass = "GoogleSingIn1234";
-            APIHandler.loginOrRegisterApi(getActivity(), null, "login");
-            emailText.setText(acct.getEmail());
+            Toast.makeText(getActivity(), acct.getEmail(), Toast.LENGTH_SHORT).show();
             passwordText.setText(pass);
+            emailText.setText(acct.getEmail());
             login();
             if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
                 // create
@@ -116,7 +117,13 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                 body.put("password", pass);
                 body.put("password2", pass);
                 body.put("email", acct.getEmail());
-                APIHandler.loginOrRegisterApi(getActivity(), null, "login");
+                Thread thread = new Thread(){
+                    @Override
+                    public void run() {
+                        APIHandler.loginOrRegisterApi(getActivity(), body, "register");
+                    }
+                };
+                thread.start();
                 login();
             }
 
@@ -260,6 +267,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     }
 
     private void login() {
+//        StartActivity.loadProducts();
         HashMap<String, String> body = new HashMap<>();
         body.put("email", emailText.getText().toString());
         body.put("password", passwordText.getText().toString());
