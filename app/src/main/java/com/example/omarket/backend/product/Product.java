@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Product {
     public static ArrayList<Product> allProducts = new ArrayList<>();
     public String name;
-    public long price;
+    public String price;
     public User user;
     public String userEmail;
     public String image;
@@ -21,7 +21,7 @@ public class Product {
 
     }
 
-    public Product(String name, long price,  String image, String description, String userEmail) {
+    public Product(String name, String price,  String image, String description, String userEmail) {
         this.name = name;
         this.price = price;
         this.image = image;
