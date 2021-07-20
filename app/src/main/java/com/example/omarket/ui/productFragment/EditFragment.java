@@ -1,4 +1,4 @@
-package com.example.omarket.ui.productFragment.tabLayoutFragment;
+package com.example.omarket.ui.productFragment;
 
 import android.os.Bundle;
 
