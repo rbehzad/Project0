@@ -95,19 +95,22 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
             String personName = acct.getDisplayName();
-            new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
-//            User user =
-//            emailText.setText(user.emailAddress);
-//            passwordText.setText(user.emailAddress);
-//
-//            // create or login user.
-//            HashMap<String, String> body = new HashMap<>();
-//            body.put("first_name", user.fullName);
-//            body.put("last_name", "      ");
-//            String pass = PasswordGenerator.generateStrongPassword();
-//            body.put("password", pass);
-//            body.put("password2", pass);
-//            body.put("email", user.emailAddress);
+            User user = new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
+            emailText.setText(user.emailAddress);
+            passwordText.setText(user.emailAddress);
+            // create or login user.
+            HashMap<String, String> body = new HashMap<>();
+            body.put("first_name", user.fullName);
+            body.put("last_name", "      ");
+            String pass = "GoogleSingIn1234";
+            body.put("password", pass);
+            body.put("password2", pass);
+            body.put("email", user.emailAddress);
+            APIHandler.loginOrRegisterApi(getActivity(),body,"register");
+            // for login :
+            emailText.setText(user.emailAddress);
+            passwordText.setText(pass);
+            login();
 
             Context context = getActivity();
             // save key value data
@@ -164,6 +167,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         // validators.
         emailValidator = EmailValidator.getInstance();
         passwordValidator = PasswordValidator.getInstance();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -196,7 +200,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         setDefaultConfig();
         switch (v.getId()) {
             case R.id.login_login_button:
-                login(v);
+                login();
                 break;
             case R.id.login_text_view_register:
                 navigateFromViewTo(v, R.id.action_loginFragment_to_registerFragment);
@@ -247,7 +251,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         warningView.setText("");
     }
 
-    private void login(View v) {
+    private void login() {
         HashMap<String, String> body = new HashMap<>();
         body.put("email", emailText.getText().toString());
         body.put("password", passwordText.getText().toString());
