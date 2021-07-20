@@ -1,20 +1,18 @@
 package com.example.omarket.backend.user;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.omarket.backend.handlers.validators.UserInfoValidator;
 import com.example.omarket.backend.response.Response;
-import com.example.omarket.backend.handlers.exepstions.ExceptionChecker;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class User extends CloneNotSupportedException {
-    private static User currentLoginUser = new User();
+    public static User currentLoginUser = new User();
     public String token;
     public boolean is_login = false;
     public JSONObject loginOrRgisterErrors;
@@ -27,7 +25,9 @@ public class User extends CloneNotSupportedException {
     public String password;
     public String phoneNumber;
     public UserType userType;
-    private Uri personPhoto;// TODO
+    public Bitmap personPhotoBitmap;
+    public Uri personPhotoUri;
+    public boolean isInProgress = false;
 
     final UserInfoValidator validator = UserInfoValidator.getInstance();
 
@@ -37,37 +37,10 @@ public class User extends CloneNotSupportedException {
 
     }
 
-    public User(Response creationResponse) {
-        this.creationResponse = creationResponse;
-    }
-
-    public User(String emailAddress, String password, UserType userType) {
-        ExceptionChecker.notNullChecker(emailAddress, userType);
-        this.emailAddress = emailAddress;
-        this.userType = userType;
-        this.password = password;
-    }
-
-    public User(String fullName, String emailAddress, String password, String phoneNumber, UserType userType) {
-        ExceptionChecker.notNullChecker(fullName, emailAddress, password, phoneNumber, userType);
-        this.fullName = fullName;
-        this.emailAddress = emailAddress;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.userType = userType;
-    }
-
-    public User(String fullName, String phoneNumber, Uri personPhoto, UserType userType) {
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
-        this.userType = userType;
-        this.personPhoto = personPhoto;
-    }
-
     public User(String fullName, Uri personPhoto, String emailAddress, UserType userType) {// google sign in constructor
         this.fullName = fullName;
         this.emailAddress = emailAddress;
-        this.personPhoto = personPhoto;
+        this.personPhotoUri = personPhoto;
         this.userType = userType;
     }
 
@@ -92,8 +65,8 @@ public class User extends CloneNotSupportedException {
         return userType;
     }
 
-    public Uri getPersonPhoto() {
-        return personPhoto;
+    public Bitmap getPersonPhoto() {
+        return personPhotoBitmap;
     }
 
     public static User getCurrentLoginUser() {

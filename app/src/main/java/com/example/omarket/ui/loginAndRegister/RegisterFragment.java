@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 
+import com.android.volley.RequestQueue;
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.user.User;
@@ -118,6 +119,7 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
     }
 
     private void register(View v) {
+        User.currentLoginUser.isInProgress = false;
         HashMap<String, String> body = new HashMap<>();
         body.put("email", emailText.getText().toString());
         body.put("password", passwordText.getText().toString());
@@ -125,8 +127,6 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
         body.put("first_name", firstName.getText().toString());
         body.put("last_name", lastName.getText().toString());
         body.put("phone_number", phoneNumber.getText().toString());
-
-
         Thread thread = new Thread() {
             @SuppressLint("SetTextI18n")
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -143,9 +143,21 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
         };
         changeVisibilityTo(progressBar, View.VISIBLE);
         thread.start();
-        while (thread.isAlive());
+        changeVisibilityTo(progressBar, View.INVISIBLE);
         User user = User.getCurrentLoginUser();
         if (user.is_login) {
+            changeVisibilityTo(progressBar, View.VISIBLE);
+            thread = new Thread(){
+                @Override
+                public void run() {
+                    User.currentLoginUser.isInProgress = true;
+                    APIHandler.getUserInfoApi(getActivity());
+                    while (User.getCurrentLoginUser().isInProgress);
+                    changeVisibilityTo(progressBar, View.INVISIBLE);
+                }
+            };
+            changeVisibilityTo(progressBar, View.VISIBLE);
+            thread.start();
             navigateFromViewTo(getView(), R.id.action_registerFragment_to_mainActivity);
             return;
         }
