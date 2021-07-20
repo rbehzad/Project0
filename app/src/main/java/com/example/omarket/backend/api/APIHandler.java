@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener{
 
-    final static String domain = "http://192.168.1.54";
+    final static String domain = "http://192.168.95.7";
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
     final static String userInfoURL = "/api/user/info/";

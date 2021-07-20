@@ -70,6 +70,7 @@ public class addProduct extends Fragment implements View.OnClickListener {
         costText.setAnimation(shakeAnimation);
         descriptionText.setAnimation(shakeAnimation);
         btnSave = view.findViewById(R.id.btn_save);
+        btnSave.setOnClickListener(this);
         button = (Button) view.findViewById(R.id.buttonLoadPicture2);
         imageView = (ImageView) view.findViewById(R.id.addproduct_fragment_image_view_product);
         progressBar = view.findViewById(R.id.progressBar);
