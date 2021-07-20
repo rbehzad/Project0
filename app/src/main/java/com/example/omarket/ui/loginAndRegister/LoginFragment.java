@@ -223,6 +223,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         emailText.setHint("Email Address");
         passwordText.setHint("Password");
         Color.changeViewColor(emailText, R.color.black);
+        Color.changeViewColor(passwordText, R.color.black);
         Color.changeHintViewColor(emailText, R.color.gray);
         Color.changeHintViewColor(passwordText, R.color.gray);
         warningView.setText("");
@@ -249,6 +250,9 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         thread.start();
         User user = User.getCurrentLoginUser();
         if (user.is_login) {
+            changeVisibilityTo(progressBar, View.VISIBLE);
+            APIHandler.getUserInfoApi(getActivity());
+            changeVisibilityTo(progressBar, View.INVISIBLE);
             navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
             return;
         }

@@ -148,8 +148,7 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
         if (user.is_login) {
             changeVisibilityTo(progressBar, View.VISIBLE);
             APIHandler.getUserInfoApi(getActivity());
-            changeVisibilityTo(progressBar, View.VISIBLE);
-            thread.start();
+            changeVisibilityTo(progressBar, View.INVISIBLE);
             navigateFromViewTo(getView(), R.id.action_registerFragment_to_mainActivity);
             return;
         }

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main_fragments.dashboard.DashboardFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -24,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="147dp"
             android:text="DashBoard"
+            android:textColor="@color/blue"
             android:textSize="25dp"
             android:textStyle="bold"
             android:visibility="visible"
@@ -32,8 +37,7 @@
             app:layout_constraintHorizontal_bias="0.101"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.551"
-            android:textColor="@color/blue"/>
+            app:layout_constraintVertical_bias="0.551" />
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
@@ -72,20 +76,21 @@
             android:id="@+id/dashboardTextview5"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="contact us:"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:padding="10dp"
-            android:textStyle="bold"/>
+            android:text="contact us:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/dashboardTextview6"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="\t\t\tsh.sarafrazi80@gmail.com"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:padding="10dp"
-            android:textColor="#492D19"/>
+            android:text="\t\t\tsh.sarafrazi80@gmail.com"
+            android:textColor="#492D19"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/dashboardTextview7"
@@ -164,4 +169,5 @@
     </androidx.core.widget.NestedScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
