@@ -16,11 +16,11 @@ import androidx.fragment.app.Fragment;
 import com.example.omarket.R;
 
 
-public class addProduct extends Fragment {
+public class addProduct extends Fragment implements View.OnClickListener {
     private static int RESULT_LOAD_IMAGE = 1;
     View view;
     ImageView imageView;
-    Button button;
+    Button button , btnSave;
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
 
@@ -51,7 +51,7 @@ public class addProduct extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_product, container, false);
-
+        btnSave = view.findViewById(R.id.btn_save);
         button = (Button) view.findViewById(R.id.buttonLoadPicture2);
         imageView = (ImageView) view.findViewById(R.id.addproduct_fragment_image_view_product);
         button.setOnClickListener(new View.OnClickListener() {
@@ -62,5 +62,14 @@ public class addProduct extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_save:
+
+                break;
+        }
     }
 }
