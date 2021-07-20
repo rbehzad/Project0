@@ -249,7 +249,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         User user = User.getCurrentLoginUser();
         if (user.is_login) {
             changeVisibilityTo(progressBar, View.VISIBLE);
-            APIHandler.getUserInfoApi(getActivity());
+            APIHandler.getUserInfoApi(getActivity(), null, "C");
             changeVisibilityTo(progressBar, View.INVISIBLE);
             navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
             return;

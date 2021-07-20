@@ -54,7 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         }
         public void bind(Product product) {
             titleTextView.setText(product.name);
-            priceTextView.setText(product.price);
+            priceTextView.setText(String.valueOf(product.price));
             // switch fragment(home ==> product)
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

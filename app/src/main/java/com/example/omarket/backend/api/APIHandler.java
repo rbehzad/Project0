@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.backend.user.UserType;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class APIHandler implements Response.ErrorListener{
+public class APIHandler implements Response.ErrorListener {
 
     final static String domain = "http://192.168.1.105";
     final static String loginURL = "/api/user/login/";
@@ -85,18 +86,23 @@ public class APIHandler implements Response.ErrorListener{
         requestQueue.add(request);
     }
 
-    public static void getUserInfoApi(Context context){
-
+    public static void getUserInfoApi(Context context, Map<String, Object> body, String C_N) {
+        // C : current user , N : not current user
+        JSONObject jsonBody = new JSONObject(body);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET, domain + userInfoURL, null, new Response.Listener<JSONObject>() {
+                Request.Method.GET, domain + userInfoURL, jsonBody, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                User user = User.getCurrentLoginUser();
+                User user = null;
+                if (C_N.equals("C"))
+                    user = User.getCurrentLoginUser();
+                else
+                    user = new User();
                 try {
                     user.emailAddress = (String) response.get("email");
                     user.fullName = (String) response.get("first_name") + " " + (String) response.get("last_name");
-                    boolean is_admin =  response.getBoolean("is_superuser");
+                    boolean is_admin = response.getBoolean("is_superuser");
                     user.userType = (is_admin ? UserType.SUPER_ADMIN : UserType.USER);
                     // get image:
                     boolean is_null = response.isNull("base64_image");
@@ -111,21 +117,24 @@ public class APIHandler implements Response.ErrorListener{
                     }
 
                     String phone_number = null;
-                    if (!response.isNull("phone_number")){
+                    if (!response.isNull("phone_number")) {
                         phone_number = (String) response.get("phone_number");
                     }
                     user.phoneNumber = phone_number;
                     user.isInProgress = false;
-                    User.currentLoginUser = user;
+                    if (C_N.equals("C"))
+                        User.currentLoginUser = user;
+                    else
+                        User.allUser.add(user);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, apiHandler ){
+        }, apiHandler) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "Token " + User.currentLoginUser.token);
                 return params;
             }
@@ -135,9 +144,9 @@ public class APIHandler implements Response.ErrorListener{
         requestQueue.add(request);
     }
 
-    public static void updateUserAddProductUpdateProductApi(Context context, Map<String, Object> body,String UU_AP_UP){
+    public static void updateUserAddProductUpdateProductApi(Context context, Map<String, Object> body, String UU_AP_UP) {
         String requestURL = null;
-        switch (UU_AP_UP){
+        switch (UU_AP_UP) {
             case "UU":
                 requestURL = userInfoUpdateURL;
                 break;
@@ -159,10 +168,10 @@ public class APIHandler implements Response.ErrorListener{
                     e.printStackTrace();
                 }
             }
-        }, apiHandler){
+        }, apiHandler) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "Token " + User.currentLoginUser.token);
                 return params;
             }
