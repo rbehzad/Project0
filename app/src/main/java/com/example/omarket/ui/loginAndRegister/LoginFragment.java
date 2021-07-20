@@ -29,14 +29,11 @@ import androidx.annotation.RequiresApi;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
-import com.example.omarket.backend.handlers.PasswordGenerator;
 import com.example.omarket.backend.handlers.loginlogout.Login;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
 import com.example.omarket.backend.handlers.validators.PasswordValidator;
 import com.example.omarket.backend.user.User;
-import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
-import com.example.omarket.ui.StartActivity;
 import com.example.omarket.ui.main_fragments.Color;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -95,19 +92,16 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
-            Context context = getActivity();
-            // save key value data
-            SharedPreferences sharedPref = context.getSharedPreferences(
-                    getString(R.string.profile_file_key), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(getString(R.string.name_key), acct.getDisplayName());
-            editor.putString(getString(R.string.email_key), acct.getEmail());
-            editor.apply();
-            Toast.makeText(getActivity(), "login as " + acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+            String personName = acct.getDisplayName();
+//            User user = new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
+            // create or login user.
+//            HashMap<String, String> body = new HashMap<>();
+//            body.put("first_name", user.fullName);
+//            body.put("last_name", "      ");
+//            body.put("password", pass);
+//            body.put("password2", pass);
+//            body.put("email", user.emailAddress);
 //            String pass = "GoogleSingIn1234";
-//            passwordText.setText(pass);
-//            emailText.setText(acct.getEmail());
-//            login();
 //            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
 //                // create
 //                HashMap<String, String> body = new HashMap<>();
@@ -125,6 +119,19 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
 //                thread.start();
 //                login();
 //            }
+
+            Context context = getActivity();
+            // save key value data
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    getString(R.string.profile_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.name_key), acct.getDisplayName());
+            editor.putString(getString(R.string.email_key), acct.getEmail());
+            editor.apply();
+//            passwordText.setText(pass);
+//            emailText.setText(acct.getEmail());
+//            login();
+            Toast.makeText(getActivity(), "login as " + personName, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Could not sign in with google", Toast.LENGTH_SHORT).show();
         }
@@ -255,6 +262,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     }
 
     private void login() {
+//        StartActivity.loadProducts();
         HashMap<String, String> body = new HashMap<>();
         body.put("email", emailText.getText().toString());
         body.put("password", passwordText.getText().toString());
