@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_description" />
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.example.omarket.ui.productFragment.tabLayoutFragment.EditFragment"
+        android:name="com.example.omarket.ui.productFragment.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" />
 </navigation>

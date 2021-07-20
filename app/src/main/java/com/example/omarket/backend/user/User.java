@@ -6,12 +6,17 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import com.example.omarket.backend.handlers.validators.UserInfoValidator;
+import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.response.Response;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class User extends CloneNotSupportedException {
+    public static ArrayList<Product> allProducts;
+    public static ArrayList<User> allUser;
     public static User currentLoginUser = new User();
     public String token;
     public boolean is_login = false;
@@ -32,7 +37,8 @@ public class User extends CloneNotSupportedException {
     public Response creationResponse;
 
     public User() {
-
+        allProducts = new ArrayList<>();
+        allUser = new ArrayList<>();
     }
 
     public User(String fullName, Uri personPhoto, String emailAddress, UserType userType) {// google sign in constructor

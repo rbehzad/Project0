@@ -99,7 +99,7 @@
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/fragment_information_textView_email"
+            android:id="@+id/textView_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normalMargin"
@@ -116,7 +116,7 @@
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/fragment_information_textView_phone_number"
+            android:id="@+id/textView_phone_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/normal_text_background"
@@ -127,9 +127,9 @@
             android:textColor="@color/textGreenToBlack"
             android:layout_marginTop="@dimen/normalMargin"
             android:textSize="@dimen/xlargeTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_information_textView_email"
-            app:layout_constraintStart_toStartOf="@+id/fragment_information_textView_email"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_information_textView_email"
+            app:layout_constraintEnd_toEndOf="@+id/textView_email"
+            app:layout_constraintStart_toStartOf="@+id/textView_email"
+            app:layout_constraintTop_toBottomOf="@+id/textView_email"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
