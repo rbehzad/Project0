@@ -52,7 +52,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         }
         public void bind(Product product) {
             titleTextView.setText(product.name);
-            priceTextView.setText(product.price);
+            priceTextView.setText(String.valueOf(product.price));
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
