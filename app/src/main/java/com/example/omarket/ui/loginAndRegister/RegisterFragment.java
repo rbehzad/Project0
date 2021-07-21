@@ -22,6 +22,8 @@ import androidx.navigation.Navigation;
 import com.android.volley.RequestQueue;
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
+import com.example.omarket.backend.response.Result;
+import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.Color;
@@ -127,63 +129,77 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
         body.put("first_name", firstName.getText().toString());
         body.put("last_name", lastName.getText().toString());
         body.put("phone_number", phoneNumber.getText().toString());
-        Thread thread = new Thread() {
-            @SuppressLint("SetTextI18n")
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void run() {
-                APIHandler.loginOrRegisterApi(getActivity(), body, "register");
-                User user;
-                do {
-                    user = User.getCurrentLoginUser();
-                } while (!user.is_login && user.loginOrRgisterErrors == null);
-                changeVisibilityTo(progressBar, View.INVISIBLE);
-
-            }
-        };
         changeVisibilityTo(progressBar, View.VISIBLE);
-        thread.start();
-        changeVisibilityTo(progressBar, View.INVISIBLE);
-        User user = User.getCurrentLoginUser();
-        if (user.is_login) {
-            changeVisibilityTo(progressBar, View.VISIBLE);
-            APIHandler.getUserInfoApi(getActivity(), null, "C");
-            changeVisibilityTo(progressBar, View.INVISIBLE);
-            navigateFromViewTo(getView(), R.id.action_registerFragment_to_mainActivity);
-            return;
-        }
-
-        if (user.loginOrRgisterErrors != null) {
-
-
-            try {
-                String email = user.loginOrRgisterErrors.get("email").toString();
-                if (emailText.getText().toString().trim().equals("") || emailText.getText() == null) {
-                    emailText.setText("");
-                    emailText.setHint(email);
-                    viewFailed(emailText);
-                } else {
-                    Toast.makeText(getActivity(), email, Toast.LENGTH_SHORT).show();
+        if (User.currentLoginUser.is_login){
+            APIHandler.getUserInfoApi(new ServerCallback<User>() {
+                @Override
+                public void onComplete(Result<User> result) {
+                    changeVisibilityTo(progressBar, View.INVISIBLE);
+                    if (result instanceof Result.Success) {
+                        User.currentLoginUser = (User) ((Result.Success) result).data;
+                        Toast.makeText(getActivity(), "register complete", Toast.LENGTH_SHORT).show();
+                        navigateFromViewTo(getView(),R.id.action_registerFragment_to_mainActivity);
+                    } else if (result instanceof Result.Error) {
+                        Toast.makeText(getActivity(), "register field, try again", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                String password = user.loginOrRgisterErrors.get("password").toString();
-                passwordText.setText("");
-                passwordText.setHint(password);
-                viewFailed(passwordText);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
-                Toast t = new Toast(getActivity());
-                t.setText(user.loginOrRgisterErrors.toString());
-                t.setDuration(Toast.LENGTH_LONG);
-                final Toast tt = t;
-                tt.show();
-
-            }
+            }, getActivity(), null);
+        } else {
+            APIHandler.loginOrRegisterApi(new ServerCallback<User>() {
+                @Override
+                public void onComplete(Result<User> result) {
+                    changeVisibilityTo(progressBar, View.INVISIBLE);
+                    if (result instanceof Result.Success) {
+                        User user = (User) ((Result.Success) result).data;
+                        if (user.is_login) {
+                            User.currentLoginUser = user;
+                            changeVisibilityTo(progressBar, View.VISIBLE);
+                            APIHandler.getUserInfoApi(new ServerCallback<User>() {
+                                @Override
+                                public void onComplete(Result<User> result) {
+                                    changeVisibilityTo(progressBar, View.INVISIBLE);
+                                    if (result instanceof Result.Success) {
+                                        User.currentLoginUser = (User) ((Result.Success) result).data;
+                                        navigateFromViewTo(getView(),R.id.action_registerFragment_to_mainActivity);
+                                    } else if (result instanceof Result.Error) {
+                                        Toast.makeText(getActivity(), "register field, try again", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, getActivity(), null);
+                        }
+                    } else if (result instanceof Result.Error) {
+                        User user = (User) ((Result.Error) result).data;
+                        if (user.loginOrRgisterErrors != null) {
+                            String email = "", password = "";
+                            try {
+                                email = user.loginOrRgisterErrors.get("email").toString();
+                                if (emailText.getText() == null || emailText.getText().toString().trim().equals("")) {
+                                    emailText.setText("");
+                                    emailText.setHint(email);
+                                    viewFailed(emailText);
+                                } else {
+                                    Toast.makeText(getActivity(), email, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                password = user.loginOrRgisterErrors.get("password").toString();
+                                passwordText.setText("");
+                                passwordText.setHint(password);
+                                viewFailed(passwordText);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            if (email.trim().equals("") && password.trim().equals("") && user.loginOrRgisterErrors != null) {
+                                Toast.makeText(getActivity(), user.loginOrRgisterErrors.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                            User.getCurrentLoginUser().loginOrRgisterErrors = null;
+                        }
+                        Toast.makeText(getActivity(), "Register field, try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }, getActivity(), body, "register");
         }
 
 
