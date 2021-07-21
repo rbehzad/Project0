@@ -56,9 +56,8 @@ public class HomeFragment extends NavigationFragment {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.recyclerview);
-        products = new ArrayList<>(); // get from server TODO
+        products = new ArrayList<>();
         activity = getActivity();
-        category(1);
 
 
 

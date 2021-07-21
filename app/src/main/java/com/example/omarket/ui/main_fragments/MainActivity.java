@@ -6,14 +6,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.omarket.R;
-
-
 import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.response.Result;
@@ -21,10 +18,6 @@ import com.example.omarket.backend.response.ServerCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigation,navController);
-//        APIHandler.updateUserAddProductUpdateProductApi(,this,body,"");
     }
 
     public static void loadProducts(ServerCallback<Object> serverCallback){

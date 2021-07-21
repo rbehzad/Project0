@@ -203,7 +203,7 @@ public class APIHandler implements Response.ErrorListener {
                 requestURL = updateProductURL;
                 break;
             case "DP":
-                method = Request.Method.DELETE;
+                method = Request.Method.POST;
                 requestURL = deleteProductURL;
         }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -289,7 +289,6 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    //todo  category
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onErrorResponse(VolleyError error) {
