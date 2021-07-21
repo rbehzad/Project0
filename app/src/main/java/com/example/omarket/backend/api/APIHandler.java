@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = MyDomainAddressForGitIgnore.domainAddress;
+    final static String domain = "http://192.168.95.7";
 
     // user
     final static String loginURL = "/api/user/login/";
