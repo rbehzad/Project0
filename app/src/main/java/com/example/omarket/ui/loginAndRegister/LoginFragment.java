@@ -32,6 +32,8 @@ import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.handlers.loginlogout.Login;
 import com.example.omarket.backend.handlers.validators.EmailValidator;
 import com.example.omarket.backend.handlers.validators.PasswordValidator;
+import com.example.omarket.backend.response.Result;
+import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.Color;
@@ -234,19 +236,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     public boolean onTouch(View v, MotionEvent event) {
         setDefaultConfig();
         switch (v.getId()) {
-
-//            case R.id.login_edit_text_email_address:
-//                if (passwordText.getText() != null
-//                        && !"".equals(passwordText.getText().toString().trim())
-//                        && passwordText.isInTouchMode()) {
-//
-//                    if (!passwordValidator.validate(passwordText.getText().toString()).success) {
-//                        warningView.setText(passwordValidator.getValidateError());
-//                        return false;
-//                    }
-//                }
-//                break;
-
             case R.id.login_edit_text_password:
                 if (emailText.getText() == null || "".equals(emailText.getText().toString().trim())) {
                     warningView.setText("Email address can't be empty!");
@@ -273,59 +262,79 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         HashMap<String, String> body = new HashMap<>();
         body.put("email", emailText.getText().toString());
         body.put("password", passwordText.getText().toString());
-        Thread thread = new Thread() {
-
-            @SuppressLint("SetTextI18n")
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void run() {
-                APIHandler.loginOrRegisterApi(getActivity(), body, "login");
-                User user;
-
-//                do {
-//                    user = User.getCurrentLoginUser();
-//                } while (!user.is_login && user.loginOrRgisterErrors == null);
-                changeVisibilityTo(progressBar, View.INVISIBLE);
-            }
-        };
         changeVisibilityTo(progressBar, View.VISIBLE);
-        thread.start();
-        User user = User.getCurrentLoginUser();
-        if (user.is_login) {
-            changeVisibilityTo(progressBar, View.VISIBLE);
-            APIHandler.getUserInfoApi(getActivity(), null, "C");
-            changeVisibilityTo(progressBar, View.INVISIBLE);
-            navigateFromViewTo(getView(), R.id.action_loginFragment_to_mainActivity);
-            return;
+        if (User.currentLoginUser.is_login){
+            APIHandler.getUserInfoApi(new ServerCallback<User>() {
+                @Override
+                public void onComplete(Result<User> result) {
+                    changeVisibilityTo(progressBar, View.INVISIBLE);
+                    if (result instanceof Result.Success) {
+                        User.currentLoginUser = (User) ((Result.Success) result).data;
+                        navigateFromViewTo(getView(),R.id.action_loginFragment_to_mainActivity);
+                    } else if (result instanceof Result.Error) {
+                        Toast.makeText(getActivity(), "Login field, try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }, getActivity(), null);
+        } else {
+            APIHandler.loginOrRegisterApi(new ServerCallback<User>() {
+                @Override
+                public void onComplete(Result<User> result) {
+                    changeVisibilityTo(progressBar, View.INVISIBLE);
+                    if (result instanceof Result.Success) {
+                        User user = (User) ((Result.Success) result).data;
+                        if (user.is_login) {
+                            User.currentLoginUser = user;
+                            changeVisibilityTo(progressBar, View.VISIBLE);
+                            APIHandler.getUserInfoApi(new ServerCallback<User>() {
+                                @Override
+                                public void onComplete(Result<User> result) {
+                                    changeVisibilityTo(progressBar, View.INVISIBLE);
+                                    if (result instanceof Result.Success) {
+                                        User.currentLoginUser = (User) ((Result.Success) result).data;
+                                        navigateFromViewTo(getView(),R.id.action_loginFragment_to_mainActivity);
+                                    } else if (result instanceof Result.Error) {
+                                        Toast.makeText(getActivity(), "Login field, try again", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, getActivity(), null);
+                        }
+                    } else if (result instanceof Result.Error) {
+                        User user = (User) ((Result.Error) result).data;
+                        if (user.loginOrRgisterErrors != null) {
+                            String email = "", password = "";
+                            try {
+                                email = user.loginOrRgisterErrors.get("email").toString();
+                                if (emailText.getText() == null || emailText.getText().toString().trim().equals("")) {
+                                    emailText.setText("");
+                                    emailText.setHint(email);
+                                    viewFailed(emailText);
+                                } else {
+                                    warningView.setText(email);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                password = user.loginOrRgisterErrors.get("password").toString();
+                                passwordText.setText("");
+                                passwordText.setHint(password);
+                                viewFailed(passwordText);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            if (email.trim().equals("") && password.trim().equals("") && user.loginOrRgisterErrors != null) {
+                                warningView.setText(user.loginOrRgisterErrors.toString());
+                            }
+                            User.getCurrentLoginUser().loginOrRgisterErrors = null;
+                        }
+                        Toast.makeText(getActivity(), "Login field, try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }, getActivity(), body, "login");
         }
 
-        if (user.loginOrRgisterErrors != null) {
-            String email = "", password = "";
-            try {
-                email = user.loginOrRgisterErrors.get("email").toString();
-                if (emailText.getText() == null || emailText.getText().toString().trim().equals("")) {
-                    emailText.setText("");
-                    emailText.setHint(email);
-                    viewFailed(emailText);
-                } else {
-                    warningView.setText(email);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                password = user.loginOrRgisterErrors.get("password").toString();
-                passwordText.setText("");
-                passwordText.setHint(password);
-                viewFailed(passwordText);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (email.trim().equals("") && password.trim().equals("") && user.loginOrRgisterErrors != null) {
-                warningView.setText(user.loginOrRgisterErrors.toString());
-            }
-            User.getCurrentLoginUser().loginOrRgisterErrors = null;
-        }
+
 
 
     }

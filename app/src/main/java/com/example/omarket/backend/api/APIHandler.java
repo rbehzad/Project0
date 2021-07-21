@@ -21,6 +21,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.response.Result;
+import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
@@ -32,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +52,7 @@ public class APIHandler implements Response.ErrorListener {
 
     public static APIHandler apiHandler = new APIHandler();
 
-    public static void loginOrRegisterApi(Context context, Map<String, String> body, String requestType) {
+    public static void loginOrRegisterApi(ServerCallback<User> loginUser ,Context context, Map<String, String> body, String requestType) {
 
         String requestURL = (requestType.equals("login") ? loginURL : registerURL);
         String tag = (requestType.equals("login") ? "login" : "register");
@@ -59,10 +62,11 @@ public class APIHandler implements Response.ErrorListener {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                User user = new User();
                 try {
-                    User.getCurrentLoginUser().token = (String) response.get("token");
-                    User.getCurrentLoginUser().is_login = true;
-                    Toast.makeText(context, response.get("response").toString(), Toast.LENGTH_SHORT).show();
+                    user.token = response.getString("token");
+                    user.is_login = true;
+                    loginUser.onComplete(new Result.Success<>(user));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -74,6 +78,7 @@ public class APIHandler implements Response.ErrorListener {
                 String body = null;
                 //get status code here
                 String statusCode;
+                User user = new User();
                 if (error.networkResponse != null) {
                     statusCode = String.valueOf(error.networkResponse.statusCode);
                     //get response body and parse with appropriate encoding
@@ -82,9 +87,12 @@ public class APIHandler implements Response.ErrorListener {
                     }
                     try {
                         if (body != null)
-                            User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject(body);
+                            user.loginOrRgisterErrors = new JSONObject(body);
                         else
-                            User.getCurrentLoginUser().loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
+                            user.loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
+
+                        loginUser.onComplete(new Result.Error<>(user));
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -96,7 +104,7 @@ public class APIHandler implements Response.ErrorListener {
 
     }
 
-    public static void getUserInfoApi(Context context, Map<String, Object> body, String C_N) {
+    public static void getUserInfoApi(ServerCallback<User> userServerCallback, Context context, Map<String, Object> body) {
         // C : current user , N : not current user
         JSONObject jsonBody;
         if (body != null)
@@ -107,11 +115,7 @@ public class APIHandler implements Response.ErrorListener {
                 Request.Method.GET, domain + userInfoURL, jsonBody, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                User user = null;
-                if (C_N.equals("C"))
-                    user = User.getCurrentLoginUser();
-                else
-                    user = new User();
+                User user = new User();
                 try {
                     user.emailAddress = (String) response.get("email");
                     user.fullName = (String) response.get("first_name") + " " + (String) response.get("last_name");
@@ -135,16 +139,45 @@ public class APIHandler implements Response.ErrorListener {
                     }
                     user.phoneNumber = phone_number;
                     user.isInProgress = false;
-                    if (C_N.equals("C"))
-                        User.currentLoginUser = user;
-                    else
-                        User.allUser.add(user);
+                    userServerCallback.onComplete(new Result.Success<>(user));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, apiHandler) {
+        }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String body = null;
+                //get status code here
+                User user = new User();
+                String statusCode;
+                if (error.networkResponse != null) {
+                    statusCode = String.valueOf(error.networkResponse.statusCode);
+                    //get response body and parse with appropriate encoding
+                    if (error.networkResponse.data != null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    }
+                    try {
+                        if (body != null)
+                            user.loginOrRgisterErrors = new JSONObject(body);
+                        else
+                            user.loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    try {
+                        user.loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                userServerCallback.onComplete(new Result.Error<>(user));
+            }
+    }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -157,7 +190,7 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void updateUserAddProductUpdateProductApi(Context context, Map<String, Object> body, String UU_AP_UP) {
+    public static void updateUserAddProductUpdateProductApi(ServerCallback<String> serverCallback,Context context, Map<String, Object> body, String UU_AP_UP) {
         String requestURL = null;
         switch (UU_AP_UP) {
             case "UU":
@@ -175,13 +208,26 @@ public class APIHandler implements Response.ErrorListener {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    Toast.makeText(context, response.get("response").toString(), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                serverCallback.onComplete(new Result.Success<>("S"));
             }
-        }, apiHandler) {
+        }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String body = null;
+                //get status code here
+                String statusCode;
+                if (error.networkResponse != null) {
+                    statusCode = String.valueOf(error.networkResponse.statusCode);
+                    //get response body and parse with appropriate encoding
+                    if (error.networkResponse.data != null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                serverCallback.onComplete(new Result.Error<>("F"));
+            }
+        }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -193,19 +239,19 @@ public class APIHandler implements Response.ErrorListener {
 
     }
 
-    public static void getAllProductInfo(Context context) {
+    public static void getAllProductInfo(ServerCallback<ArrayList<Product>> serverCallback, Context context) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-//        JSONObject bodyJson = new JSONObject("")/;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, domain + "/api/product/get-all/", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                ArrayList<Product> products = new ArrayList<>();
                 try{
                     for (int i = 1; i < response.length(); i++) {
                         Product p = Adapter.productApiAdapter(response.getJSONObject(i));
-                        Product.allProducts.add(p);
+                        products.add(p);
                     }
-                    Toast.makeText(context, response.getJSONObject(0).getString("response"), Toast.LENGTH_SHORT).show();
+                    serverCallback.onComplete(new Result.Success<>(products));
                 } catch (Exception ex){
                     ex.printStackTrace();
                 }
@@ -230,7 +276,7 @@ public class APIHandler implements Response.ErrorListener {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "Token " + User.getCurrentLoginUser().token);
+                params.put("Authorization", "Token " + "932260e98e1f9325891b8089d7b950a0cd48b03b");
                 return params;
             }
         };
@@ -238,12 +284,6 @@ public class APIHandler implements Response.ErrorListener {
         request.setTag("getAllProduct");
         requestQueue.add(request);
     }
-//    @Override
-//    public Map<String, String> getHeaders() throws AuthFailureError {
-//        Map<String, String> params = new HashMap<String, String>();
-//        params.put("Authorization", "Token " + User.currentLoginUser.token);
-//        return params;
-//    }
 
     //todo  category
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

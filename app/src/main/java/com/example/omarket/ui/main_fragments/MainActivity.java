@@ -3,6 +3,7 @@ package com.example.omarket.ui.main_fragments;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -14,8 +15,12 @@ import com.example.omarket.R;
 
 
 import com.example.omarket.backend.api.APIHandler;
+import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.response.Result;
+import com.example.omarket.backend.response.ServerCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -24,34 +29,11 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*
-     * Gets the number of available cores
-     * (not always the same as the maximum number of cores)
-     */
-    private static int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
-
-    // Instantiates the queue of Runnable as a LinkedBlockingQueue
-    private static final BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>();
-
-    // Sets the amount of time an idle thread waits before terminating
-    private static final int KEEP_ALIVE_TIME = 1;
-    // Sets the Time Unit to seconds
-    private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
-
-    // Creates a thread pool manager
-    public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
-            NUMBER_OF_CORES,       // Initial pool size
-            NUMBER_OF_CORES,       // Max pool size
-            KEEP_ALIVE_TIME,
-            KEEP_ALIVE_TIME_UNIT,
-            workQueue
-    );
-
-    public static MainActivity mainActivity;
     private BottomNavigationView bottomNavigation;
     private NavController navController;
     private NavHostFragment navHostFragment;
-    static ProgressBar progressBar;
+    public static ProgressBar progressBar;
+    public static MainActivity mainActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,21 +45,20 @@ public class MainActivity extends AppCompatActivity {
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigation,navController);
-        loadProducts();
-
     }
 
-    public static void loadProducts(){
-        Thread thread = new Thread(){
+    public static void loadProducts(ServerCallback<Object> serverCallback){
+        APIHandler.getAllProductInfo(new ServerCallback<ArrayList<Product>>() {
             @Override
-            public void run() {
-                APIHandler.getAllProductInfo(mainActivity);
-                progressBar.setVisibility(View.INVISIBLE);
-
+            public void onComplete(Result<ArrayList<Product>> result) {
+                MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                if (result instanceof Result.Success){
+                    Product.allProducts.addAll(((Result.Success<ArrayList<Product>>) result).data);
+                } else if (result instanceof Result.Error) {
+                    Toast.makeText(mainActivity, "Loading products failed, try again.", Toast.LENGTH_SHORT).show();
+                }
             }
-        };
-        progressBar.setVisibility(View.VISIBLE);
-        thread.start();
+        }, mainActivity);
     }
 
 }

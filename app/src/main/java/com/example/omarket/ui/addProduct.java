@@ -14,18 +14,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
+import com.example.omarket.backend.response.Result;
+import com.example.omarket.backend.response.ServerCallback;
+import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.main_fragments.Color;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class addProduct extends Fragment implements View.OnClickListener {
+public class addProduct extends NavigationFragment implements View.OnClickListener {
     private static int RESULT_LOAD_IMAGE = 1;
     View view;
     ImageView imageView;
@@ -104,8 +108,18 @@ public class addProduct extends Fragment implements View.OnClickListener {
                 body.put("description",descriptionText.getText().toString());
                 body.put("cost",costText.getText().toString());
                 changeVisibilityTo(progressBar, View.VISIBLE);
-                APIHandler.updateUserAddProductUpdateProductApi(getActivity(),body,"AP");
-                changeVisibilityTo(progressBar, View.INVISIBLE);
+                APIHandler.updateUserAddProductUpdateProductApi(new ServerCallback<String>() {
+                    @Override
+                    public void onComplete(Result<String> result) {
+                        changeVisibilityTo(progressBar, View.INVISIBLE);
+                        if (result instanceof Result.Success){
+                            Toast.makeText(getActivity(), "adding product complete", Toast.LENGTH_SHORT).show();
+                            navigateFromViewTo(getView(),R.id.action_addProductFragment_to_homeFragment2);
+                        } else {
+                            Toast.makeText(getActivity(), "adding product failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, getActivity(), body, "AP");
                 break;
         }
     }

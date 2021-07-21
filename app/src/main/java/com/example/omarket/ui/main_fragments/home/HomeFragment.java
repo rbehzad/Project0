@@ -1,5 +1,6 @@
 package com.example.omarket.ui.main_fragments.home;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
+import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.response.Result;
+import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.MainActivity;
@@ -48,14 +53,17 @@ public class HomeFragment extends NavigationFragment {
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_home, container,false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         products = new ArrayList<>(); // get from server TODO
-        products.addAll(Product.allProducts);
+        activity = getActivity();
+        category(1);
+
 
         drawerLayout = view.findViewById(R.id.drawer_layout);
         navigationView = view.findViewById(R.id.homenavigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
@@ -82,50 +90,53 @@ public class HomeFragment extends NavigationFragment {
     }
 
     public void category(int i) {
-        if(i==1) {  // open all product
-            for (int j = 0; j < 20; ++j) {
-                products.clear();
-//                MainActivity.loadProducts();
-                products.addAll(Product.allProducts);
-            }
-        }
-        else if(i==2) {  // open my product
+        if (i == 1) {  // open all product
+            MainActivity.loadProducts(new ServerCallback<Object>() {
+                @Override
+                public void onComplete(Result<Object> result) {
+                    if (result instanceof Result.Success) {
+                        products.clear();
+                        products.addAll(Product.allProducts);
+                    } else {
+                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else if (i == 2) {  // open my product
             products.clear();
 //            MainActivity.loadProducts();
-            for(Product p : Product.allProducts){
-                if (p.userEmail.equals(User.currentLoginUser.emailAddress)){
+            for (Product p : Product.allProducts) {
+                if (p.userEmail.equals(User.currentLoginUser.emailAddress)) {
                     products.add(p);
                 }
             }
 
-        }
-        else if(i==3) { // open electronic
+        } else if (i == 3) { // open electronic
             products.clear();
 //            MainActivity.loadProducts();
-            for(Product p: Product.allProducts){
-                if (p.categorySlug.equals("electronic")){
+            for (Product p : Product.allProducts) {
+                if (p.categorySlug.equals("electronic")) {
+                    products.add(p);
+                }
+            }
+        } else if (i == 4) { // open fashion
+            products.clear();
+//            MainActivity.loadProducts();
+            for (Product p : Product.allProducts) {
+                if (p.categorySlug.equals("fashion")) {
+                    products.add(p);
+                }
+            }
+        } else if (i == 5) { // open industrial
+            products.clear();
+//            MainActivity.loadProducts();
+            for (Product p : Product.allProducts) {
+                if (p.categorySlug.equals("industrial")) {
                     products.add(p);
                 }
             }
         }
-        else if(i==4) { // open fashion
-            products.clear();
-//            MainActivity.loadProducts();
-            for(Product p: Product.allProducts){
-                if (p.categorySlug.equals("fashion")){
-                    products.add(p);
-                }
-            }
-        }
-        else if(i==5) { // open industrial
-            products.clear();
-//            MainActivity.loadProducts();
-            for(Product p: Product.allProducts){
-                if (p.categorySlug.equals("industrial")){
-                    products.add(p);
-                }
-            }
-        }
+
     }
 
     @Override
