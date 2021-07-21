@@ -131,19 +131,23 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
         body.put("phone_number", phoneNumber.getText().toString());
         changeVisibilityTo(progressBar, View.VISIBLE);
         if (User.currentLoginUser.is_login){
+            HashMap<String, Object> logiBody = new HashMap<>();
+            body.put("email", User.currentLoginUser.emailAddress);
             APIHandler.getUserInfoApi(new ServerCallback<User>() {
                 @Override
                 public void onComplete(Result<User> result) {
                     changeVisibilityTo(progressBar, View.INVISIBLE);
                     if (result instanceof Result.Success) {
-                        User.currentLoginUser = (User) ((Result.Success) result).data;
-                        Toast.makeText(getActivity(), "register complete", Toast.LENGTH_SHORT).show();
-                        navigateFromViewTo(getView(),R.id.action_registerFragment_to_mainActivity);
+                        User u = (User) ((Result.Success) result).data;
+                        u.token = User.currentLoginUser.token;
+                        u.is_login = User.currentLoginUser.is_login;
+                        User.currentLoginUser = u;
+                        navigateFromViewTo(getView(),R.id.action_registerFragment_to_loginFragment);
                     } else if (result instanceof Result.Error) {
                         Toast.makeText(getActivity(), "register field, try again", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }, getActivity(), null);
+            }, getActivity(), logiBody);
         } else {
             APIHandler.loginOrRegisterApi(new ServerCallback<User>() {
                 @Override
@@ -152,20 +156,26 @@ public class RegisterFragment extends NavigationFragment implements View.OnTouch
                     if (result instanceof Result.Success) {
                         User user = (User) ((Result.Success) result).data;
                         if (user.is_login) {
-                            User.currentLoginUser = user;
+                            User.currentLoginUser.token = user.token;
+                            User.currentLoginUser.is_login = user.is_login;
                             changeVisibilityTo(progressBar, View.VISIBLE);
+                            HashMap<String, Object> body = new HashMap<>();
+                            body.put("email", User.currentLoginUser.emailAddress);
                             APIHandler.getUserInfoApi(new ServerCallback<User>() {
                                 @Override
                                 public void onComplete(Result<User> result) {
                                     changeVisibilityTo(progressBar, View.INVISIBLE);
                                     if (result instanceof Result.Success) {
-                                        User.currentLoginUser = (User) ((Result.Success) result).data;
+                                        User u = (User) ((Result.Success) result).data;
+                                        u.token = User.currentLoginUser.token;
+                                        u.is_login = User.currentLoginUser.is_login;
+                                        User.currentLoginUser = u;
                                         navigateFromViewTo(getView(),R.id.action_registerFragment_to_mainActivity);
                                     } else if (result instanceof Result.Error) {
                                         Toast.makeText(getActivity(), "register field, try again", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            }, getActivity(), null);
+                            }, getActivity(), body);
                         }
                     } else if (result instanceof Result.Error) {
                         User user = (User) ((Result.Error) result).data;

@@ -156,7 +156,7 @@ public class HomeFragment extends NavigationFragment {
                     if (result instanceof Result.Success) {
                         homeAdapter.products.clear();
                         for (Product p : Product.allProducts) {
-                            if (p.categorySlug.equals("fashion")) {
+                            if (p.categorySlug.trim().equals("fashion")) {
                                 homeAdapter.products.add(p);
                             }
                         }
