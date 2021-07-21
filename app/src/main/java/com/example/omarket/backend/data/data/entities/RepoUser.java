@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 
 @Entity
-public class User {
+public class RepoUser {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
@@ -18,6 +18,5 @@ public class User {
     public String phoneNumber;
 
     public UserType userType;
-
 
 }

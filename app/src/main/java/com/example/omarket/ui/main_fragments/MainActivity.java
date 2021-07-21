@@ -59,5 +59,15 @@ public class MainActivity extends AppCompatActivity {
         }, mainActivity);
     }
 
+//    public void searchUser() {
+//        User user = User.currentLoginUser;
+//        RepoUser user1 = Repository.getInstance(this).searchUser(new RepositoryCallback<RepoUser>() {
+//            @Override
+//            public void onComplete(com.example.omarket.backend.data.data.repository.Result<RepoUser> result) {
+//
+//            }
+//        }, user.emailAddress);
+//    }
+
 }
 

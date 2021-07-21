@@ -5,25 +5,25 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.omarket.backend.data.data.entities.User;
+import com.example.omarket.backend.data.data.entities.RepoUser;
 
 import java.util.List;
 
 @Dao
 public interface UserDao {
-    @Query("INSERT INTO User(name, emailAddress, password, phoneNumber, userType) VALUES(:name, :emailAddress, :password, :phoneNumber, :userType)")
+    @Query("INSERT INTO RepoUser(name, emailAddress, password, phoneNumber, userType) VALUES(:name, :emailAddress, :password, :phoneNumber, :userType)")
     void insert(String name, String emailAddress, String password, String phoneNumber, String userType);
 
     // get user info by searching its emailAddress
-    @Query("SELECT * FROM User WHERE emailAddress IN (:userEmailAddress) ")
-    User loadByEmail(String userEmailAddress);
+    @Query("SELECT * FROM RepoUser WHERE emailAddress IN (:userEmailAddress) ")
+    RepoUser loadByEmail(String userEmailAddress);
     // get all user
-    @Query("SELECT * FROM User")
-    List<User> getAll();
+    @Query("SELECT * FROM RepoUser")
+    List<RepoUser> getAll();
     // save users
     @Insert
-    void insertAll(User...users);
+    void insertAll(RepoUser... repoUsers);
     // delete users
     @Delete
-    void delete(User user);
+    void delete(RepoUser repoUser);
 }
