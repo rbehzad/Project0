@@ -2,15 +2,11 @@ package com.example.omarket.backend.api;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Base64;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -20,15 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.response.Result;
 import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
-import com.example.omarket.backend.user.UserType;
-import com.example.omarket.ui.NavigationFragment;
-import com.example.omarket.ui.StartActivity;
-import com.example.omarket.ui.loginAndRegister.LoginFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -118,8 +109,8 @@ public class APIHandler implements Response.ErrorListener {
                 try {
                     user.emailAddress = (String) response.get("email");
                     user.fullName = (String) response.get("first_name") + " " + (String) response.get("last_name");
-                    boolean is_admin = response.getBoolean("is_superuser");
-                    user.userType = (is_admin ? UserType.SUPER_ADMIN : UserType.USER);
+       //             boolean is_admin = response.getBoolean("is_superuser");
+       //             user.userType = (is_admin ? UserType.SUPER_ADMIN : UserType.USER);
                     // get image:
                     boolean is_null = response.isNull("base64_image");
                     if (!is_null) {
