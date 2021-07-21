@@ -18,7 +18,7 @@ import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
     NavigationFragment navigationFragment;
-    private List<Product> products;
+    public List<Product> products;
 
     FavoriteAdapter(List<Product> products) { this.products = products; }
     @NonNull
