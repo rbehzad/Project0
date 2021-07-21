@@ -286,6 +286,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                                     changeVisibilityTo(progressBar, View.INVISIBLE);
                                     if (result instanceof Result.Success) {
                                         User.currentLoginUser = (User) ((Result.Success) result).data;
+                                        User.currentLoginUser.token = user.token;
+                                        User.currentLoginUser.is_login = user.is_login;
                                         navigateFromViewTo(getView(),R.id.action_loginFragment_to_mainActivity);
                                     } else if (result instanceof Result.Error) {
                                         Toast.makeText(getActivity(), "Login field, try again", Toast.LENGTH_SHORT).show();

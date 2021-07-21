@@ -21,7 +21,7 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     NavigationFragment navigationFragment;
-    private List<Product> products;
+    public List<Product> products;
     ProductActivity selected_fragment;
     FragmentManager fragmentManager;
     HomeAdapter(List<Product> products) { this.products = products; }
@@ -45,6 +45,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     }
     TextView titleTextView, priceTextView;
 
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     class HomeViewHolder extends RecyclerView.ViewHolder {
         View view;
 
@@ -64,9 +68,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 public void onClick(View view) { // execute this method when user click card
                     navigationFragment = new NavigationFragment();
                     if (product.userEmail.equals(User.currentLoginUser.getEmailAddress())) {
-                        navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_fragment_editId);
+                        NavigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_fragment_editId);
                     } else {
-                        navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);
+                        NavigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);
                     }
                 }
             });

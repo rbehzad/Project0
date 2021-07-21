@@ -36,7 +36,7 @@ import java.util.List;
 
 
 public class HomeFragment extends NavigationFragment {
-    List<Product> products;
+    public List<Product> products;
     TextView recyclerV;
     View view;
     Activity activity;
@@ -47,17 +47,20 @@ public class HomeFragment extends NavigationFragment {
     MenuView.ItemView allProduct;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-
+    HomeAdapter homeAdapter;
+    RecyclerView recyclerView;
+    boolean i = false;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerView = view.findViewById(R.id.recyclerview);
         products = new ArrayList<>(); // get from server TODO
         activity = getActivity();
         category(1);
+
 
 
         drawerLayout = view.findViewById(R.id.drawer_layout);
@@ -81,12 +84,22 @@ public class HomeFragment extends NavigationFragment {
                 return true;
             }
         });
-        HomeAdapter homeAdapter = new HomeAdapter(products);
+
+        homeAdapter = new HomeAdapter(products);
         recyclerView.setAdapter(homeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
         return view;
+    }
+
+    public void loadProducts(){
+        homeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        category(1);
     }
 
     public void category(int i) {
@@ -95,46 +108,82 @@ public class HomeFragment extends NavigationFragment {
                 @Override
                 public void onComplete(Result<Object> result) {
                     if (result instanceof Result.Success) {
-                        products.clear();
-                        products.addAll(Product.allProducts);
+                        homeAdapter.products.clear();
+                        homeAdapter.products.addAll(Product.allProducts);
+                        loadProducts();
                     } else {
                         Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } else if (i == 2) {  // open my product
-            products.clear();
-//            MainActivity.loadProducts();
-            for (Product p : Product.allProducts) {
-                if (p.userEmail.equals(User.currentLoginUser.emailAddress)) {
-                    products.add(p);
+            MainActivity.loadProducts(new ServerCallback<Object>() {
+                @Override
+                public void onComplete(Result<Object> result) {
+                    if (result instanceof Result.Success) {
+                        homeAdapter.products.clear();
+                        for (Product product: Product.allProducts){
+                            if (product.userEmail.trim().equals(User.currentLoginUser.emailAddress.trim()))
+                                homeAdapter.products.add(product);
+                        }
+                        loadProducts();
+                    } else {
+                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+            });
 
         } else if (i == 3) { // open electronic
-            products.clear();
-//            MainActivity.loadProducts();
-            for (Product p : Product.allProducts) {
-                if (p.categorySlug.equals("electronic")) {
-                    products.add(p);
+            MainActivity.loadProducts(new ServerCallback<Object>() {
+                @Override
+                public void onComplete(Result<Object> result) {
+                    if (result instanceof Result.Success) {
+                        homeAdapter.products.clear();
+                        for (Product p : Product.allProducts) {
+                            if (p.categorySlug.equals("electronic")) {
+                                homeAdapter.products.add(p);
+                            }
+                        }
+                        loadProducts();
+                    } else {
+                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+            });
         } else if (i == 4) { // open fashion
-            products.clear();
-//            MainActivity.loadProducts();
-            for (Product p : Product.allProducts) {
-                if (p.categorySlug.equals("fashion")) {
-                    products.add(p);
+            MainActivity.loadProducts(new ServerCallback<Object>() {
+                @Override
+                public void onComplete(Result<Object> result) {
+                    if (result instanceof Result.Success) {
+                        homeAdapter.products.clear();
+                        for (Product p : Product.allProducts) {
+                            if (p.categorySlug.equals("fashion")) {
+                                homeAdapter.products.add(p);
+                            }
+                        }
+                        loadProducts();
+                    } else {
+                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+            });
         } else if (i == 5) { // open industrial
-            products.clear();
-//            MainActivity.loadProducts();
-            for (Product p : Product.allProducts) {
-                if (p.categorySlug.equals("industrial")) {
-                    products.add(p);
+            MainActivity.loadProducts(new ServerCallback<Object>() {
+                @Override
+                public void onComplete(Result<Object> result) {
+                    if (result instanceof Result.Success) {
+                        homeAdapter.products.clear();
+                        for (Product p : Product.allProducts) {
+                            if (p.categorySlug.equals("industrial")) {
+                                homeAdapter.products.add(p);
+                            }
+                        }
+                        loadProducts();
+                    } else {
+                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+            });
         }
 
     }

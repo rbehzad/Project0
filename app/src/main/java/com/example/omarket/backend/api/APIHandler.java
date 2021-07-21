@@ -2,6 +2,7 @@ package com.example.omarket.backend.api;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Base64;
 import android.view.View;
@@ -54,7 +55,7 @@ public class APIHandler implements Response.ErrorListener {
 
     public static APIHandler apiHandler = new APIHandler();
 
-    public static void loginOrRegisterApi(ServerCallback<User> loginUser ,Context context, Map<String, String> body, String requestType) {
+    public static void loginOrRegisterApi(ServerCallback<User> loginUser, Context context, Map<String, String> body, String requestType) {
 
         String requestURL = (requestType.equals("login") ? loginURL : registerURL);
         String tag = (requestType.equals("login") ? "login" : "register");
@@ -64,11 +65,10 @@ public class APIHandler implements Response.ErrorListener {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                User user = new User();
                 try {
-                    user.token = response.getString("token");
-                    user.is_login = true;
-                    loginUser.onComplete(new Result.Success<>(user));
+                    User.currentLoginUser.is_login = true;
+                    User.currentLoginUser.token = (String) response.get("token");
+                    loginUser.onComplete(new Result.Success<>(User.currentLoginUser));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -109,7 +109,7 @@ public class APIHandler implements Response.ErrorListener {
         // C : current user , N : not current user
         JSONObject jsonBody;
         if (body != null)
-             jsonBody = new JSONObject(body);
+            jsonBody = new JSONObject(body);
         else jsonBody = null;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest request = new JsonObjectRequest(
@@ -178,7 +178,7 @@ public class APIHandler implements Response.ErrorListener {
                 }
                 userServerCallback.onComplete(new Result.Error<>(user));
             }
-    }) {
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -191,7 +191,7 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void updateUserAddProductUpdateProductApi(ServerCallback<String> serverCallback,Context context, Map<String, Object> body, String UU_AP_UP) {
+    public static void updateUserAddProductUpdateProductApi(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP) {
         String requestURL = null;
         switch (UU_AP_UP) {
             case "UU":
@@ -228,7 +228,7 @@ public class APIHandler implements Response.ErrorListener {
                 }
                 serverCallback.onComplete(new Result.Error<>("F"));
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -247,13 +247,13 @@ public class APIHandler implements Response.ErrorListener {
             @Override
             public void onResponse(JSONArray response) {
                 ArrayList<Product> products = new ArrayList<>();
-                try{
+                try {
                     for (int i = 1; i < response.length(); i++) {
                         Product p = Adapter.productApiAdapter(response.getJSONObject(i));
                         products.add(p);
                     }
                     serverCallback.onComplete(new Result.Success<>(products));
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
@@ -273,11 +273,11 @@ public class APIHandler implements Response.ErrorListener {
                     }
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "Token " + "932260e98e1f9325891b8089d7b950a0cd48b03b");
+                params.put("Authorization", "Token " + User.currentLoginUser.token);
                 return params;
             }
         };
@@ -309,7 +309,6 @@ public class APIHandler implements Response.ErrorListener {
             }
         }
     }
-
 
 
 }
