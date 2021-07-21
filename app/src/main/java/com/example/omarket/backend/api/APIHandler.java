@@ -39,9 +39,11 @@ public class APIHandler implements Response.ErrorListener {
     // user
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
-    final static String userInfoURL = "/api/user/info/";
     final static String userInfoByEmailURL = "/api/user/info-by-email/";
     final static String userInfoUpdateURL = "/api/user/update/";
+    final static String setFavoriteURL = "/api/user/favorites/set/";
+    final static String getAllFavoritesURL = "/api/user/favorites/get/";
+    final static String deleteFavoriteProductURL = "/api/user/favorites/delete/";
 
     // product
     final static String addProductURL = "/api/product/create/";
@@ -189,10 +191,10 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void updateUserAddProductUpdateProductDeleteProductApi(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP) {
+    public static void sendRequestOrGet(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP_SF_GF) {
         String requestURL = null;
         int method = 0;
-        switch (UU_AP_UP_DP) {
+        switch (UU_AP_UP_DP_SF_GF) {
             case "UU":
                 method = Request.Method.POST;
                 requestURL = userInfoUpdateURL;
@@ -208,6 +210,15 @@ public class APIHandler implements Response.ErrorListener {
             case "DP":
                 method = Request.Method.POST;
                 requestURL = deleteProductURL;
+                break;
+            case "SF":
+                method = Request.Method.POST;
+                requestURL = setFavoriteURL;
+                break;
+            case "DF":
+                method = Request.Method.POST;
+                requestURL = deleteFavoriteProductURL;
+                break;
         }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject bodyJson = new JSONObject(body);
@@ -245,10 +256,12 @@ public class APIHandler implements Response.ErrorListener {
 
     }
 
-    public static void getAllProductInfo(ServerCallback<ArrayList<Product>> serverCallback, Context context) {
+    public static void getAllProductApi(ServerCallback<ArrayList<Product>> serverCallback, Context context) {
+        int method = Request.Method.GET;
+        String requestURL = allProductGetURL;
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, domain + allProductGetURL, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(method, domain + requestURL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 ArrayList<Product> products = new ArrayList<>();
@@ -258,6 +271,55 @@ public class APIHandler implements Response.ErrorListener {
                         products.add(p);
                     }
                     serverCallback.onComplete(new Result.Success<>(products));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String body = null;
+                //get status code here
+                String statusCode;
+                if (error.networkResponse != null) {
+                    statusCode = String.valueOf(error.networkResponse.statusCode);
+                    //get response body and parse with appropriate encoding
+                    if (error.networkResponse.data != null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                serverCallback.onComplete(new Result.Error<>(null));
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "Token " + User.currentLoginUser.token);
+                return params;
+            }
+        };
+
+        request.setTag("getAllProduct");
+        requestQueue.add(request);
+    }
+
+    public static void getAllFavoriteApi(ServerCallback<ArrayList<String>> serverCallback, Context context) {
+        int method = Request.Method.GET;
+        String requestURL = getAllFavoritesURL;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonArrayRequest request = new JsonArrayRequest(method, domain + requestURL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                ArrayList<String> products_id = new ArrayList<>();
+                try {
+                    for (int i = 1; i < response.length(); i++) {
+                        String id = (String) response.getJSONObject(i).get("product");
+                        products_id.add(id);
+                    }
+                    serverCallback.onComplete(new Result.Success<>(products_id));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

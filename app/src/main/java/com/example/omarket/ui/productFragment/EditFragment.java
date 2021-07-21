@@ -95,7 +95,7 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
         MainActivity.progressBar.setVisibility(View.VISIBLE);
         HashMap<String, Object> body = new HashMap<>();
         body.put("slug", Product.selectedProduct.id);
-        APIHandler.updateUserAddProductUpdateProductDeleteProductApi(new ServerCallback<String>() {
+        APIHandler.sendRequestOrGet(new ServerCallback<String>() {
             @Override
             public void onComplete(Result<String> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
@@ -117,7 +117,7 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
         body.put("title", title.getText().toString());
         body.put("description", title.getText().toString());
         body.put("cost", Long.parseLong(cost.getText().toString()));
-        APIHandler.updateUserAddProductUpdateProductDeleteProductApi(new ServerCallback<String>() {
+        APIHandler.sendRequestOrGet(new ServerCallback<String>() {
             @Override
             public void onComplete(Result<String> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);

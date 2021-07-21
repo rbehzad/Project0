@@ -105,7 +105,7 @@ public class AddProduct extends NavigationFragment implements View.OnClickListen
                 body.put("description",descriptionText.getText().toString());
                 body.put("cost",costText.getText().toString());
                 changeVisibilityTo(progressBar, View.VISIBLE);
-                APIHandler.updateUserAddProductUpdateProductDeleteProductApi(new ServerCallback<String>() {
+                APIHandler.sendRequestOrGet(new ServerCallback<String>() {
                     @Override
                     public void onComplete(Result<String> result) {
                         changeVisibilityTo(progressBar, View.INVISIBLE);
