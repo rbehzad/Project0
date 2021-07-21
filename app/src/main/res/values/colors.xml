@@ -21,5 +21,10 @@
     <color name="links_color">@color/blue</color>
     <color name="textGreenToBlack">#1C4949</color>
 
+    <color name="background_color">#009688</color>
+    <color name="white2">#FFFFFF</color>
+    <color name="black2">#000000</color>
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_selectorcolor">#9E9E9E</color>
 
 </resources>
