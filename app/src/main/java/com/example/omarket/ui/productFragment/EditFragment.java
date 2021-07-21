@@ -1,6 +1,10 @@
 package com.example.omarket.ui.productFragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +14,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
@@ -24,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditFragment extends NavigationFragment implements View.OnClickListener {
+    private static final int REQUEST_CALL = 1;
     EditText title;
     EditText description;
     EditText cost;
@@ -44,6 +53,12 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
         cost = view.findViewById(R.id.edit_fragment_editText_cost);
         fullName = view.findViewById(R.id.edit_fragment_textView_full_name);
         phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
+        phoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall();
+            }
+        });
         email = view.findViewById(R.id.product_fragment_textView_email);
         saveBtn = view.findViewById(R.id.edit_fragment_btn_save);
         saveBtn.setOnClickListener(this);
@@ -58,6 +73,17 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                Toast.makeText(MainActivity.mainActivity, "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         checkBox.setChecked(false);
@@ -68,24 +94,23 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
                 if (result instanceof Result.Success) {
                     ArrayList<String> slugs = ((Result.Success<ArrayList<String>>) result).data;
-                    for (Product product : Product.allProducts) {
-                        boolean is_in = false;
-                        for (String slug : slugs) {
-                            if (slug.equals(product.id)) {
-                                is_in = true;
-                                break;
-                            }
-                        }
-                        if (is_in) {
-                            checkBox.setChecked(true);
+
+                    boolean is_in = false;
+                    for (String slug : slugs) {
+                        if (slug.equals(Product.selectedProduct.id)) {
+                            is_in = true;
                             break;
                         }
                     }
+                    if (is_in) {
+                        checkBox.setChecked(true);
+                    }
+
                 } else if (result instanceof Result.Error) {
-                    Toast.makeText(getActivity(), "Loading favorite products failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Loading favorite products failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, getContext());
+        }, MainActivity.mainActivity);
         title.setText(Product.selectedProduct.name);
         description.setText(Product.selectedProduct.description);
         cost.setText(Product.selectedProduct.price);
@@ -103,10 +128,10 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
                     phoneNumber.setText(user[0].phoneNumber);
                     fullName.setText(user[0].fullName);
                 } else if (result instanceof Result.Error) {
-                    Toast.makeText(getActivity(), "Loading failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Loading failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, getActivity(), body);
+        }, MainActivity.mainActivity, body);
 
 
     }
@@ -136,13 +161,13 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
             public void onComplete(Result<String> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
                 if (result instanceof Result.Success) {
-                    Toast.makeText(getActivity(), "Deleting product successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Deleting product successful", Toast.LENGTH_SHORT).show();
                     navigateFromViewTo(getView(), R.id.action_fragment_editId_to_homeFragment);
                 } else if (result instanceof Result.Error) {
-                    Toast.makeText(getActivity(), "Deleting filed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Deleting filed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, getActivity(), body, "DP");
+        }, MainActivity.mainActivity, body, "DP");
     }
 
     public void updateProduct() {
@@ -157,13 +182,13 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
             public void onComplete(Result<String> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
                 if (result instanceof Result.Success) {
-                    Toast.makeText(getActivity(), "Update product successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Update product successful", Toast.LENGTH_SHORT).show();
                     navigateFromViewTo(getView(), R.id.action_fragment_editId_to_homeFragment);
                 } else if (result instanceof Result.Error) {
-                    Toast.makeText(getActivity(), "Update filed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Update filed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, getActivity(), body, "UP");
+        }, MainActivity.mainActivity, body, "UP");
     }
 
     @Override
@@ -179,52 +204,67 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
                 if (result instanceof Result.Success) {
                     ArrayList<String> slugs = ((Result.Success<ArrayList<String>>) result).data;
-                    for (Product product : Product.allProducts) {
-                        boolean is_in = false;
-                        for (String slug : slugs) {
-                            if (slug.equals(product.id)) {
-                                is_in = true;
-                                break;
-                            }
-                        }
-                        if (is_in) {
-                            chec[0] = true;
+
+                    boolean is_in = false;
+                    for (String slug : slugs) {
+                        if (slug.equals(Product.selectedProduct.id)) {
+                            is_in = true;
                             break;
                         }
                     }
+                    if (is_in) {
+                        chec[0] = true;
+                    }
+                    if (chec[0] != checked) {
+                        body.put("slug", Product.selectedProduct.id);
+                        if (checked) {
+                            MainActivity.progressBar.setVisibility(View.VISIBLE);
+                            APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                                @Override
+                                public void onComplete(Result<String> result) {
+                                    MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                                    if (result instanceof Result.Error) {
+                                        Toast.makeText(MainActivity.mainActivity, "Add to favorite failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, MainActivity.mainActivity, body, "SF");
+                        } else {
+                            MainActivity.progressBar.setVisibility(View.VISIBLE);
+                            APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                                @Override
+                                public void onComplete(Result<String> result) {
+                                    MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                                    if (result instanceof Result.Error) {
+                                        Toast.makeText(MainActivity.mainActivity, "delete favorite failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, MainActivity.mainActivity, body, "DF");
+                        }
+                    }
+
+
                 } else if (result instanceof Result.Error) {
-                    Toast.makeText(getActivity(), "Loading favorite products failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Loading favorite products failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, getContext());
-        body.put("slug", Product.selectedProduct.id);
-        if (chec[0] != checked) {
-            if (checked) {
-                APIHandler.sendRequestOrGet(new ServerCallback<String>() {
-                    @Override
-                    public void onComplete(Result<String> result) {
-                        if (result instanceof Result.Error) {
-                            Toast.makeText(getContext(), "Add to favorite failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, getContext(), body, "SF");
-            } else {
-                APIHandler.sendRequestOrGet(new ServerCallback<String>() {
-                    @Override
-                    public void onComplete(Result<String> result) {
-                        if (result instanceof Result.Error) {
-                            Toast.makeText(getActivity(), "delete favorite failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, getContext(), body, "DF");
-            }
+        }, MainActivity.mainActivity);
+    }
+
+    private void makePhoneCall() {
+        String number = phoneNumber.getText().toString();
+
+        if (ContextCompat.checkSelfPermission(MainActivity.mainActivity,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.mainActivity,
+                    new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        } else {
+            String dial = "tel:" + number;
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
         }
-        Product.selectedProduct = null;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Product.selectedProduct = null;
     }
 }

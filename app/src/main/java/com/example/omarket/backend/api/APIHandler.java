@@ -239,7 +239,7 @@ public class APIHandler implements Response.ErrorListener {
                     //get response body and parse with appropriate encoding
                     if (error.networkResponse.data != null) {
                         body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                        if (!UU_AP_UP_DP_SF_GF_DF.equals("DF"))
+//                        if (!UU_AP_UP_DP_SF_GF_DF.equals("DF")&&!UU_AP_UP_DP_SF_GF_DF.equals("AF"))
                             Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                     }
                 }

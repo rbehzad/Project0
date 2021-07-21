@@ -62,9 +62,9 @@ public class ProductFragment extends Fragment {
     private void makePhoneCall() {
         String number = phoneNumber.getText().toString();
 
-            if (ContextCompat.checkSelfPermission(getActivity(),
+            if (ContextCompat.checkSelfPermission(MainActivity.mainActivity,
                     Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(),
+                ActivityCompat.requestPermissions(MainActivity.mainActivity,
                         new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
             } else {
                 String dial = "tel:" + number;
@@ -77,7 +77,7 @@ public class ProductFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 makePhoneCall();
             } else {
-                Toast.makeText(getActivity(), "Permission DENIED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mainActivity, "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -105,10 +105,10 @@ public class ProductFragment extends Fragment {
                         }
                     }
                 } else if (result instanceof Result.Error){
-                    Toast.makeText(getActivity(), "Loading favorite products failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Loading favorite products failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, getContext());
+        }, MainActivity.mainActivity);
         title.setText(Product.selectedProduct.name);
         description.setText(Product.selectedProduct.description);
         cost.setText(Product.selectedProduct.price);
@@ -126,10 +126,10 @@ public class ProductFragment extends Fragment {
                     phoneNumber.setText(user[0].phoneNumber);
                     name.setText(user[0].fullName);
                 } else if (result instanceof Result.Error){
-                    Toast.makeText(getActivity(), "Loading failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mainActivity, "Loading failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, getActivity(), body);
+        }, MainActivity.mainActivity, body);
     }
 
 
@@ -145,22 +145,80 @@ public class ProductFragment extends Fragment {
                         @Override
                         public void onComplete(Result<String> result) {
                             if (result instanceof Result.Error){
-                                Toast.makeText(getActivity(), "Add to favorite failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.mainActivity, "Add to favorite failed", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }, getContext(), body, "SF");
+                    }, MainActivity.mainActivity, body, "SF");
                 } else {
                     APIHandler.sendRequestOrGet(new ServerCallback<String>() {
                         @Override
                         public void onComplete(Result<String> result) {
                             if (result instanceof Result.Error){
-                                Toast.makeText(getActivity(), "delete favorite failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.mainActivity, "delete favorite failed", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }, getContext(), body, "DF");
+                    }, MainActivity.mainActivity, body, "DF");
                 }
                 break;
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        boolean checked = checkBox.isChecked();
+        HashMap<String, Object> body = new HashMap<>();
+        final boolean[] chec = {false};
+        MainActivity.progressBar.setVisibility(View.VISIBLE);
+        APIHandler.getAllFavoriteApi(new ServerCallback<ArrayList<String>>() {
+            @Override
+            public void onComplete(Result<ArrayList<String>> result) {
+                MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                if (result instanceof Result.Success) {
+                    ArrayList<String> slugs = ((Result.Success<ArrayList<String>>) result).data;
+
+                    boolean is_in = false;
+                    for (String slug : slugs) {
+                        if (slug.equals(Product.selectedProduct.id)) {
+                            is_in = true;
+                            break;
+                        }
+                    }
+                    if (is_in) {
+                        chec[0] = true;
+                    }
+                    if (chec[0] != checked) {
+                        body.put("slug", Product.selectedProduct.id);
+                        if (checked) {
+                            MainActivity.progressBar.setVisibility(View.VISIBLE);
+                            APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                                @Override
+                                public void onComplete(Result<String> result) {
+                                    MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                                    if (result instanceof Result.Error) {
+                                        Toast.makeText(MainActivity.mainActivity, "Add to favorite failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, MainActivity.mainActivity, body, "SF");
+                        } else {
+                            MainActivity.progressBar.setVisibility(View.VISIBLE);
+                            APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                                @Override
+                                public void onComplete(Result<String> result) {
+                                    MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                                    if (result instanceof Result.Error) {
+                                        Toast.makeText(MainActivity.mainActivity, "delete favorite failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, MainActivity.mainActivity, body, "DF");
+                        }
+                    }
+
+
+                } else if (result instanceof Result.Error) {
+                    Toast.makeText(MainActivity.mainActivity, "Loading favorite products failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, MainActivity.mainActivity);
+    }
 }
