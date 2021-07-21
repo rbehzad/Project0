@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -130,6 +131,21 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
                 }
             }
         }, getActivity(), body, "UP");
+    }
+    // edit text checkbox
+    public void onCheckboxClicked2(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.product_fragment_editcheckBox:
+                if (checked) {
+
+                } else {
+
+                }
+                break;
+        }
     }
 
     @Override

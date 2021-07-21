@@ -15,21 +15,31 @@
 
         <ImageView
             android:id="@+id/edit_fragment_image_view_product"
-            android:layout_width="334dp"
-            android:layout_height="334dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/product_image"
             android:src="@mipmap/default_product_picture_foreground"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/product_fragment_editcheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked2"
+            android:text="CheckBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_image_view_product" />
 
         <EditText
             android:id="@+id/edit_fragment_editText_title"
             android:layout_width="@dimen/normalWidth"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normalMargin"
             android:background="@drawable/normal_text_background"
             android:drawablePadding="@dimen/paddingDrawable"
             android:hint="@string/title"
@@ -39,14 +49,15 @@
             app:drawableLeftCompat="@drawable/ic_baseline_title_24"
             app:drawableStartCompat="@drawable/ic_baseline_title_24"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_image_view_product" />
+            app:layout_constraintTop_toBottomOf="@+id/product_fragment_editcheckBox" />
 
         <EditText
             android:id="@+id/edit_fragment_editText_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginTop="12dp"
             android:background="@drawable/normal_text_background"
             android:drawableStart="@drawable/ic_baseline_description_24"
             android:drawableLeft="@drawable/ic_baseline_description_24"
@@ -57,15 +68,17 @@
             app:drawableLeftCompat="@drawable/ic_baseline_description_24"
             app:drawableStartCompat="@drawable/ic_baseline_description_24"
             app:layout_constraintEnd_toEndOf="@+id/edit_fragment_editText_title"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/edit_fragment_editText_title"
             app:layout_constraintTop_toBottomOf="@id/edit_fragment_editText_title"
             tools:ignore="UseCompatTextViewDrawableXml" />
+
 
         <EditText
             android:id="@+id/edit_fragment_editText_cost"
             android:layout_width="@dimen/normalWidth"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginTop="8dp"
             android:background="@drawable/normal_text_background"
             android:drawablePadding="@dimen/paddingDrawable"
             android:hint="@string/cost"
@@ -73,19 +86,16 @@
             android:textSize="@dimen/xlargeTextSize"
             app:drawableLeftCompat="@drawable/ic_baseline_attach_money_24"
             app:drawableStartCompat="@drawable/ic_baseline_attach_money_24"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_editText_description"
-            app:layout_constraintVertical_bias="0.0" />
-
+            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_editText_description" />
 
         <TextView
             android:id="@+id/edit_fragment_textView_full_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginTop="12dp"
             android:background="@drawable/normal_text_background"
             android:drawableStart="@drawable/ic_baseline_person_colored_24"
             android:drawableLeft="@drawable/ic_baseline_person_colored_24"
@@ -94,6 +104,7 @@
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
             app:layout_constraintEnd_toEndOf="@+id/edit_fragment_editText_cost"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/edit_fragment_editText_cost"
             app:layout_constraintTop_toBottomOf="@id/edit_fragment_editText_cost"
             tools:ignore="UseCompatTextViewDrawableXml" />
@@ -102,7 +113,7 @@
             android:id="@+id/product_fragment_textView_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginTop="12dp"
             android:background="@drawable/normal_text_background"
             android:drawableStart="@drawable/ic_baseline_email_24"
             android:drawableLeft="@drawable/ic_baseline_email_24"
@@ -111,6 +122,7 @@
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
             app:layout_constraintEnd_toEndOf="@+id/edit_fragment_textView_full_name"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/edit_fragment_textView_full_name"
             app:layout_constraintTop_toBottomOf="@id/edit_fragment_textView_full_name"
             tools:ignore="UseCompatTextViewDrawableXml" />
@@ -119,7 +131,7 @@
             android:id="@+id/product_fragment_textView_phone_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginTop="4dp"
             android:background="@drawable/normal_text_background"
             android:drawableStart="@drawable/ic_baseline_local_phone_colored_24"
             android:drawableLeft="@drawable/ic_baseline_local_phone_colored_24"
@@ -128,6 +140,7 @@
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
             app:layout_constraintEnd_toEndOf="@+id/product_fragment_textView_email"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/product_fragment_textView_email"
             app:layout_constraintTop_toBottomOf="@+id/product_fragment_textView_email"
             tools:ignore="UseCompatTextViewDrawableXml" />
@@ -137,6 +150,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@+id/product_fragment_textView_phone_number"
+            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="@+id/product_fragment_textView_phone_number"
             app:layout_constraintTop_toBottomOf="@+id/product_fragment_textView_phone_number">
 
@@ -145,11 +159,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginRight="@dimen/normalMargin"
                 android:background="@drawable/button_backgrounds"
                 android:text="@string/save"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:layout_marginRight="@dimen/normalMargin"/>
+                android:textColor="@color/white" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/edit_fragment_btn_delete"
