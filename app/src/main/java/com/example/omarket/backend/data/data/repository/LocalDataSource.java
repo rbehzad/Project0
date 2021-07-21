@@ -6,7 +6,7 @@ import androidx.room.Room;
 
 import com.example.omarket.backend.data.data.AppDataBase;
 import com.example.omarket.backend.data.data.entities.Product;
-import com.example.omarket.backend.data.data.entities.User;
+import com.example.omarket.backend.data.data.entities.RepoUser;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class LocalDataSource {
     }
     ///////////
     // get all user
-    public List<User> getAllUsers() {
+    public List<RepoUser> getAllUsers() {
         return db.userDao().getAll();
     }
     // save new user
@@ -27,7 +27,7 @@ public class LocalDataSource {
         db.userDao().insert(name, emailAddress, password, phoneNumber, userType);
     }
     // search a user by its emailAddress
-    public User searchUser(String userEmailAddress) {
+    public RepoUser searchUser(String userEmailAddress) {
         return db.userDao().loadByEmail(userEmailAddress);
     }
     //////////

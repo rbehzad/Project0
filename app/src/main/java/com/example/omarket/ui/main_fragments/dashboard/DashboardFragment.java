@@ -41,23 +41,23 @@ public class DashboardFragment extends NavigationFragment {
         textViewName = view.findViewById(R.id.dashboardTextview1);
         textViewEmail = view.findViewById(R.id.dashboardTextview2);
         textViewPhone = view.findViewById(R.id.dashboardTextview3);
-        /*
-        Repository.getInstance(getContext()).getAllUsers(new RepositoryCallback<List<User>>() {
-            @Override
-            public void onComplete(Result<List<User>> result) {
-                if(result instanceof Result.Success) {  //((Result.Success<List<User>>) result).data.get(0).name
-                    textViewName.setText(User.currentLoginUser.fullName);
-                    textViewEmail.setText(User.currentLoginUser.emailAddress);
-                    textViewPhone.setText(User.currentLoginUser.phoneNumber);
-                }
-                else if(result instanceof Result.Error) {
-                    textViewName.setText(((Result.Error<List<User>>) result).exception.toString());
-                    textViewEmail.setText("Error");
-                    textViewPhone.setText("Error");
-                }
-            }
-        });
-        */
+
+//        Repository.getInstance(getContext()).getAllUsers(new RepositoryCallback<List<User>>() {
+//            @Override
+//            public void onComplete(Result<List<User>> result) {
+//                if(result instanceof Result.Success) {  //((Result.Success<List<User>>) result).data.get(0).name
+//                    textViewName.setText(User.currentLoginUser.fullName);
+//                    textViewEmail.setText(User.currentLoginUser.emailAddress);
+//                    textViewPhone.setText(User.currentLoginUser.phoneNumber);
+//                }
+//                else if(result instanceof Result.Error) {
+//                    textViewName.setText(((Result.Error<List<User>>) result).exception.toString());
+//                    textViewEmail.setText("Error");
+//                    textViewPhone.setText("Error");
+//                }
+//            }
+//        });
+
 
         button = (Button) view.findViewById(R.id.btnChangeImage);
         button.setOnClickListener(new View.OnClickListener() {

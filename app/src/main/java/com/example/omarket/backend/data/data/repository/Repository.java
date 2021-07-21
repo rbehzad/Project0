@@ -4,12 +4,14 @@
 
   import com.example.omarket.backend.application.MyApplication;
   import com.example.omarket.backend.data.data.entities.Product;
-  import com.example.omarket.backend.data.data.entities.User;
+  import com.example.omarket.backend.data.data.entities.RepoUser;
 
   import java.util.List;
 
   public class Repository {
-    private static Repository repository;
+      RepoUser repoUser;
+
+      private static Repository repository;
 
     private LocalDataSource localDataSource;
     private RemoteDataSource remoteDataSource;
@@ -27,13 +29,13 @@
     }
     //////////
     // get all user
-    public void getAllUsers(RepositoryCallback<List<User>> callback) {
+    public void getAllUsers(RepositoryCallback<List<RepoUser>> callback) {
         MyApplication.executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    List<User> users = localDataSource.getAllUsers();
-                    callback.onComplete(new Result.Success<>(users));
+                    List<RepoUser> repoUsers = localDataSource.getAllUsers();
+                    callback.onComplete(new Result.Success<>(repoUsers));
                 } catch (Exception e) {
                     callback.onComplete(new Result.Error<>(e));
                 }
@@ -57,12 +59,23 @@
         });
     }
     // search a user by its emailAddress
-    public User searchUser(String userEmailAddress) {
-        return localDataSource.searchUser(userEmailAddress);
+    public RepoUser searchUser(RepositoryCallback<com.example.omarket.backend.data.data.entities.RepoUser> callback, String userEmailAddress) {
+        MyApplication.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    repoUser = localDataSource.searchUser(userEmailAddress);
+                    callback.onComplete(new Result.Success<>(null));
+                } catch (Exception e) {
+                    callback.onComplete(new Result.Error<>(null));
+                }
+            }
+        });
+        return repoUser;
     }
     /////////
     // get all product
-    public List<Product> getAllProduct(RepositoryCallback<List<com.example.omarket.backend.user.User>> error) {
+    public List<Product> getAllProduct(RepositoryCallback<List<com.example.omarket.backend.data.data.entities.RepoUser>> error) {
         return localDataSource.getAllProducts();
     }
     // insert new product

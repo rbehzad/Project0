@@ -6,9 +6,9 @@ import androidx.room.RoomDatabase;
 import com.example.omarket.backend.data.data.Dao.ProductDao;
 import com.example.omarket.backend.data.data.Dao.UserDao;
 import com.example.omarket.backend.data.data.entities.Product;
-import com.example.omarket.backend.data.data.entities.User;
+import com.example.omarket.backend.data.data.entities.RepoUser;
 
-@Database(entities = {User.class, Product.class}, version = 1)
+@Database(entities = {RepoUser.class, Product.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract ProductDao productDao();
