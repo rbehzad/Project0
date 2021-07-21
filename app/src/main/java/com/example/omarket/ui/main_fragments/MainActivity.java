@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static void loadProducts(ServerCallback<Object> serverCallback){
         MainActivity.progressBar.setVisibility(View.VISIBLE);
-        APIHandler.getAllProductInfo(new ServerCallback<ArrayList<Product>>() {
+        APIHandler.getAllProductApi(new ServerCallback<ArrayList<Product>>() {
             @Override
             public void onComplete(Result<ArrayList<Product>> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
