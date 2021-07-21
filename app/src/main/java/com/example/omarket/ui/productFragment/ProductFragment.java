@@ -1,6 +1,7 @@
 package com.example.omarket.ui.productFragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -27,54 +28,10 @@ import com.example.omarket.ui.main_fragments.MainActivity;
 
 import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProductFragment extends Fragment {
     private static final int REQUEST_CALL = 1;
     TextView title, description, cost, name, phoneNumber, email;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProductFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProductFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProductFragment newInstance(String param1, String param2) {
-        ProductFragment fragment = new ProductFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    CheckBox checkBox;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,6 +44,7 @@ public class ProductFragment extends Fragment {
         name = view.findViewById(R.id.product_fragment_textView_full_name);
         phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
         email = view.findViewById(R.id.product_fragment_textView_email);
+        checkBox = view.findViewById(R.id.fragment_product_favoriteCheckBox);
         // dial up
         phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
         phoneNumber.setOnClickListener(new View.OnClickListener() {
@@ -145,16 +103,32 @@ public class ProductFragment extends Fragment {
         }, getActivity(), body);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.product_fragment_favoritecheckBox:
+            case R.id.fragment_product_favoriteCheckBox:
+                boolean checked = ((CheckBox) view).isChecked();
+                HashMap<String, Object> body = new HashMap<>();
+                body.put("slug", Product.selectedProduct.id);
                 if (checked) {
-
+                    APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                        @Override
+                        public void onComplete(Result<String> result) {
+                            if (result instanceof Result.Error){
+                                Toast.makeText(getActivity(), "Add to favorite failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, getContext(), body, "SF");
                 } else {
-
+                    APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                        @Override
+                        public void onComplete(Result<String> result) {
+                            if (result instanceof Result.Error){
+                                Toast.makeText(getActivity(), "delete favorite failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, getContext(), body, "DF");
                 }
                 break;
         }

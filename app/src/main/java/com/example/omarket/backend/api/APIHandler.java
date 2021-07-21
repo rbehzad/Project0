@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = "http://192.168.1.105";
+    final static String domain = "http://192.168.51.7";
 
     // user
     final static String loginURL = "/api/user/login/";
@@ -191,10 +191,10 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void sendRequestOrGet(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP_SF_GF) {
+    public static void sendRequestOrGet(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP_SF_GF_DF) {
         String requestURL = null;
         int method = 0;
-        switch (UU_AP_UP_DP_SF_GF) {
+        switch (UU_AP_UP_DP_SF_GF_DF) {
             case "UU":
                 method = Request.Method.POST;
                 requestURL = userInfoUpdateURL;
