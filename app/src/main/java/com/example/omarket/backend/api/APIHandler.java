@@ -91,11 +91,10 @@ public class APIHandler implements Response.ErrorListener {
                         else
                             user.loginOrRgisterErrors = new JSONObject("{\"response\":\"Request failed\"");
 
-                        loginUser.onComplete(new Result.Error<>(user));
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    loginUser.onComplete(new Result.Error<>(user));
                 } else Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
