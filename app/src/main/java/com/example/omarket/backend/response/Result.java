@@ -18,8 +18,8 @@ public abstract class Result<T> {
         public Error(T data) {
             this.data = data;
         }
-        public Error(Exception exception) {
-            this.exception = exception;
-        }
+//        public Error(Exception exception) {
+//            this.exception = exception;
+//        }
     }
 }

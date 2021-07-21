@@ -294,7 +294,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                             }, getActivity(), null);
                         }
                     } else if (result instanceof Result.Error) {
-                        User user = (User) ((Result.Error) result).data;
+                        User user =  ((Result.Error<User>) result).data;
                         if (user.loginOrRgisterErrors != null) {
                             String email = "", password = "";
                             try {
