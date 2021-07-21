@@ -23,10 +23,10 @@ import org.jetbrains.annotations.NotNull;
 //import com.example.omarket.backend.data.data.entities.User;
 
 
-public class DashboardFragment extends NavigationFragment {
+public class DashboardFragment extends NavigationFragment implements View.OnClickListener {
     View view;
     ImageView imageView;
-    Button button;
+    Button button, signOut;
     private static final int PICK_IMAGE = 100;
     private static int RESULT_LOAD_IMAGE = 1;
     Uri imageUri;
@@ -41,6 +41,8 @@ public class DashboardFragment extends NavigationFragment {
         textViewName = view.findViewById(R.id.dashboardTextview1);
         textViewEmail = view.findViewById(R.id.dashboardTextview2);
         textViewPhone = view.findViewById(R.id.dashboardTextview3);
+        signOut = view.findViewById(R.id.dashboardFragment_btn_singOut);
+        signOut.setOnClickListener(this);
 
 //        Repository.getInstance(getContext()).getAllUsers(new RepositoryCallback<List<User>>() {
 //            @Override
@@ -100,4 +102,13 @@ public class DashboardFragment extends NavigationFragment {
         saveCommand.execute();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.dashboardFragment_btn_singOut:
+                User.currentLoginUser = new User();
+                navigateFromViewTo(getView(),R.id.action_dashboardFragment_to_startActivity);
+                break;
+        }
+    }
 }

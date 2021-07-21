@@ -28,6 +28,7 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
     EditText cost;
     TextView fullName, phoneNumber, email;
     Button saveBtn, deleteBtn;
+    CheckBox checkBox;
 
     public EditFragment editFragment;
 
@@ -47,6 +48,7 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
             saveBtn.setOnClickListener(this);
             deleteBtn = view.findViewById(R.id.edit_fragment_btn_delete);
             deleteBtn.setOnClickListener(this);
+            checkBox = view.findViewById(R.id.fragment_edit_product_editcheckBox);
 
         return view;
     }
@@ -132,21 +134,37 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
             }
         }, getActivity(), body, "UP");
     }
-    // edit text checkbox
+//    @SuppressLint("NonConstantResourceId")
     public void onCheckboxClicked2(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
         // Check which checkbox was clicked
         switch(view.getId()) {
-            case R.id.product_fragment_editcheckBox:
+            case R.id.fragment_product_favoriteCheckBox:
+                boolean checked = ((CheckBox) view).isChecked();
+                HashMap<String, Object> body = new HashMap<>();
+                body.put("slug", Product.selectedProduct.id);
                 if (checked) {
-
+                    APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                        @Override
+                        public void onComplete(Result<String> result) {
+                            if (result instanceof Result.Error){
+                                Toast.makeText(getActivity(), "Add to favorite failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, getContext(), body, "SF");
                 } else {
-
+                    APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                        @Override
+                        public void onComplete(Result<String> result) {
+                            if (result instanceof Result.Error){
+                                Toast.makeText(getActivity(), "delete favorite failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, getContext(), body, "DF");
                 }
                 break;
         }
     }
+
 
     @Override
     public void onPause() {

@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/normalMargin"
     tools:context=".ui.main_fragments.dashboard.DashboardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
@@ -54,12 +55,12 @@
             android:layout_width="290dp"
             android:layout_height="170dp"
             android:orientation="vertical"
+            android:id="@+id/dashboardFragment_liner_layout_contact"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
-            app:layout_constraintVertical_bias="0.337">
+            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView">
 
 
             <TextView
@@ -102,6 +103,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Load Image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
         </LinearLayout>
 
         <Button
@@ -109,10 +120,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Load Image"
+            android:text="@string/load_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <Button
+            android:id="@+id/dashboardFragment_btn_singOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_backgrounds"
+            android:text="@string/sign_out"
+            android:textAllCaps="false"
+            android:layout_marginTop="@dimen/normalMargin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dashboardFragment_liner_layout_contact" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -165,6 +188,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
             </LinearLayout>
+
 
         </androidx.core.widget.NestedScrollView>
 

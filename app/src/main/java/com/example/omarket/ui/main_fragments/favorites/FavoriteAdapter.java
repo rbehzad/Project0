@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.user.User;
+import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -56,8 +58,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) { // execute this method when user click card
-                    navigationFragment = new NavigationFragment();
-                    navigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);//
+                    Product.selectedProduct = product;
+                    if (product.userEmail.equals(User.currentLoginUser.getEmailAddress())||
+                            User.currentLoginUser.userType== UserType.SUPER_ADMIN) {
+                        NavigationFragment.navigateFromViewTo(view, R.id.action_favoriteFragment_to_fragment_editId);
+                    } else {
+                        NavigationFragment.navigateFromViewTo(view, R.id.action_favoriteFragment_to_productFragment);
+                    }
                 }
             });
         }

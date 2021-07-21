@@ -70,6 +70,7 @@ public class FavoritesFragment extends NavigationFragment {
                             favoriteAdapter.products.add(product);
                         }
                     }
+                    reloadAdapter();
                 } else if (result instanceof Result.Error){
                     Toast.makeText(getActivity(), "Loading favorite products failed", Toast.LENGTH_SHORT).show();
                 }

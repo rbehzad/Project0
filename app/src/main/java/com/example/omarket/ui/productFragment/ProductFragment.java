@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,7 +105,7 @@ public class ProductFragment extends Fragment {
         }, getActivity(), body);
     }
 
-    @SuppressLint("NonConstantResourceId")
+
     public void onCheckboxClicked(View view) {
         // Check which checkbox was clicked
         switch(view.getId()) {
@@ -133,4 +135,5 @@ public class ProductFragment extends Fragment {
                 break;
         }
     }
+
 }
