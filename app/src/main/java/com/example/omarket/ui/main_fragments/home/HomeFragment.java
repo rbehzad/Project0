@@ -131,8 +131,6 @@ public class HomeFragment extends NavigationFragment {
                                 homeAdapter.products.add(product);
                         }
                         loadProducts();
-                    } else {
-                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -149,8 +147,6 @@ public class HomeFragment extends NavigationFragment {
                             }
                         }
                         loadProducts();
-                    } else {
-                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -166,8 +162,6 @@ public class HomeFragment extends NavigationFragment {
                             }
                         }
                         loadProducts();
-                    } else {
-                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -183,8 +177,6 @@ public class HomeFragment extends NavigationFragment {
                             }
                         }
                         loadProducts();
-                    } else {
-                        Toast.makeText(activity, "Loading products failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

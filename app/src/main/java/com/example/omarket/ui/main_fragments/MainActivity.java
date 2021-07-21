@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigation,navController);
+//        APIHandler.updateUserAddProductUpdateProductApi(,this,body,"");
     }
 
     public static void loadProducts(ServerCallback<Object> serverCallback){

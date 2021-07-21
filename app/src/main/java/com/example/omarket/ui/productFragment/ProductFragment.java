@@ -64,18 +64,18 @@ public class ProductFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_product, container, false);
     }
     // favorite checkbox
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.favoritecheckBox:
-                if (checked) {
-
-                } else {
-
-                }
-                break;
-        }
-    }
+//    public void onCheckboxClicked(View view) {
+//        // Is the view now checked?
+//        boolean checked = ((CheckBox) view).isChecked();
+//        // Check which checkbox was clicked
+//        switch(view.getId()) {
+//            case R.id.favoritecheckBox:
+//                if (checked) {
+//
+//                } else {
+//
+//                }
+//                break;
+//        }
+//    }
 }

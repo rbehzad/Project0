@@ -1,4 +1,4 @@
-package com.example.omarket.ui;
+package com.example.omarket.ui.productFragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,20 +16,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.response.Result;
 import com.example.omarket.backend.response.ServerCallback;
-import com.example.omarket.backend.user.User;
-import com.example.omarket.ui.main_fragments.Color;
+import com.example.omarket.ui.NavigationFragment;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class addProduct extends NavigationFragment implements View.OnClickListener {
+public class AddProduct extends NavigationFragment implements View.OnClickListener {
     private static int RESULT_LOAD_IMAGE = 1;
     View view;
     ImageView imageView;
@@ -39,7 +36,7 @@ public class addProduct extends NavigationFragment implements View.OnClickListen
     Uri imageUri;
     ProgressBar progressBar;
 
-    public addProduct() {
+    public AddProduct() {
         // Required empty public constructor
     }
 
@@ -108,7 +105,7 @@ public class addProduct extends NavigationFragment implements View.OnClickListen
                 body.put("description",descriptionText.getText().toString());
                 body.put("cost",costText.getText().toString());
                 changeVisibilityTo(progressBar, View.VISIBLE);
-                APIHandler.updateUserAddProductUpdateProductApi(new ServerCallback<String>() {
+                APIHandler.updateUserAddProductUpdateProductDeleteProductApi(new ServerCallback<String>() {
                     @Override
                     public void onComplete(Result<String> result) {
                         changeVisibilityTo(progressBar, View.INVISIBLE);

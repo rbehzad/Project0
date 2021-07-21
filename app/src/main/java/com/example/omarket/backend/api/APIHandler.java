@@ -33,14 +33,20 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = "http://192.168.1.105";
+    final static String domain = "http://192.168.95.7:80";
+
+    // user
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
     final static String userInfoURL = "/api/user/info/";
     final static String userInfoUpdateURL = "/api/user/update/";
+
+    // product
     final static String addProductURL = "/api/product/create/";
     final static String updateProductURL = "/api/product/update/";
+    final static String deleteProductURL = "/api/product/delete/";
     final static String allProductGetURL = "/api/product/get-all/";
+
 
     public static APIHandler apiHandler = new APIHandler();
 
@@ -180,22 +186,29 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void updateUserAddProductUpdateProductApi(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP) {
+    public static void updateUserAddProductUpdateProductDeleteProductApi(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP) {
         String requestURL = null;
-        switch (UU_AP_UP) {
+        int method = 0;
+        switch (UU_AP_UP_DP) {
             case "UU":
+                method = Request.Method.POST;
                 requestURL = userInfoUpdateURL;
                 break;
             case "AP":
+                method = Request.Method.POST;
                 requestURL = addProductURL;
                 break;
             case "UP":
+                method = Request.Method.POST;
                 requestURL = updateProductURL;
                 break;
+            case "DP":
+                method = Request.Method.DELETE;
+                requestURL = deleteProductURL;
         }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject bodyJson = new JSONObject(body);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(method, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 serverCallback.onComplete(new Result.Success<>("S"));
@@ -232,7 +245,7 @@ public class APIHandler implements Response.ErrorListener {
     public static void getAllProductInfo(ServerCallback<ArrayList<Product>> serverCallback, Context context) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, domain + "/api/product/get-all/", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, domain + allProductGetURL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 ArrayList<Product> products = new ArrayList<>();
@@ -261,6 +274,7 @@ public class APIHandler implements Response.ErrorListener {
                         Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                     }
                 }
+                serverCallback.onComplete(new Result.Error<>(new Exception("connection problem")));
             }
         }) {
             @Override

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/normalMargin"
-    tools:context=".ui.main_fragments.dashboard.DashboardFragment">
+    tools:context=".ui.productFragment.AddProduct">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_weight="0"
-            android:text="Load Picture"
+            android:text="@string/load_picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
