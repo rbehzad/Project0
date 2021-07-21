@@ -2,11 +2,11 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_productId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/normalMargin"
-    tools:context=".ui.productFragment.EditFragment"
-    android:id="@+id/fragment_productId">
+    tools:context=".ui.productFragment.EditFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:id="@+id/image_view_product"
+            android:id="@+id/edit_fragment_image_view_product"
             android:layout_width="334dp"
             android:layout_height="334dp"
             android:layout_marginTop="24dp"
@@ -26,24 +26,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText_title"
+            android:id="@+id/edit_fragment_editText_title"
             android:layout_width="@dimen/normalWidth"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
             android:background="@drawable/normal_text_background"
             android:drawablePadding="@dimen/paddingDrawable"
-            android:padding="@dimen/paddingDrawable"
             android:hint="@string/title"
-            android:layout_marginTop="@dimen/normalMargin"
+            android:padding="@dimen/paddingDrawable"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
             app:drawableLeftCompat="@drawable/ic_baseline_title_24"
             app:drawableStartCompat="@drawable/ic_baseline_title_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_product" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_image_view_product" />
 
         <EditText
-            android:id="@+id/editText_description"
+            android:id="@+id/edit_fragment_editText_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normalMargin"
@@ -56,33 +56,33 @@
             android:textSize="@dimen/xlargeTextSize"
             app:drawableLeftCompat="@drawable/ic_baseline_description_24"
             app:drawableStartCompat="@drawable/ic_baseline_description_24"
-            app:layout_constraintEnd_toEndOf="@+id/editText_title"
-            app:layout_constraintStart_toStartOf="@+id/editText_title"
-            app:layout_constraintTop_toBottomOf="@id/editText_title"
+            app:layout_constraintEnd_toEndOf="@+id/edit_fragment_editText_title"
+            app:layout_constraintStart_toStartOf="@+id/edit_fragment_editText_title"
+            app:layout_constraintTop_toBottomOf="@id/edit_fragment_editText_title"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <EditText
-            android:id="@+id/editText_cost"
+            android:id="@+id/edit_fragment_editText_cost"
             android:layout_width="@dimen/normalWidth"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normalMargin"
             android:background="@drawable/normal_text_background"
             android:drawablePadding="@dimen/paddingDrawable"
             android:hint="@string/cost"
-            android:textSize="@dimen/xlargeTextSize"
             android:textColor="@color/textGreenToBlack"
+            android:textSize="@dimen/xlargeTextSize"
             app:drawableLeftCompat="@drawable/ic_baseline_attach_money_24"
             app:drawableStartCompat="@drawable/ic_baseline_attach_money_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_description"
+            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_editText_description"
             app:layout_constraintVertical_bias="0.0" />
 
 
         <TextView
-            android:id="@+id/textView_full_name"
+            android:id="@+id/edit_fragment_textView_full_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normalMargin"
@@ -93,13 +93,13 @@
             android:text="@string/full_name"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/editText_cost"
-            app:layout_constraintStart_toStartOf="@+id/editText_cost"
-            app:layout_constraintTop_toBottomOf="@id/editText_cost"
+            app:layout_constraintEnd_toEndOf="@+id/edit_fragment_editText_cost"
+            app:layout_constraintStart_toStartOf="@+id/edit_fragment_editText_cost"
+            app:layout_constraintTop_toBottomOf="@id/edit_fragment_editText_cost"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/textView_email"
+            android:id="@+id/edit_fragment_textView_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normalMargin"
@@ -110,41 +110,58 @@
             android:text="@string/email_address"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/textView_full_name"
-            app:layout_constraintStart_toStartOf="@+id/textView_full_name"
-            app:layout_constraintTop_toBottomOf="@id/textView_full_name"
+            app:layout_constraintEnd_toEndOf="@+id/edit_fragment_textView_full_name"
+            app:layout_constraintStart_toStartOf="@+id/edit_fragment_textView_full_name"
+            app:layout_constraintTop_toBottomOf="@id/edit_fragment_textView_full_name"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/textView_phone_number"
+            android:id="@+id/edit_fragment_textView_phone_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
             android:background="@drawable/normal_text_background"
             android:drawableStart="@drawable/ic_baseline_local_phone_colored_24"
             android:drawableLeft="@drawable/ic_baseline_local_phone_colored_24"
             android:drawablePadding="@dimen/paddingDrawable"
             android:text="@string/phone_number"
             android:textColor="@color/textGreenToBlack"
-            android:layout_marginTop="@dimen/normalMargin"
             android:textSize="@dimen/xlargeTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/textView_email"
-            app:layout_constraintStart_toStartOf="@+id/textView_email"
-            app:layout_constraintTop_toBottomOf="@+id/textView_email"
+            app:layout_constraintEnd_toEndOf="@+id/edit_fragment_textView_email"
+            app:layout_constraintStart_toStartOf="@+id/edit_fragment_textView_email"
+            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_textView_email"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_login_button"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_backgrounds"
-            android:layout_marginTop="@dimen/normalMargin"
-            android:text="@string/save"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/textView_phone_number"
-            app:layout_constraintEnd_toEndOf="@+id/textView_phone_number"
-            app:layout_constraintTop_toBottomOf="@+id/textView_phone_number" />
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/edit_fragment_textView_phone_number"
+            app:layout_constraintStart_toStartOf="@+id/edit_fragment_textView_phone_number"
+            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_textView_phone_number">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/edit_fragment_btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:background="@drawable/button_backgrounds"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:layout_marginRight="@dimen/normalMargin"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/edit_fragment_btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:background="@drawable/button_backgrounds_red"
+                android:text="@string/delete"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

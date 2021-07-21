@@ -72,14 +72,19 @@ public class HomeFragment extends NavigationFragment {
                 switch (menuItem.getItemId()) {
                     case R.id.allproductid:
                         category(1);
+                        break;
                     case R.id.myproductid:
                         category(2);
+                        break;
                     case R.id.electronicsid:
                         category(3);
+                        break;
                     case R.id.fashionid:
                         category(4);
+                        break;
                     case R.id.industrialid:
                         category(5);
+                        break;
                 }
                 return true;
             }

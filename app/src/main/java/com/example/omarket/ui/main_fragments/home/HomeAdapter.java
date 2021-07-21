@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.omarket.R;
 import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.user.User;
+import com.example.omarket.backend.user.UserType;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.productFragment.ProductActivity;
 
@@ -67,7 +68,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 @Override
                 public void onClick(View view) { // execute this method when user click card
                     navigationFragment = new NavigationFragment();
-                    if (product.userEmail.equals(User.currentLoginUser.getEmailAddress())) {
+                    if (product.userEmail.equals(User.currentLoginUser.getEmailAddress())||
+                            User.currentLoginUser.userType==UserType.SUPER_ADMIN) {
                         NavigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_fragment_editId);
                     } else {
                         NavigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_productFragment);
