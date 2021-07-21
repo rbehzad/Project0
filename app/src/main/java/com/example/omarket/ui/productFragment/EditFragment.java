@@ -3,15 +3,12 @@ package com.example.omarket.ui.productFragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.omarket.R;
 import com.example.omarket.backend.api.APIHandler;
@@ -43,8 +40,8 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
             description = view.findViewById(R.id.edit_fragment_editText_description);
             cost = view.findViewById(R.id.edit_fragment_editText_cost);
             fullName = view.findViewById(R.id.edit_fragment_textView_full_name);
-            phoneNumber = view.findViewById(R.id.edit_fragment_textView_phone_number);
-            email = view.findViewById(R.id.edit_fragment_textView_email);
+            phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
+            email = view.findViewById(R.id.product_fragment_textView_email);
             saveBtn = view.findViewById(R.id.edit_fragment_btn_save);
             saveBtn.setOnClickListener(this);
             deleteBtn = view.findViewById(R.id.edit_fragment_btn_delete);

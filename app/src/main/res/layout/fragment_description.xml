@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/normalMargin">
 
         <TextView
-            android:id="@+id/fragment_description_textView_title"
+            android:id="@+id/product_fragment_textView_title"
             android:layout_width="@dimen/normalWidth"
             android:layout_height="wrap_content"
             android:background="@drawable/normal_text_background"
@@ -35,10 +35,10 @@
             android:layout_marginTop="@dimen/normalMargin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_description_textView_title">
+            app:layout_constraintTop_toBottomOf="@id/product_fragment_textView_title">
 
             <TextView
-                android:id="@+id/fragment_description_textView_description"
+                android:id="@+id/product_fragment_textView_description"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:drawablePadding="@dimen/paddingDrawable"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/normalMargin"
     tools:context=".ui.productFragment.ProductFragment"
     android:id="@+id/fragment_productId">
 
@@ -14,8 +15,8 @@
 
         <ImageView
             android:id="@+id/product_fragment_image_view_product"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_width="353dp"
+            android:layout_height="300dp"
             android:layout_marginTop="24dp"
             android:contentDescription="@string/product_image"
             android:src="@mipmap/default_product_picture_foreground"
@@ -25,28 +26,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/fragment_description_textView_title"
+            android:id="@+id/product_fragment_textView_title"
             android:layout_width="@dimen/normalWidth"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:background="@drawable/normal_text_background"
             android:drawablePadding="@dimen/paddingDrawable"
             android:padding="@dimen/paddingDrawable"
+            android:layout_marginTop="@dimen/normalMargin"
             android:text="@string/title"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
             app:drawableLeftCompat="@drawable/ic_baseline_title_24"
             app:drawableStartCompat="@drawable/ic_baseline_title_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/favoritecheckBox" />
+            app:layout_constraintTop_toBottomOf="@+id/product_fragment_favoritecheckBox" />
 
         <TextView
-            android:id="@+id/fragment_description_textView_description"
+            android:id="@+id/product_fragment_textView_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:background="@drawable/normal_text_background"
             android:drawableStart="@drawable/ic_baseline_description_24"
             android:drawableLeft="@drawable/ic_baseline_description_24"
@@ -54,16 +53,16 @@
             android:text="@string/description"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
+            android:layout_marginTop="@dimen/normalMargin"
             app:drawableLeftCompat="@drawable/ic_baseline_description_24"
             app:drawableStartCompat="@drawable/ic_baseline_description_24"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_description_textView_title"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/fragment_description_textView_title"
-            app:layout_constraintTop_toBottomOf="@id/fragment_description_textView_title"
+            app:layout_constraintEnd_toEndOf="@+id/product_fragment_textView_title"
+            app:layout_constraintStart_toStartOf="@+id/product_fragment_textView_title"
+            app:layout_constraintTop_toBottomOf="@id/product_fragment_textView_title"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/fragment_description_textView_cost"
+            android:id="@+id/product_fragment_textView_cost"
             android:layout_width="@dimen/normalWidth"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normalMargin"
@@ -78,15 +77,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_description_textView_description"
+            app:layout_constraintTop_toBottomOf="@+id/product_fragment_textView_description"
             app:layout_constraintVertical_bias="0.0" />
 
 
         <TextView
-            android:id="@+id/fragment_information_textView_full_name"
+            android:id="@+id/product_fragment_textView_full_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/normalMargin"
             android:background="@drawable/normal_text_background"
             android:drawableStart="@drawable/ic_baseline_person_colored_24"
             android:drawableLeft="@drawable/ic_baseline_person_colored_24"
@@ -94,14 +93,14 @@
             android:text="@string/full_name"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_description_textView_cost"
+            app:layout_constraintEnd_toEndOf="@+id/product_fragment_textView_cost"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/fragment_description_textView_cost"
-            app:layout_constraintTop_toBottomOf="@id/fragment_description_textView_cost"
+            app:layout_constraintStart_toStartOf="@+id/product_fragment_textView_cost"
+            app:layout_constraintTop_toBottomOf="@id/product_fragment_textView_cost"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/edit_fragment_textView_email"
+            android:id="@+id/product_fragment_textView_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -112,14 +111,14 @@
             android:text="@string/email_address"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_information_textView_full_name"
+            app:layout_constraintEnd_toEndOf="@+id/product_fragment_textView_full_name"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/fragment_information_textView_full_name"
-            app:layout_constraintTop_toBottomOf="@id/fragment_information_textView_full_name"
+            app:layout_constraintStart_toStartOf="@+id/product_fragment_textView_full_name"
+            app:layout_constraintTop_toBottomOf="@id/product_fragment_textView_full_name"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:id="@+id/edit_fragment_textView_phone_number"
+            android:id="@+id/product_fragment_textView_phone_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -130,14 +129,14 @@
             android:text="@string/phone_number"
             android:textColor="@color/textGreenToBlack"
             android:textSize="@dimen/xlargeTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/edit_fragment_textView_email"
+            app:layout_constraintEnd_toEndOf="@+id/product_fragment_textView_email"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/edit_fragment_textView_email"
-            app:layout_constraintTop_toBottomOf="@+id/edit_fragment_textView_email"
+            app:layout_constraintStart_toStartOf="@+id/product_fragment_textView_email"
+            app:layout_constraintTop_toBottomOf="@+id/product_fragment_textView_email"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <CheckBox
-            android:id="@+id/favoritecheckBox"
+            android:id="@+id/product_fragment_favoritecheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
