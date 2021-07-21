@@ -36,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,7 +66,7 @@ public class APIHandler implements Response.ErrorListener {
             public void onResponse(JSONObject response) {
                 User user = new User();
                 try {
-                    user.token = (String) response.get("token");
+                    user.token = response.getString("token");
                     user.is_login = true;
                     loginUser.onComplete(new Result.Success<>(user));
                 } catch (JSONException e) {
@@ -191,7 +192,7 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void updateUserAddProductUpdateProductApi(Context context, Map<String, Object> body, String UU_AP_UP) {
+    public static void updateUserAddProductUpdateProductApi(ServerCallback<String> serverCallback,Context context, Map<String, Object> body, String UU_AP_UP) {
         String requestURL = null;
         switch (UU_AP_UP) {
             case "UU":
@@ -209,7 +210,7 @@ public class APIHandler implements Response.ErrorListener {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                serverCallback.onComplete(new Result.Success<>("S"));
             }
         }, new Response.ErrorListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -226,6 +227,7 @@ public class APIHandler implements Response.ErrorListener {
                         Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                     }
                 }
+                serverCallback.onComplete(new Result.Error<>("F"));
             }
         }){
             @Override
@@ -239,17 +241,19 @@ public class APIHandler implements Response.ErrorListener {
 
     }
 
-    public static void getAllProductInfo(Context context) {
+    public static void getAllProductInfo(ServerCallback<ArrayList<Product>> serverCallback, Context context) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, domain + "/api/product/get-all/", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                ArrayList<Product> products = new ArrayList<>();
                 try{
                     for (int i = 1; i < response.length(); i++) {
                         Product p = Adapter.productApiAdapter(response.getJSONObject(i));
-                        Product.allProducts.add(p);
+                        products.add(p);
                     }
+                    serverCallback.onComplete(new Result.Success<>(products));
                 } catch (Exception ex){
                     ex.printStackTrace();
                 }
@@ -274,7 +278,7 @@ public class APIHandler implements Response.ErrorListener {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "Token " + User.getCurrentLoginUser().token);
+                params.put("Authorization", "Token " + "932260e98e1f9325891b8089d7b950a0cd48b03b");
                 return params;
             }
         };
