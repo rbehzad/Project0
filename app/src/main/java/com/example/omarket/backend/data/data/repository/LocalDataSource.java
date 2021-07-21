@@ -36,8 +36,8 @@ public class LocalDataSource {
         return db.productDao().getAll();
     }
     // save new product
-    public void insertProduct(int id, String name, String info, String imagePath, String sellerName, String sellerId) {
-        db.productDao().insert(id, name, info, imagePath, sellerName, sellerId);
+    public void insertProduct(String title, String description, String cost, String imagePath, String sellerEmail) {
+        db.productDao().insert(title, description, cost, imagePath, sellerEmail);
     }
     // search a product by its name
     public Product searchProduct(String productName) {

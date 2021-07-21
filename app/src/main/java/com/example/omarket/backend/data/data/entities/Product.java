@@ -5,16 +5,17 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Product {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
 
-    public String name;
+    public String title;
 
-    public String info;
+    public String description;
+
+    public String cost;
 
     public String imagePath;
 
-    public String sellerName;
+    public String sellerEmail;
 
-    public int sellerId;
 }

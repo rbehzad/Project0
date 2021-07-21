@@ -66,8 +66,8 @@
         return localDataSource.getAllProducts();
     }
     // insert new product
-    public void insertProduct(int id, String name, String info, String imagePath, String sellerName, String sellerId) {
-        localDataSource.insertProduct(id, name, info, imagePath, sellerName, sellerId);
+    public void insertProduct(String title, String description, String cost, String imagePath, String sellerEmail) {
+        localDataSource.insertProduct(title, description, cost, imagePath, sellerEmail);
     }
     // search a product
     public Product searchProduct(String productName) {

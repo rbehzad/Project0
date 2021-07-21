@@ -13,12 +13,12 @@ import java.util.List;
 @Dao
 public interface ProductDao {
 
-    @Query("INSERT INTO Product VALUES(:id, :name, :info, :imagePath, :sellerName, :sellerId)")
-    void insert(int id, String name, String info, String imagePath, String sellerName, String sellerId);
+    @Query("INSERT INTO Product VALUES(:title, :description, :cost, :imagePath, :sellerEmail)")
+    void insert(String title, String description, String cost, String imagePath, String sellerEmail);
 
     // get product info by searching its name
-    @Query("SELECT * FROM Product WHERE name IN (:productName) ")
-    Product loadByName(String productName);
+    @Query("SELECT * FROM Product WHERE title IN (:productTitle) ")
+    Product loadByName(String productTitle);
 
     // get all product
     @Query("SELECT * FROM Product")

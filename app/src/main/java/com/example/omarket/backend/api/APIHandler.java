@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = "http://192.168.95.7:80";
+    final static String domain = "http://192.168.1.105:80";
 
     // user
     final static String loginURL = "/api/user/login/";
