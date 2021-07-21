@@ -96,6 +96,33 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     private void updateUI(GoogleSignInAccount acct) {
         if (acct != null) {
             String personName = acct.getDisplayName();
+//            User user = new User(acct.getDisplayName(), acct.getPhotoUrl(), acct.getEmail(), UserType.USER);// user login with google
+            // create or login user.
+//            HashMap<String, String> body = new HashMap<>();
+//            body.put("first_name", user.fullName);
+//            body.put("last_name", "      ");
+//            body.put("password", pass);
+//            body.put("password2", pass);
+//            body.put("email", user.emailAddress);
+//            String pass = "GoogleSingIn1234";
+//            if (User.getCurrentLoginUser().loginOrRgisterErrors != null) {
+//                // create
+//                HashMap<String, String> body = new HashMap<>();
+//                body.put("first_name", acct.getDisplayName());
+//                body.put("last_name", "      ");
+//                body.put("password", pass);
+//                body.put("password2", pass);
+//                body.put("email", acct.getEmail());
+//                Thread thread = new Thread(){
+//                    @Override
+//                    public void run() {
+//                        APIHandler.loginOrRegisterApi(getActivity(), body, "register");
+//                    }
+//                };
+//                thread.start();
+//                login();
+//            }
+
             Context context = getActivity();
             // save key value data
             SharedPreferences sharedPref = context.getSharedPreferences(
