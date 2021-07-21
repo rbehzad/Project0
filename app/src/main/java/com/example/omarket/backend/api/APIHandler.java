@@ -20,6 +20,7 @@ import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.response.Result;
 import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
+import com.example.omarket.backend.user.UserType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,8 +116,8 @@ public class APIHandler implements Response.ErrorListener {
                 try {
                     user.emailAddress = (String) response.get("email");
                     user.fullName = (String) response.get("first_name") + " " + (String) response.get("last_name");
-       //             boolean is_admin = response.getBoolean("is_superuser");
-       //             user.userType = (is_admin ? UserType.SUPER_ADMIN : UserType.USER);
+                    boolean is_admin = response.getBoolean("is_superuser");
+                    user.userType = (is_admin ? UserType.SUPER_ADMIN : UserType.USER);
                     // get image:
                     boolean is_null = response.isNull("base64_image");
                     if (!is_null) {

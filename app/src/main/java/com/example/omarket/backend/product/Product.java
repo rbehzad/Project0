@@ -17,6 +17,7 @@ public class Product {
     public String id;
     public String description;
     public String categorySlug;
+    public static Product selectedProduct;
 
     public Product(){
 
@@ -35,4 +36,6 @@ public class Product {
         Product pr = (Product) obj;
         return pr.id.trim().equals(this.id.trim());
     }
+
+
 }

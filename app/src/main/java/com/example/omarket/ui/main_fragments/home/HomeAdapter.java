@@ -68,6 +68,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 @Override
                 public void onClick(View view) { // execute this method when user click card
                     navigationFragment = new NavigationFragment();
+                    Product.selectedProduct = product;
                     if (product.userEmail.equals(User.currentLoginUser.getEmailAddress())||
                             User.currentLoginUser.userType==UserType.SUPER_ADMIN) {
                         NavigationFragment.navigateFromViewTo(view, R.id.action_homeFragment_to_fragment_editId);

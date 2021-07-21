@@ -35,7 +35,11 @@
         android:id="@+id/productFragment"
         android:name="com.example.omarket.ui.productFragment.ProductFragment"
         android:label="fragment_product"
-        tools:layout="@layout/fragment_product" />
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_productFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addProductFragment"
         android:name="com.example.omarket.ui.productFragment.AddProduct"
@@ -49,7 +53,11 @@
         android:id="@+id/fragment_editId"
         android:name="com.example.omarket.ui.productFragment.EditFragment"
         android:label="fragment_edit"
-        tools:layout="@layout/fragment_edit"/>
+        tools:layout="@layout/fragment_edit">
+        <action
+            android:id="@+id/action_fragment_editId_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
 
 </navigation>

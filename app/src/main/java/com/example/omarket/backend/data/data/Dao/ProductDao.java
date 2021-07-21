@@ -13,8 +13,8 @@ import java.util.List;
 @Dao
 public interface ProductDao {
 
-    @Query("INSERT INTO Product VALUES(:title, :description, :cost, :imagePath, :sellerEmail)")
-    void insert(String title, String description, String cost, String imagePath, String sellerEmail);
+//    @Query("INSERT INTO Product VALUES(:title, :description, :cost, :imagePath, :sellerEmail)")
+//    void insert(String title, String description, String cost, String imagePath, String sellerEmail);
 
     // get product info by searching its name
     @Query("SELECT * FROM Product WHERE title IN (:productTitle) ")
