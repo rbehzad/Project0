@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = "http://192.168.1.105";
+    final static String domain = "http://192.168.51.7";
 
     // user
     final static String loginURL = "/api/user/login/";
@@ -239,7 +239,8 @@ public class APIHandler implements Response.ErrorListener {
                     //get response body and parse with appropriate encoding
                     if (error.networkResponse.data != null) {
                         body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                        Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
+                        if (!UU_AP_UP_DP_SF_GF_DF.equals("DF"))
+                            Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                     }
                 }
                 serverCallback.onComplete(new Result.Error<>("F"));

@@ -259,7 +259,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         changeVisibilityTo(progressBar, View.VISIBLE);
         if (User.currentLoginUser.is_login){
             HashMap<String, Object> logiBody = new HashMap<>();
-            body.put("email", User.currentLoginUser.emailAddress);
+            logiBody.put("email", User.currentLoginUser.emailAddress);
             APIHandler.getUserInfoApi(new ServerCallback<User>() {
                 @Override
                 public void onComplete(Result<User> result) {

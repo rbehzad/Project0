@@ -20,6 +20,7 @@ import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
 import com.example.omarket.ui.main_fragments.MainActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditFragment extends NavigationFragment implements View.OnClickListener {
@@ -37,18 +38,21 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit, container, false);
-            editFragment = this;
-            title = view.findViewById(R.id.edit_fragment_editText_title);
-            description = view.findViewById(R.id.edit_fragment_editText_description);
-            cost = view.findViewById(R.id.edit_fragment_editText_cost);
-            fullName = view.findViewById(R.id.edit_fragment_textView_full_name);
-            phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
-            email = view.findViewById(R.id.product_fragment_textView_email);
-            saveBtn = view.findViewById(R.id.edit_fragment_btn_save);
-            saveBtn.setOnClickListener(this);
-            deleteBtn = view.findViewById(R.id.edit_fragment_btn_delete);
-            deleteBtn.setOnClickListener(this);
-            checkBox = view.findViewById(R.id.fragment_edit_product_editcheckBox);
+        editFragment = this;
+        title = view.findViewById(R.id.edit_fragment_editText_title);
+        description = view.findViewById(R.id.edit_fragment_editText_description);
+        cost = view.findViewById(R.id.edit_fragment_editText_cost);
+        fullName = view.findViewById(R.id.edit_fragment_textView_full_name);
+        phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
+        email = view.findViewById(R.id.product_fragment_textView_email);
+        saveBtn = view.findViewById(R.id.edit_fragment_btn_save);
+        saveBtn.setOnClickListener(this);
+        deleteBtn = view.findViewById(R.id.edit_fragment_btn_delete);
+        deleteBtn.setOnClickListener(this);
+        checkBox = view.findViewById(R.id.fragment_edit_product_editcheckBox);
+        checkBox.setOnClickListener(this);
+        checkBox.setChecked(false);
+
 
         return view;
     }
@@ -56,23 +60,49 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
+        checkBox.setChecked(false);
+        MainActivity.progressBar.setVisibility(View.VISIBLE);
+        APIHandler.getAllFavoriteApi(new ServerCallback<ArrayList<String>>() {
+            @Override
+            public void onComplete(Result<ArrayList<String>> result) {
+                MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                if (result instanceof Result.Success) {
+                    ArrayList<String> slugs = ((Result.Success<ArrayList<String>>) result).data;
+                    for (Product product : Product.allProducts) {
+                        boolean is_in = false;
+                        for (String slug : slugs) {
+                            if (slug.equals(product.id)) {
+                                is_in = true;
+                                break;
+                            }
+                        }
+                        if (is_in) {
+                            checkBox.setChecked(true);
+                            break;
+                        }
+                    }
+                } else if (result instanceof Result.Error) {
+                    Toast.makeText(getActivity(), "Loading favorite products failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, getContext());
         title.setText(Product.selectedProduct.name);
         description.setText(Product.selectedProduct.description);
         cost.setText(Product.selectedProduct.price);
         final User[] user = {null};
         MainActivity.progressBar.setVisibility(View.VISIBLE);
         HashMap<String, Object> body = new HashMap<>();
-        body.put("email",Product.selectedProduct.userEmail);
+        body.put("email", Product.selectedProduct.userEmail);
         APIHandler.getUserInfoApi(new ServerCallback<User>() {
             @Override
             public void onComplete(Result<User> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
-                if (result instanceof Result.Success){
+                if (result instanceof Result.Success) {
                     user[0] = ((Result.Success<User>) result).data;
                     email.setText(user[0].emailAddress);
                     phoneNumber.setText(user[0].phoneNumber);
                     fullName.setText(user[0].fullName);
-                } else if (result instanceof Result.Error){
+                } else if (result instanceof Result.Error) {
                     Toast.makeText(getActivity(), "Loading failed", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -84,17 +114,20 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.edit_fragment_btn_save:
                 updateProduct();
                 break;
             case R.id.edit_fragment_btn_delete:
                 deleteProduct();
                 break;
+//            case R.id.fragment_product_favoriteCheckBox:
+//                onCheckboxClicked(v);
+//                break;
         }
     }
 
-    public void deleteProduct(){
+    public void deleteProduct() {
         MainActivity.progressBar.setVisibility(View.VISIBLE);
         HashMap<String, Object> body = new HashMap<>();
         body.put("slug", Product.selectedProduct.id);
@@ -102,18 +135,17 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
             @Override
             public void onComplete(Result<String> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
-                if (result instanceof Result.Success){
+                if (result instanceof Result.Success) {
                     Toast.makeText(getActivity(), "Deleting product successful", Toast.LENGTH_SHORT).show();
                     navigateFromViewTo(getView(), R.id.action_fragment_editId_to_homeFragment);
-                }
-                else if (result instanceof Result.Error){
+                } else if (result instanceof Result.Error) {
                     Toast.makeText(getActivity(), "Deleting filed", Toast.LENGTH_SHORT).show();
                 }
             }
         }, getActivity(), body, "DP");
     }
 
-    public void updateProduct(){
+    public void updateProduct() {
         MainActivity.progressBar.setVisibility(View.VISIBLE);
         HashMap<String, Object> body = new HashMap<>();
         body.put("slug", Product.selectedProduct.id);
@@ -124,51 +156,69 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
             @Override
             public void onComplete(Result<String> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
-                if (result instanceof Result.Success){
+                if (result instanceof Result.Success) {
                     Toast.makeText(getActivity(), "Update product successful", Toast.LENGTH_SHORT).show();
                     navigateFromViewTo(getView(), R.id.action_fragment_editId_to_homeFragment);
-                }
-                else if (result instanceof Result.Error){
+                } else if (result instanceof Result.Error) {
                     Toast.makeText(getActivity(), "Update filed", Toast.LENGTH_SHORT).show();
                 }
             }
         }, getActivity(), body, "UP");
     }
-//    @SuppressLint("NonConstantResourceId")
-    public void onCheckboxClicked2(View view) {
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.fragment_product_favoriteCheckBox:
-                boolean checked = ((CheckBox) view).isChecked();
-                HashMap<String, Object> body = new HashMap<>();
-                body.put("slug", Product.selectedProduct.id);
-                if (checked) {
-                    APIHandler.sendRequestOrGet(new ServerCallback<String>() {
-                        @Override
-                        public void onComplete(Result<String> result) {
-                            if (result instanceof Result.Error){
-                                Toast.makeText(getActivity(), "Add to favorite failed", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, getContext(), body, "SF");
-                } else {
-                    APIHandler.sendRequestOrGet(new ServerCallback<String>() {
-                        @Override
-                        public void onComplete(Result<String> result) {
-                            if (result instanceof Result.Error){
-                                Toast.makeText(getActivity(), "delete favorite failed", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, getContext(), body, "DF");
-                }
-                break;
-        }
-    }
-
 
     @Override
     public void onPause() {
         super.onPause();
+        boolean checked = checkBox.isChecked();
+        HashMap<String, Object> body = new HashMap<>();
+        final boolean[] chec = {false};
+        MainActivity.progressBar.setVisibility(View.VISIBLE);
+        APIHandler.getAllFavoriteApi(new ServerCallback<ArrayList<String>>() {
+            @Override
+            public void onComplete(Result<ArrayList<String>> result) {
+                MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                if (result instanceof Result.Success) {
+                    ArrayList<String> slugs = ((Result.Success<ArrayList<String>>) result).data;
+                    for (Product product : Product.allProducts) {
+                        boolean is_in = false;
+                        for (String slug : slugs) {
+                            if (slug.equals(product.id)) {
+                                is_in = true;
+                                break;
+                            }
+                        }
+                        if (is_in) {
+                            chec[0] = true;
+                            break;
+                        }
+                    }
+                } else if (result instanceof Result.Error) {
+                    Toast.makeText(getActivity(), "Loading favorite products failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, getContext());
+        body.put("slug", Product.selectedProduct.id);
+        if (chec[0] != checked) {
+            if (checked) {
+                APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                    @Override
+                    public void onComplete(Result<String> result) {
+                        if (result instanceof Result.Error) {
+                            Toast.makeText(getContext(), "Add to favorite failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, getContext(), body, "SF");
+            } else {
+                APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+                    @Override
+                    public void onComplete(Result<String> result) {
+                        if (result instanceof Result.Error) {
+                            Toast.makeText(getActivity(), "delete favorite failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, getContext(), body, "DF");
+            }
+        }
         Product.selectedProduct = null;
     }
 

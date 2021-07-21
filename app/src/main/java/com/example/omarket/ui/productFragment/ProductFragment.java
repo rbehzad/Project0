@@ -28,6 +28,7 @@ import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.main_fragments.MainActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductFragment extends Fragment {
@@ -47,6 +48,7 @@ public class ProductFragment extends Fragment {
         phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
         email = view.findViewById(R.id.product_fragment_textView_email);
         checkBox = view.findViewById(R.id.fragment_product_favoriteCheckBox);
+        checkBox.setChecked(false);
         // dial up
         phoneNumber = view.findViewById(R.id.product_fragment_textView_phone_number);
         phoneNumber.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +84,31 @@ public class ProductFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        checkBox.setChecked(false);
+        MainActivity.progressBar.setVisibility(View.VISIBLE);
+        APIHandler.getAllFavoriteApi(new ServerCallback<ArrayList<String>>() {
+            @Override
+            public void onComplete(Result<ArrayList<String>> result) {
+                MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                if (result instanceof Result.Success){
+                    ArrayList<String> slugs = ((Result.Success<ArrayList<String>>) result).data;
+                    for(Product product: Product.allProducts){
+                        boolean is_in = false;
+                        for(String slug: slugs){
+                            if (slug.equals(product.id)){
+                                is_in = true;
+                                break;
+                            }
+                        }
+                        if (is_in) {
+                            checkBox.setChecked(true);
+                        }
+                    }
+                } else if (result instanceof Result.Error){
+                    Toast.makeText(getActivity(), "Loading favorite products failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, getContext());
         title.setText(Product.selectedProduct.name);
         description.setText(Product.selectedProduct.description);
         cost.setText(Product.selectedProduct.price);
