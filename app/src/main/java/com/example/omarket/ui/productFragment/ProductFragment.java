@@ -1,12 +1,12 @@
 package com.example.omarket.ui.productFragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.omarket.R;
 
@@ -62,5 +62,20 @@ public class ProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_product, container, false);
+    }
+    // favorite checkbox
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.favoritecheckBox:
+                if (checked) {
+
+                } else {
+
+                }
+                break;
+        }
     }
 }

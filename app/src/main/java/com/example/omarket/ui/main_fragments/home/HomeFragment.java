@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omarket.R;
-import com.example.omarket.backend.api.APIHandler;
 import com.example.omarket.backend.product.Product;
 import com.example.omarket.backend.response.Result;
 import com.example.omarket.backend.response.ServerCallback;
