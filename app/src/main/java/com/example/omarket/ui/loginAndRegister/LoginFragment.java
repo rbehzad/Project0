@@ -258,18 +258,23 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         body.put("password", passwordText.getText().toString());
         changeVisibilityTo(progressBar, View.VISIBLE);
         if (User.currentLoginUser.is_login){
+            HashMap<String, Object> logiBody = new HashMap<>();
+            body.put("email", User.currentLoginUser.emailAddress);
             APIHandler.getUserInfoApi(new ServerCallback<User>() {
                 @Override
                 public void onComplete(Result<User> result) {
                     changeVisibilityTo(progressBar, View.INVISIBLE);
                     if (result instanceof Result.Success) {
-                        User.currentLoginUser = (User) ((Result.Success) result).data;
+                        User u = (User) ((Result.Success) result).data;
+                        u.token = User.currentLoginUser.token;
+                        u.is_login = User.currentLoginUser.is_login;
+                        User.currentLoginUser = u;
                         navigateFromViewTo(getView(),R.id.action_loginFragment_to_mainActivity);
                     } else if (result instanceof Result.Error) {
-                        Toast.makeText(getActivity(), "Login field, try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "login field, try again", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }, getActivity(), null);
+            }, getActivity(), logiBody);
         } else {
             APIHandler.loginOrRegisterApi(new ServerCallback<User>() {
                 @Override
@@ -280,20 +285,23 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                         if (user.is_login) {
                             User.currentLoginUser = user;
                             changeVisibilityTo(progressBar, View.VISIBLE);
+                            HashMap<String, Object> body = new HashMap<>();
+                            body.put("email", User.currentLoginUser.emailAddress);
                             APIHandler.getUserInfoApi(new ServerCallback<User>() {
                                 @Override
                                 public void onComplete(Result<User> result) {
                                     changeVisibilityTo(progressBar, View.INVISIBLE);
                                     if (result instanceof Result.Success) {
-                                        User.currentLoginUser = (User) ((Result.Success) result).data;
-                                        User.currentLoginUser.token = user.token;
-                                        User.currentLoginUser.is_login = user.is_login;
+                                        User u = (User) ((Result.Success) result).data;
+                                        u.token = User.currentLoginUser.token;
+                                        u.is_login = User.currentLoginUser.is_login;
+                                        User.currentLoginUser = u;
                                         navigateFromViewTo(getView(),R.id.action_loginFragment_to_mainActivity);
                                     } else if (result instanceof Result.Error) {
                                         Toast.makeText(getActivity(), "Login field, try again", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            }, getActivity(), null);
+                            }, getActivity(), body);
                         }
                     } else if (result instanceof Result.Error) {
                         User user =  ((Result.Error<User>) result).data;

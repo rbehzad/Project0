@@ -40,6 +40,7 @@ public class APIHandler implements Response.ErrorListener {
     final static String loginURL = "/api/user/login/";
     final static String registerURL = "/api/user/register/";
     final static String userInfoURL = "/api/user/info/";
+    final static String userInfoByEmailURL = "/api/user/info-by-email/";
     final static String userInfoUpdateURL = "/api/user/update/";
 
     // product
@@ -64,6 +65,7 @@ public class APIHandler implements Response.ErrorListener {
                 try {
                     User.currentLoginUser.is_login = true;
                     User.currentLoginUser.token = (String) response.get("token");
+                    User.currentLoginUser.emailAddress = response.getString("email");
                     loginUser.onComplete(new Result.Success<>(User.currentLoginUser));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,7 +111,7 @@ public class APIHandler implements Response.ErrorListener {
         else jsonBody = null;
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET, domain + userInfoURL, jsonBody, new Response.Listener<JSONObject>() {
+                Request.Method.POST, domain + userInfoByEmailURL, jsonBody, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 User user = new User();
@@ -275,7 +277,7 @@ public class APIHandler implements Response.ErrorListener {
                         Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                     }
                 }
-                serverCallback.onComplete(new Result.Error<>(new Exception("connection problem")));
+                serverCallback.onComplete(new Result.Error<>(null));
             }
         }) {
             @Override
