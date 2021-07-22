@@ -72,6 +72,6 @@
     <string name="signUp">SIGN UP</string>
     <string name="already_user">Already have Account? Login here.</string>
     <string name="registered_emailid">Please enter your Registered Email below:</string>
-    <string name="submit">SUBMIT</string>
+    <string name="submit">Submit</string>
     <string name="back">BACK</string>
 </resources>
