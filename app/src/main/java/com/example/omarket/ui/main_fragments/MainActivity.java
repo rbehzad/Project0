@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
     public static void loadProducts(ServerCallback<Object> serverCallback){
         MainActivity.progressBar.setVisibility(View.VISIBLE);
+        Product.allProducts.clear();
         APIHandler.getAllProductApi(new ServerCallback<ArrayList<Product>>() {
             @Override
             public void onComplete(Result<ArrayList<Product>> result) {
                 MainActivity.progressBar.setVisibility(View.INVISIBLE);
                 if (result instanceof Result.Success){
                     ArrayList<Product> products = ((Result.Success<ArrayList<Product>>) result).data;
-                    Product.allProducts.clear();
                     Product.allProducts.addAll(products);
                     serverCallback.onComplete(new Result.Success<>("S"));
                 } else if (result instanceof Result.Error) {

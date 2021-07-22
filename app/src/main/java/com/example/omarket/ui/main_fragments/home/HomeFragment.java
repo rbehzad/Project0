@@ -57,7 +57,7 @@ public class HomeFragment extends NavigationFragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.recyclerview);
         products = new ArrayList<>();
-        activity = getActivity();
+        activity = MainActivity.mainActivity;
 
 
 
@@ -90,7 +90,7 @@ public class HomeFragment extends NavigationFragment {
 
         homeAdapter = new HomeAdapter(products);
         recyclerView.setAdapter(homeAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.mainActivity));
 
         return view;
     }
@@ -106,12 +106,12 @@ public class HomeFragment extends NavigationFragment {
     }
 
     public void category(int i) {
+        homeAdapter.products.clear();
         if (i == 1) {  // open all product
             MainActivity.loadProducts(new ServerCallback<Object>() {
                 @Override
                 public void onComplete(Result<Object> result) {
                     if (result instanceof Result.Success) {
-                        homeAdapter.products.clear();
                         homeAdapter.products.addAll(Product.allProducts);
                         loadProducts();
                     } else {
@@ -124,7 +124,6 @@ public class HomeFragment extends NavigationFragment {
                 @Override
                 public void onComplete(Result<Object> result) {
                     if (result instanceof Result.Success) {
-                        homeAdapter.products.clear();
                         for (Product product: Product.allProducts){
                             if (product.userEmail.trim().equals(User.currentLoginUser.emailAddress.trim()))
                                 homeAdapter.products.add(product);
@@ -139,7 +138,6 @@ public class HomeFragment extends NavigationFragment {
                 @Override
                 public void onComplete(Result<Object> result) {
                     if (result instanceof Result.Success) {
-                        homeAdapter.products.clear();
                         for (Product p : Product.allProducts) {
                             if (p.categorySlug.equals("electronic")) {
                                 homeAdapter.products.add(p);
@@ -154,7 +152,6 @@ public class HomeFragment extends NavigationFragment {
                 @Override
                 public void onComplete(Result<Object> result) {
                     if (result instanceof Result.Success) {
-                        homeAdapter.products.clear();
                         for (Product p : Product.allProducts) {
                             if (p.categorySlug.trim().equals("fashion")) {
                                 homeAdapter.products.add(p);
@@ -169,7 +166,6 @@ public class HomeFragment extends NavigationFragment {
                 @Override
                 public void onComplete(Result<Object> result) {
                     if (result instanceof Result.Success) {
-                        homeAdapter.products.clear();
                         for (Product p : Product.allProducts) {
                             if (p.categorySlug.equals("industrial")) {
                                 homeAdapter.products.add(p);

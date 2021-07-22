@@ -1,5 +1,6 @@
 package com.example.omarket.ui.main_fragments.home;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,9 +61,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             view = itemView;
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(Product product) {
             titleTextView.setText(product.name);
-            priceTextView.setText(String.valueOf(product.price));
+            priceTextView.setText("Price : " + String.valueOf(product.price) + "$");
             // switch fragment(home ==> product)
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
