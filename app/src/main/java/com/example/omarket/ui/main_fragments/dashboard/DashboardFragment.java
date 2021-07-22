@@ -1,4 +1,5 @@
 package com.example.omarket.ui.main_fragments.dashboard;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,15 +12,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.omarket.R;
+import com.example.omarket.backend.api.APIHandler;
+import com.example.omarket.backend.product.Product;
+import com.example.omarket.backend.response.Result;
+import com.example.omarket.backend.response.ServerCallback;
 import com.example.omarket.backend.user.User;
 import com.example.omarket.ui.NavigationFragment;
+import com.example.omarket.ui.main_fragments.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
 
 //import com.example.omarket.backend.data.data.entities.User;
 
@@ -29,13 +38,13 @@ public class DashboardFragment extends NavigationFragment implements View.OnClic
     TextView rezaGmail;
     View view;
     ImageView imageView;
-    Button button, signOut;
+    Button button, signOut ,save;
     private static final int PICK_IMAGE = 100;
     private static int RESULT_LOAD_IMAGE = 1;
     Uri imageUri;
     TextView textViewName;
     TextView textViewEmail;
-    TextView textViewPhone;
+    EditText editTextPhone;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -43,9 +52,11 @@ public class DashboardFragment extends NavigationFragment implements View.OnClic
         View view =  inflater.inflate(R.layout.fragment_dashboard,container,false);
         textViewName = view.findViewById(R.id.dashboardTextview1);
         textViewEmail = view.findViewById(R.id.dashboardTextview2);
-        textViewPhone = view.findViewById(R.id.dashboardTextview3);
+        editTextPhone = view.findViewById(R.id.dashboardTextviewPhoneNumber);
         hosseinGmail = view.findViewById(R.id.dashboardTextview6);
         rezaGmail = view.findViewById(R.id.dashboardTextview7);
+        save = view.findViewById(R.id.dashboard_fragment_btn_save);
+        save.setOnClickListener(this);
         hosseinGmail.setOnClickListener(this);
         rezaGmail.setOnClickListener(this);
         signOut = view.findViewById(R.id.dashboardFragment_btn_singOut);
@@ -84,7 +95,7 @@ public class DashboardFragment extends NavigationFragment implements View.OnClic
         super.onResume();
         textViewName.setText(User.currentLoginUser.fullName);
         textViewEmail.setText(User.currentLoginUser.emailAddress);
-        textViewPhone.setText(User.currentLoginUser.phoneNumber);
+        editTextPhone.setText(User.currentLoginUser.phoneNumber);
     }
 
     @Override
@@ -132,6 +143,31 @@ public class DashboardFragment extends NavigationFragment implements View.OnClic
                 //need this to prompts email client only
                 startActivity(Intent.createChooser(email2, rezaGmail.getText().toString().trim()));
                 break;
+            case R.id.dashboard_fragment_btn_save:
+                updateUser();
+                break;
         }
     }
+
+    @SuppressLint("NonConstantResourceId")
+    public void updateUser() {
+        MainActivity.progressBar.setVisibility(View.VISIBLE);
+        HashMap<String, Object> body = new HashMap<>();
+        // category radio button
+        body.put("phone_number", editTextPhone.getText().toString());
+        body.put("first_name",User.currentLoginUser.fullName.subSequence(0,User.currentLoginUser.fullName.length()/2));
+        body.put("last_name",User.currentLoginUser.fullName.subSequence(User.currentLoginUser.fullName.length()/2,User.currentLoginUser.fullName.length()));
+        APIHandler.sendRequestOrGet(new ServerCallback<String>() {
+            @Override
+            public void onComplete(Result<String> result) {
+                MainActivity.progressBar.setVisibility(View.INVISIBLE);
+                if (result instanceof Result.Success) {
+                    Toast.makeText(MainActivity.mainActivity, "Update user successful", Toast.LENGTH_SHORT).show();
+                } else if (result instanceof Result.Error) {
+                    Toast.makeText(MainActivity.mainActivity, "Update filed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, MainActivity.mainActivity, body, "UU");
+    }
+
 }
