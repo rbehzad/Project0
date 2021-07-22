@@ -20,8 +20,9 @@ import com.example.omarket.ui.main_fragments.Color;
  * create an instance of this fragment.
  */
 public class fragment_forgot_password extends Fragment implements View.OnClickListener{
-    EditText emailAddress;
+    EditText emailAddress, newPassword;
     String userEmail;
+    String newPass;
     Button forgotButton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,8 +70,11 @@ public class fragment_forgot_password extends Fragment implements View.OnClickLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_forgot_password, container, false);
         emailAddress = view.findViewById(R.id.registered_emailid);
+        newPassword = view.findViewById(R.id.newPassword);
+        newPass = newPassword.getText().toString().trim(); // take new password from here
         forgotButton = view.findViewById(R.id.forgot_button);
         forgotButton.setOnClickListener(this);
+
         return view;
     }
     @Override
@@ -83,7 +87,7 @@ public class fragment_forgot_password extends Fragment implements View.OnClickLi
                 email.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password");
                 email.putExtra(Intent.EXTRA_TEXT, "11111");
                 //need this to prompts email client only
-                email.setType("message/11111");
+                email.setType("message/246135");
                 startActivity(Intent.createChooser(email, userEmail));
         }
     }
