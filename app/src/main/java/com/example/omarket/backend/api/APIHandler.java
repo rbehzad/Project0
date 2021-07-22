@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class APIHandler implements Response.ErrorListener {
 
-    final static String domain = "http://192.168.57.1";
+    final static String domain = "http://192.168.51.7";
 
     // user
     final static String loginURL = "/api/user/login/";
@@ -44,6 +44,9 @@ public class APIHandler implements Response.ErrorListener {
     final static String setFavoriteURL = "/api/user/favorites/set/";
     final static String getAllFavoritesURL = "/api/user/favorites/get/";
     final static String deleteFavoriteProductURL = "/api/user/favorites/delete/";
+
+    //
+    final static String forgetPasswordEmailURL = "/api/user/forget-password/";
 
     // product
     final static String addProductURL = "/api/product/create/";
@@ -191,10 +194,10 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void sendRequestOrGet(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP_SF_GF_DF) {
+    public static void sendRequestOrGet(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP_SF_GF_DF_FP) {
         String requestURL = null;
         int method = 0;
-        switch (UU_AP_UP_DP_SF_GF_DF) {
+        switch (UU_AP_UP_DP_SF_GF_DF_FP) {
             case "UU":
                 method = Request.Method.POST;
                 requestURL = userInfoUpdateURL;
@@ -219,13 +222,24 @@ public class APIHandler implements Response.ErrorListener {
                 method = Request.Method.POST;
                 requestURL = deleteFavoriteProductURL;
                 break;
+            case "FP":
+                method = Request.Method.POST;
+                requestURL = forgetPasswordEmailURL;
         }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject bodyJson = new JSONObject(body);
         JsonObjectRequest request = new JsonObjectRequest(method, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                if (UU_AP_UP_DP_SF_GF_DF_FP.equals("FP")) {
+                    try {
+                        serverCallback.onComplete(new Result.Success<>(response.getString("code")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
                 serverCallback.onComplete(new Result.Success<>("S"));
+
             }
         }, new Response.ErrorListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -240,7 +254,7 @@ public class APIHandler implements Response.ErrorListener {
                     if (error.networkResponse.data != null) {
                         body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
 //                        if (!UU_AP_UP_DP_SF_GF_DF.equals("DF")&&!UU_AP_UP_DP_SF_GF_DF.equals("AF"))
-                            Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
                     }
                 }
                 serverCallback.onComplete(new Result.Error<>("F"));
@@ -353,6 +367,60 @@ public class APIHandler implements Response.ErrorListener {
 
         request.setTag("getAllProduct");
         requestQueue.add(request);
+    }
+
+    public static void forgetPasswordApi(ServerCallback<HashMap<String, String>> serverCallback, Context context ,HashMap<String, Object> body) {
+
+        String requestURL = null;
+        int method = 0;
+        method = Request.Method.POST;
+        requestURL = forgetPasswordEmailURL;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONObject bodyJson = new JSONObject(body);
+        JsonObjectRequest request = new JsonObjectRequest(method, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                HashMap<String, String> data = new HashMap<>();
+                try{
+                    data.put("code",response.getString("code"));
+                    data.put("token",response.getString("token"));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                serverCallback.onComplete(new Result.Success<>(data));
+
+
+            }
+        }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String body = null;
+                //get status code here
+                String statusCode;
+                if (error.networkResponse != null) {
+                    statusCode = String.valueOf(error.networkResponse.statusCode);
+                    //get response body and parse with appropriate encoding
+                    if (error.networkResponse.data != null) {
+                        body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+//                        if (!UU_AP_UP_DP_SF_GF_DF.equals("DF")&&!UU_AP_UP_DP_SF_GF_DF.equals("AF"))
+                        Toast.makeText(context, body, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                serverCallback.onComplete(new Result.Error<>(null));
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "Token " + User.currentLoginUser.token);
+                return params;
+            }
+        };
+        requestQueue.add(request);
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
