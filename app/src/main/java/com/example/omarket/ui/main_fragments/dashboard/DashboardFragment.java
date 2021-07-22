@@ -119,17 +119,19 @@ public class DashboardFragment extends NavigationFragment implements View.OnClic
             case R.id.dashboardTextview6:
                 Intent email = new Intent(Intent.ACTION_SEND);
                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{ hosseinGmail.getText().toString().trim()});
-                email.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password");
-                email.putExtra(Intent.EXTRA_TEXT, "");
+                email.putExtra(Intent.EXTRA_SUBJECT, "support");
+                email.putExtra(Intent.EXTRA_TEXT, "body of email");
                 //need this to prompts email client only
+                email.setType("message/rfc822");
                 startActivity(Intent.createChooser(email, hosseinGmail.getText().toString().trim()));
                 break;
             case R.id.dashboardTextview7:
                 Intent email2 = new Intent(Intent.ACTION_SEND);
                 email2.putExtra(Intent.EXTRA_EMAIL, new String[]{ rezaGmail.getText().toString().trim()});
-                email2.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password");
-                email2.putExtra(Intent.EXTRA_TEXT, "");
+                email2.putExtra(Intent.EXTRA_SUBJECT, "support");
+                email2.putExtra(Intent.EXTRA_TEXT, "body of email");
                 //need this to prompts email client only
+                email2.setType("message/rfc822");
                 startActivity(Intent.createChooser(email2, rezaGmail.getText().toString().trim()));
                 break;
         }
