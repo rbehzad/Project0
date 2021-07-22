@@ -58,6 +58,7 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     private EditText emailText, passwordText;
     private ProgressBar progressBar;
     SignInButton signInButton;
+    TextView forgotPasswordtxt;
     // Validators :
     EmailValidator emailValidator;
     PasswordValidator passwordValidator;
@@ -157,7 +158,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
         currentUser = new User();
         currentView = inflater.inflate(R.layout.fragment_login, container, false);
         setUiObjects();
-
         return currentView;
     }
 
@@ -165,6 +165,8 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
     public void setUiObjects() {
         emailText = currentView.findViewById(R.id.login_edit_text_email_address);
         emailText.setOnTouchListener(this);
+        forgotPasswordtxt = currentView.findViewById(R.id.login_text_view_forget_password);
+        forgotPasswordtxt.setOnClickListener(this);
         passwordText = currentView.findViewById(R.id.login_edit_text_password);
         passwordText.setOnTouchListener(this);
         signInButton = currentView.findViewById(R.id.google_login_button);
@@ -221,7 +223,9 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
             case R.id.google_login_button:
                 signIn();
                 break;
-
+            case R.id.login_text_view_forget_password:
+                navigateFromViewTo(v, R.id.action_loginFragment_to_forgotPasswordFragment);
+                break;
         }
     }
 
@@ -337,10 +341,6 @@ public class LoginFragment extends NavigationFragment implements View.OnClickLis
                 }
             }, getActivity(), body, "login");
         }
-
-
-
-
     }
 
     public static void changeVisibilityTo(View v, int visibility) {
