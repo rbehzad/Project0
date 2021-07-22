@@ -1,20 +1,29 @@
 package com.example.omarket;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.omarket.ui.main_fragments.Color;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link fragment_forgot_password#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_forgot_password extends Fragment {
-
+public class fragment_forgot_password extends Fragment implements View.OnClickListener{
+    EditText emailAddress, newPassword;
+    String userEmail;
+    String newPass;
+    Button forgotButton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +68,28 @@ public class fragment_forgot_password extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        View view = inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        emailAddress = view.findViewById(R.id.registered_emailid);
+        newPassword = view.findViewById(R.id.newPassword);
+        newPass = newPassword.getText().toString().trim(); // take new password from here
+        forgotButton = view.findViewById(R.id.forgot_button);
+        forgotButton.setOnClickListener(this);
+
+        return view;
     }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.forgot_button:
+                userEmail = emailAddress.getText().toString().trim();
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ userEmail});
+                email.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password");
+                email.putExtra(Intent.EXTRA_TEXT, "11111");
+                //need this to prompts email client only
+                email.setType("message/246135");
+                startActivity(Intent.createChooser(email, userEmail));
+        }
+    }
+
 }

@@ -194,10 +194,10 @@ public class APIHandler implements Response.ErrorListener {
         requestQueue.add(request);
     }
 
-    public static void sendRequestOrGet(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP_SF_GF_DF_FP) {
+    public static void sendRequestOrGet(ServerCallback<String> serverCallback, Context context, Map<String, Object> body, String UU_AP_UP_DP_SF_GF_DF) {
         String requestURL = null;
         int method = 0;
-        switch (UU_AP_UP_DP_SF_GF_DF_FP) {
+        switch (UU_AP_UP_DP_SF_GF_DF) {
             case "UU":
                 method = Request.Method.POST;
                 requestURL = userInfoUpdateURL;
@@ -222,22 +222,12 @@ public class APIHandler implements Response.ErrorListener {
                 method = Request.Method.POST;
                 requestURL = deleteFavoriteProductURL;
                 break;
-            case "FP":
-                method = Request.Method.POST;
-                requestURL = forgetPasswordEmailURL;
         }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject bodyJson = new JSONObject(body);
         JsonObjectRequest request = new JsonObjectRequest(method, domain + requestURL, bodyJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                if (UU_AP_UP_DP_SF_GF_DF_FP.equals("FP")) {
-                    try {
-                        serverCallback.onComplete(new Result.Success<>(response.getString("code")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
                 serverCallback.onComplete(new Result.Success<>("S"));
 
             }

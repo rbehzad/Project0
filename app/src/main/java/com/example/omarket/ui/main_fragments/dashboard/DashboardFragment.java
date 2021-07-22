@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class DashboardFragment extends NavigationFragment implements View.OnClickListener {
+    TextView hosseinGmail;
+    TextView rezaGmail;
     View view;
     ImageView imageView;
     Button button, signOut;
@@ -41,6 +44,10 @@ public class DashboardFragment extends NavigationFragment implements View.OnClic
         textViewName = view.findViewById(R.id.dashboardTextview1);
         textViewEmail = view.findViewById(R.id.dashboardTextview2);
         textViewPhone = view.findViewById(R.id.dashboardTextview3);
+        hosseinGmail = view.findViewById(R.id.dashboardTextview6);
+        rezaGmail = view.findViewById(R.id.dashboardTextview7);
+        hosseinGmail.setOnClickListener(this);
+        rezaGmail.setOnClickListener(this);
         signOut = view.findViewById(R.id.dashboardFragment_btn_singOut);
         signOut.setOnClickListener(this);
 
@@ -108,6 +115,22 @@ public class DashboardFragment extends NavigationFragment implements View.OnClic
             case R.id.dashboardFragment_btn_singOut:
                 User.currentLoginUser = new User();
                 navigateFromViewTo(getView(),R.id.action_dashboardFragment_to_startActivity);
+                break;
+            case R.id.dashboardTextview6:
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ hosseinGmail.getText().toString().trim()});
+                email.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password");
+                email.putExtra(Intent.EXTRA_TEXT, "");
+                //need this to prompts email client only
+                startActivity(Intent.createChooser(email, hosseinGmail.getText().toString().trim()));
+                break;
+            case R.id.dashboardTextview7:
+                Intent email2 = new Intent(Intent.ACTION_SEND);
+                email2.putExtra(Intent.EXTRA_EMAIL, new String[]{ rezaGmail.getText().toString().trim()});
+                email2.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password");
+                email2.putExtra(Intent.EXTRA_TEXT, "");
+                //need this to prompts email client only
+                startActivity(Intent.createChooser(email2, rezaGmail.getText().toString().trim()));
                 break;
         }
     }

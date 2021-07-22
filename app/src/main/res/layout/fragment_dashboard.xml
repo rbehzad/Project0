@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:padding="10dp"
-                android:text="\t\t\tsh.sarafrazi80@gmail.com"
+                android:text="sh.sarafrazi80@gmail.com"
                 android:textColor="#492D19"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:padding="10dp"
-                android:text="\t\t\trbehzad1001@gmail.com"
+                android:text="rbehzad1001@gmail.com"
                 android:textColor="#467666"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
