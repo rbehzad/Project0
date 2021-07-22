@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +41,12 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
     TextView fullName, phoneNumber, email;
     Button saveBtn, deleteBtn;
     CheckBox checkBox;
+    RadioGroup radioGroup;
+    RadioButton electronicBtn, fashionBtn, industrialBtn;
 
     public EditFragment editFragment;
 
+    @SuppressLint("CutPasteId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +72,11 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
         checkBox = view.findViewById(R.id.fragment_edit_product_editcheckBox);
         checkBox.setOnClickListener(this);
         checkBox.setChecked(false);
+
+        radioGroup = view.findViewById(R.id.edig_fragment_radioGroup);
+        electronicBtn = view.findViewById(R.id.edit_fragment_radioBtn_electronic);
+        fashionBtn = view.findViewById(R.id.edit_fragment_radioBtn_fashion);
+        industrialBtn = view.findViewById(R.id.edit_fragment_radioBtn_industrial);
 
 
         return view;
@@ -111,6 +121,22 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
                 }
             }
         }, MainActivity.mainActivity);
+        String category = Product.selectedProduct.categorySlug;
+        radioGroup.clearCheck();
+        switch (category) {
+            case "fashion":
+                fashionBtn.setChecked(true);
+                break;
+            case "electronic":
+                electronicBtn.setChecked(true);
+                break;
+            case "industrial":
+                industrialBtn.setChecked(true);
+                break;
+            default:
+                radioGroup.clearCheck();
+                break;
+        }
         title.setText(Product.selectedProduct.name);
         description.setText(Product.selectedProduct.description);
         cost.setText(Product.selectedProduct.price);
@@ -170,9 +196,24 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
         }, MainActivity.mainActivity, body, "DP");
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void updateProduct() {
         MainActivity.progressBar.setVisibility(View.VISIBLE);
         HashMap<String, Object> body = new HashMap<>();
+        // category radio button
+        switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.edit_fragment_radioBtn_electronic:
+                body.put("category_slug", "electronic");
+                break;
+            case R.id.edit_fragment_radioBtn_fashion:
+                body.put("category_slug", "fashion");
+                break;
+            case R.id.edit_fragment_radioBtn_industrial:
+                body.put("category_slug", "industrial");
+                break;
+            default:
+                break;
+        }
         body.put("slug", Product.selectedProduct.id);
         body.put("title", title.getText().toString());
         body.put("description", title.getText().toString());
@@ -194,6 +235,7 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
     @Override
     public void onPause() {
         super.onPause();
+        // favorite checkbox
         boolean checked = checkBox.isChecked();
         HashMap<String, Object> body = new HashMap<>();
         final boolean[] chec = {false};
@@ -248,6 +290,7 @@ public class EditFragment extends NavigationFragment implements View.OnClickList
                 }
             }
         }, MainActivity.mainActivity);
+
     }
 
     private void makePhoneCall() {

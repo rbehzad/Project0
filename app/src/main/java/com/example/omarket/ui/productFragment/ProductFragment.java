@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class ProductFragment extends Fragment {
     private static final int REQUEST_CALL = 1;
     TextView title, description, cost, name, phoneNumber, email;
     CheckBox checkBox;
+    RadioGroup radioGroup;
+    RadioButton electronicBtn, fashionBtn, industrialBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +60,12 @@ public class ProductFragment extends Fragment {
                 makePhoneCall();
             }
         });
+
+        radioGroup = view.findViewById(R.id.product_fragment_radioGroup);
+        electronicBtn = view.findViewById(R.id.product_fragment_radioBtn_electronic);
+        fashionBtn = view.findViewById(R.id.product_fragment_radioBtn_fashion);
+        industrialBtn = view.findViewById(R.id.pruduct_fragment_radioBtn_industrial);
+
         return view;
     }
     private void makePhoneCall() {
@@ -109,6 +118,22 @@ public class ProductFragment extends Fragment {
                 }
             }
         }, MainActivity.mainActivity);
+        String category = Product.selectedProduct.categorySlug;
+        radioGroup.clearCheck();
+        switch (category) {
+            case "fashion":
+                fashionBtn.setChecked(true);
+                break;
+            case "electronic":
+                electronicBtn.setChecked(true);
+                break;
+            case "industrial":
+                industrialBtn.setChecked(true);
+                break;
+            default:
+                radioGroup.clearCheck();
+                break;
+        }
         title.setText(Product.selectedProduct.name);
         description.setText(Product.selectedProduct.description);
         cost.setText(Product.selectedProduct.price);

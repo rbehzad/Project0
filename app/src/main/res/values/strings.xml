@@ -74,4 +74,8 @@
     <string name="registered_emailid">Please enter your Registered Email below:</string>
     <string name="submit">Submit</string>
     <string name="back">BACK</string>
+    <string name="electronic">Electronic</string>
+    <string name="fashion">Fashion</string>
+    <string name="industrial">Industrial</string>
+    <string name="favorite">Favorite</string>
 </resources>
